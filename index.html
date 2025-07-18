@@ -1,106 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Research with Purpose</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Research With Purpose</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #111;
-      color: #f4f4f4;
-      line-height: 1.6;
-      padding: 20px;
+      background: #0f0f0f;
+      color: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    nav {
+      background: #1f1f1f;
+      display: flex;
+      justify-content: center;
+      padding: 1em 0;
+      border-bottom: 2px solid #00ffc3;
+    }
+    nav a {
+      color: #00ffc3;
+      margin: 0 1em;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    nav a:hover, nav a.active {
+      color: #ffffff;
+    }
+    section {
+      display: none;
+      padding: 2em;
       max-width: 800px;
       margin: auto;
+    }
+    section.active {
+      display: block;
     }
     h1, h2 {
       color: #00ffd5;
     }
-    a {
-      color: #00ffc3;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    code {
-      background: #222;
-      padding: 2px 4px;
-      border-radius: 4px;
-    }
-    .section {
-      margin-bottom: 3em;
+    ul {
+      padding-left: 1.2em;
     }
     footer {
       text-align: center;
-      font-size: 0.9em;
-      margin-top: 4em;
+      padding: 2em;
       color: #777;
     }
   </style>
 </head>
 <body>
 
-  <header class="section">
-    <h1>🔓 Research with Purpose</h1>
-    <p>Exploring the boundaries between physical and digital security, one system at a time.</p>
-  </header>
+  <nav>
+    <a href="#" class="tablink active" data-tab="intro">Why This Research</a>
+    <a href="#" class="tablink" data-tab="about">About Me</a>
+    <a href="#" class="tablink" data-tab="projects">Projects</a>
+    <a href="#" class="tablink" data-tab="contact">Contact</a>
+  </nav>
 
-  <main>
-    <section class="section" id="intro">
-      <h2>📌 Why This Research Matters</h2>
-      <p>
-        The decision to dive into this particular system wasn’t random—it was personal, professional, and overdue.
-      </p>
-      <p>
-        As a security professional straddling both physical and cyber domains, I’ve spent years watching the lines blur between what’s tangible and what’s digital. The lock in your hand now has firmware. The keypad at your door might have more attack surface than your web server. We’ve accepted convenience without questioning the assumptions behind it. I’m here to question them.
-      </p>
-      <p>
-        This specific product caught my attention not because it was the most vulnerable, but because it’s the most <strong>common</strong>. It’s trusted. It's deployed widely across institutions, businesses, and facilities that assume “secure” means “invisible to attack.”
-      </p>
-      <p>
-        But no system should be above scrutiny.
-      </p>
-      <p>
-        My goal is not destruction—it’s illumination. Through methodical, transparent research, I intend to surface the design decisions, implementation flaws, and trust assumptions embedded in the systems we rely on. Whether you're a fellow researcher, a developer, or a decision-maker, I hope this work sparks curiosity, conversation, and ultimately better security.
-      </p>
-      <p>
-        This is research with permission, purpose, and perspective. Let’s get to work.
-      </p>
-    </section>
+  <section id="intro" class="active">
+    <h2>📌 Why This Research Matters</h2>
+    <p>
+      The decision to dive into this particular system wasn’t random—it was personal, professional, and overdue.
+    </p>
+    <p>
+      As a security professional straddling both physical and cyber domains, I’ve spent years watching the lines blur between what’s tangible and what’s digital. The lock in your hand now has firmware. The keypad at your door might have more attack surface than your web server. We’ve accepted convenience without questioning the assumptions behind it. I’m here to question them.
+    </p>
+    <p>
+      This specific product caught my attention not because it was the most vulnerable, but because it’s the most <strong>common</strong>. It’s trusted. It's deployed widely across institutions, businesses, and facilities that assume “secure” means “invisible to attack.”
+    </p>
+    <p>
+      But no system should be above scrutiny.
+    </p>
+    <p>
+      My goal is not destruction—it’s illumination. Through methodical, transparent research, I intend to surface the design decisions, implementation flaws, and trust assumptions embedded in the systems we rely on. Whether you're a fellow researcher, a developer, or a decision-maker, I hope this work sparks curiosity, conversation, and ultimately better security.
+    </p>
+    <p>
+      This is research with permission, purpose, and perspective. Let’s get to work.
+    </p>
+  </section>
 
-    <section class="section" id="about">
-      <h2>🧠 About Me</h2>
-      <p>
-        I'm a security professional operating at the intersection of physical and cyber systems, with a specialization in vulnerability research, embedded systems, and protocol-level analysis. My work blends engineering discipline with a red-team mindset: find the weak points, understand how they break, and—when possible—show how they can be fixed.
-      </p>
-      <p>
-        Over the years, I've developed and deconstructed systems ranging from consumer IoT to critical infrastructure components. My focus is not just on exploitability, but on <em>trust boundaries</em>—what people assume a system will do, and what it <strong>actually</strong> does under pressure.
-      </p>
-      <p>
-        This blog documents deep dives, real-world case studies, and occasionally the dead ends—because in this field, failure teaches too. All testing is conducted under proper authorization and legal clearance.
-      </p>
-      <p>
-        If you're here to learn, collaborate, or challenge assumptions: welcome.
-      </p>
-    </section>
+  <section id="about">
+    <h2>🧠 About Me</h2>
+    <p>
+      I'm a security professional operating at the intersection of physical and cyber systems, with a specialization in vulnerability research, embedded systems, and protocol-level analysis. My work blends engineering discipline with a red-team mindset: find the weak points, understand how they break, and—when possible—show how they can be fixed.
+    </p>
+    <p>
+      Over the years, I've developed and deconstructed systems ranging from consumer IoT to critical infrastructure components. My focus is not just on exploitability, but on <em>trust boundaries</em>—what people assume a system will do, and what it <strong>actually</strong> does under pressure.
+    </p>
+    <p>
+      This blog documents deep dives, real-world case studies, and occasionally the dead ends—because in this field, failure teaches too. All testing is conducted under proper authorization and legal clearance.
+    </p>
+    <p>
+      If you're here to learn, collaborate, or challenge assumptions: welcome.
+    </p>
+  </section>
 
-    <section class="section" id="research">
-      <h2>🛠️ Current & Upcoming Projects</h2>
-      <ul>
-        <li><strong>🧪 DL-Windows Protocol Emulation:</strong> Reverse engineering and emulation of a commercial USB-to-UART communication system using <code>FaceDancer</code> and <code>GreatFET One</code>.</li>
-        <li><strong>📦 NAND Analysis via MSP430:</strong> Investigating memory mapping and control mechanisms for secure NAND flash storage in embedded lock hardware.</li>
-        <li><strong>📡 CP210x Device Emulation:</strong> A full emulation layer designed to mimic Silicon Labs USB bridges and replay intercepted communication flows for analysis.</li>
-        <li><em>And more to come…</em></li>
-      </ul>
-      <p>Stay tuned for detailed posts, source code, diagrams, and full writeups.</p>
-    </section>
-  </main>
+  <section id="projects">
+    <h2>🛠️ Research Projects</h2>
+    <ul>
+      <li><strong>DL-Windows Protocol Emulation:</strong> Reverse engineering and emulation of a commercial USB-to-UART communication system using <code>FaceDancer</code> and <code>GreatFET One</code>.</li>
+      <li><strong>NAND Analysis via MSP430:</strong> Investigating memory mapping and control mechanisms for secure NAND flash storage in embedded lock hardware.</li>
+      <li><strong>CP210x Device Emulation:</strong> A full emulation layer designed to mimic Silicon Labs USB bridges and replay intercepted communication flows for analysis.</li>
+      <li><em>More to come...</em></li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <h2>📬 Contact</h2>
+    <p>Want to collaborate, share insight, or challenge a finding? Let’s talk.</p>
+    <p>Email: <code>research@yourdomain.tld</code></p>
+    <p>(PGP key & GitHub links coming soon)</p>
+  </section>
 
   <footer>
-    <p>&copy; 2025 Research With Purpose — All research conducted with full authorization</p>
+    <p>&copy; 2025 Research With Purpose — All research conducted under authorization</p>
   </footer>
+
+  <script>
+    const links = document.querySelectorAll(".tablink");
+    const sections = document.querySelectorAll("section");
+
+    links.forEach(link => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        links.forEach(l => l.classList.remove("active"));
+        sections.forEach(s => s.classList.remove("active"));
+
+        link.classList.add("active");
+        document.getElementById(link.dataset.tab).classList.add("active");
+      });
+    });
+  </script>
 
 </body>
 </html>
