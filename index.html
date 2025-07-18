@@ -44,6 +44,12 @@
     ul {
       padding-left: 1.2em;
     }
+    .teaser {
+      margin-top: 1em;
+      padding: 1em;
+      background-color: #1b1b1b;
+      border-left: 4px solid #00ffc3;
+    }
     footer {
       text-align: center;
       padding: 2em;
@@ -54,34 +60,28 @@
 <body>
 
   <nav>
-    <a href="#" class="tablink active" data-tab="intro">Why This Research</a>
+    <a href="#" class="tablink active" data-tab="home">Home</a>
     <a href="#" class="tablink" data-tab="about">About Me</a>
-    <a href="#" class="tablink" data-tab="projects">Projects</a>
+    <a href="#" class="tablink" data-tab="t2t3">Current Focus</a>
+    <a href="#" class="tablink" data-tab="future">Upcoming Research</a>
     <a href="#" class="tablink" data-tab="contact">Contact</a>
   </nav>
 
-  <section id="intro" class="active">
-    <h2>📌 Why This Research Matters</h2>
+  <!-- Landing / Home -->
+  <section id="home" class="active">
+    <h1>🔓 Research With Purpose</h1>
     <p>
-      The decision to dive into this particular system wasn’t random—it was personal, professional, and overdue.
+      I explore the intersection of physical and digital security through hands-on, authorized vulnerability research. My goal isn't to exploit systems for shock value, but to expose assumptions and inspire stronger designs through informed analysis.
     </p>
     <p>
-      As a security professional straddling both physical and cyber domains, I’ve spent years watching the lines blur between what’s tangible and what’s digital. The lock in your hand now has firmware. The keypad at your door might have more attack surface than your web server. We’ve accepted convenience without questioning the assumptions behind it. I’m here to question them.
+      Whether it's reverse engineering embedded memory, emulating hardware protocols, or replaying real-world attacks under controlled conditions, this site documents real findings, real tools, and real-world impact.
     </p>
     <p>
-      This specific product caught my attention not because it was the most vulnerable, but because it’s the most <strong>common</strong>. It’s trusted. It's deployed widely across institutions, businesses, and facilities that assume “secure” means “invisible to attack.”
-    </p>
-    <p>
-      But no system should be above scrutiny.
-    </p>
-    <p>
-      My goal is not destruction—it’s illumination. Through methodical, transparent research, I intend to surface the design decisions, implementation flaws, and trust assumptions embedded in the systems we rely on. Whether you're a fellow researcher, a developer, or a decision-maker, I hope this work sparks curiosity, conversation, and ultimately better security.
-    </p>
-    <p>
-      This is research with permission, purpose, and perspective. Let’s get to work.
+      This is research with permission, with perspective, and with purpose.
     </p>
   </section>
 
+  <!-- About -->
   <section id="about">
     <h2>🧠 About Me</h2>
     <p>
@@ -93,32 +93,59 @@
     <p>
       This blog documents deep dives, real-world case studies, and occasionally the dead ends—because in this field, failure teaches too. All testing is conducted under proper authorization and legal clearance.
     </p>
+  </section>
+
+  <!-- T2/T3 Current Focus -->
+  <section id="t2t3">
+    <h2>🔬 Current Focus: T2/T3 Lock System Deep Dive</h2>
     <p>
-      If you're here to learn, collaborate, or challenge assumptions: welcome.
+      This research project began with a deceptively simple question: What assumptions are being made about the security of the devices we physically trust every day?
+    </p>
+    <p>
+      The DL-Windows system, the CP210x bridge, and the embedded lock firmware all present a fascinating challenge: a blend of old-school protocol behavior, misunderstood trust boundaries, and under-scrutinized deployments.
+    </p>
+    <p>
+      We're emulating hardware, deconstructing USB conversations, and replicating interactions from scratch using custom tools. Why? Because real-world lock infrastructure shouldn't be a black box.
+    </p>
+    <p>
+      Full write-up, tools, and proof-of-concept videos coming soon.
     </p>
   </section>
 
-  <section id="projects">
-    <h2>🛠️ Research Projects</h2>
-    <ul>
-      <li><strong>DL-Windows Protocol Emulation:</strong> Reverse engineering and emulation of a commercial USB-to-UART communication system using <code>FaceDancer</code> and <code>GreatFET One</code>.</li>
-      <li><strong>NAND Analysis via MSP430:</strong> Investigating memory mapping and control mechanisms for secure NAND flash storage in embedded lock hardware.</li>
-      <li><strong>CP210x Device Emulation:</strong> A full emulation layer designed to mimic Silicon Labs USB bridges and replay intercepted communication flows for analysis.</li>
-      <li><em>More to come...</em></li>
-    </ul>
+  <!-- Future Research Teasers -->
+  <section id="future">
+    <h2>🚧 Upcoming Research</h2>
+
+    <div class="teaser">
+      <h3>🧬 Forensic NAND Memory Recovery</h3>
+      <p>Exploring the side effects of improper teardown logic, dead-page recovery, and artifact extraction from partially written NAND pages. Techniques adapted for both embedded analysis and forensic investigations.</p>
+    </div>
+
+    <div class="teaser">
+      <h3>🧠 Behavioral Anomaly Detection in Embedded Locks</h3>
+      <p>Using passive capture, timing signatures, and pattern matching to fingerprint legitimate vs. suspicious usage in deployed access control systems.</p>
+    </div>
+
+    <div class="teaser">
+      <h3>📡 Protocol Deconstruction Toolkit</h3>
+      <p>A modular Python toolkit for capturing, replaying, and fuzzing undocumented USB-to-serial protocols. Designed for use with GreatFET/FaceDancer and logic analyzers.</p>
+    </div>
   </section>
 
+  <!-- Contact -->
   <section id="contact">
     <h2>📬 Contact</h2>
-    <p>Want to collaborate, share insight, or challenge a finding? Let’s talk.</p>
+    <p>Want to collaborate, ask questions, or discuss findings?</p>
     <p>Email: <code>research@yourdomain.tld</code></p>
-    <p>(PGP key & GitHub links coming soon)</p>
+    <p>PGP key & GitHub link coming soon.</p>
   </section>
 
+  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Research With Purpose — All research conducted under authorization</p>
+    <p>&copy; 2025 Research With Purpose — All research conducted with explicit authorization.</p>
   </footer>
 
+  <!-- Tab Script -->
   <script>
     const links = document.querySelectorAll(".tablink");
     const sections = document.querySelectorAll("section");
