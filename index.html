@@ -63,6 +63,7 @@
     <a href="#" class="tablink active" data-tab="home">Home</a>
     <a href="#" class="tablink" data-tab="about">About Me</a>
     <a href="#" class="tablink" data-tab="t2t3">Current Focus</a>
+<a href="#" class="tablink" data-tab="blog">Blog</a>
     <a href="#" class="tablink" data-tab="future">Upcoming Research</a>
     <a href="#" class="tablink" data-tab="contact">Contact</a>
   </nav>
@@ -140,6 +141,33 @@
     <p>PGP key & GitHub link coming soon.</p>
   </section>
 
+<!-- Blog -->
+<section id="blog">
+  <h2>📚 Blog & Field Notes</h2>
+  <p>This is where I log findings, roadblocks, and realizations—successes *and* failures. Expect raw details, honest updates, and field-level transparency.</p>
+
+  <div class="teaser">
+    <h3>✅ [T2/T3] Control Transfer Emulation Passes Vendor Request Stage</h3>
+    <p><strong>Date:</strong> July 12, 2025</p>
+    <p>After replicating the CP210x descriptor set and stubbing control requests, the emulated device now responds to request 0xFF with the expected 0x02 reply—mirroring the real cable. This moved us past packet 23 in the DL-Windows loopback sequence. Next: bulk IN endpoint behavior.</p>
+    <a href="#">(Full post coming soon)</a>
+  </div>
+
+  <div class="teaser">
+    <h3>🚫 [T2/T3] Stalled at Packet 42: Nothing on Bulk IN</h3>
+    <p><strong>Date:</strong> July 10, 2025</p>
+    <p>Despite correct setup and enumeration, the emulated device doesn't reply to the bulk IN request at packet 42. Attempted multiple endpoint configurations and timing tweaks. Suspecting software expects specific loopback timing or echo content...</p>
+    <a href="#">(Debug log dump coming soon)</a>
+  </div>
+
+  <div class="teaser">
+    <h3>📎 Planned Post: NAND Page Cloning via Side-Write Injection</h3>
+    <p><strong>Coming Soon</strong>: Early findings from our NAND write experiments using hook patching at 0x9EF2. Investigating what gets written, what doesn’t, and where context/setup affects page-level data persistence.</p>
+  </div>
+
+  <p><em>Future posts will be tagged and grouped by project.</em></p>
+</section>
+
   <!-- Footer -->
   <footer>
     <p>&copy; 2025 Research With Purpose — All research conducted with explicit authorization.</p>
@@ -164,3 +192,4 @@
 
 </body>
 </html>
+
