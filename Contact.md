@@ -11,7 +11,7 @@ permalink: /contact/
 Want to collaborate, ask questions, or discuss findings?
 
 
-Email: research@yourdomain.tld
+Email: QwearyBlog@gmail.com
 
 
 PGP key & GitHub link coming soon.

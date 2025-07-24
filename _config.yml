@@ -1,9 +1,9 @@
-﻿title: "Research With Purpose"
-email: "research@yourdomain.tld"
-description: >- 
-  Real-world vulnerability research in physical and cyber systems.
+﻿title: "Qweary"
+email: "qwearyblog@gmail.com"
+description: "Security Researcher. Hardware Hacker. Curious mind."
 baseurl: "" # root
 url: "https://qweary.github.io"
+
 markdown: kramdown
 theme: minima
 plugins:
