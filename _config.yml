@@ -1,0 +1,11 @@
+﻿title: "Research With Purpose"
+email: "research@yourdomain.tld"
+description: >- 
+  Real-world vulnerability research in physical and cyber systems.
+baseurl: "" # root
+url: "https://qweary.github.io"
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
