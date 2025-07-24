@@ -46,9 +46,22 @@ nav ul li a {
 }
 
 
+nav a {
+  color: #00f0ff;
+  text-decoration: none;
+  padding: 0 10px;
+  border-right: 1px solid #00f0ff;
+}
+
+nav a:last-child {
+  border-right: none;
+}
+
+
 h1, h2, h3, h4, h5, h6 {
   color: #222;
 }
+
 
 
 a {
