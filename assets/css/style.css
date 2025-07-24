@@ -1,125 +1,40 @@
 /* assets/css/style.css */
 
-/* Global Base Styles */
-body {
-  font-family: 'Fira Code', 'Courier New', Courier, monospace;
-  background-color: #0d0d0d;
-  color: #e0f7ff;
-  line-height: 1.6;
-  margin: 0;
-  padding: 0;
-}
+/* Global Base Styles */ body { font-family: 'Fira Code', 'Courier New', Courier, monospace; background-color: #0d0d0d; color: #e0f7ff; line-height: 1.6; margin: 0; padding: 0; }
 
-/* Container for centered content */
-.container {
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
-}
+/* Container for centered content */ .container { max-width: 800px; margin: auto; padding: 20px; }
 
-/* Header & Footer */
-header, footer {
-  background: #111;
-  color: #00f0ff;
-  padding: 10px 0;
-  text-align: center;
-  border-bottom: 2px solid #00f0ff;
-}
+/* Header & Footer */ header, footer { background: #111; color: #00f0ff; padding: 10px 0; text-align: center; border-bottom: 2px solid #00f0ff; font-family: 'Fira Code', 'Courier New', Courier, monospace; }
 
-/* Navigation Bar */
-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+/* Navigation Bar */ nav ul { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; flex-wrap: wrap; }
 
-nav ul li {
-  margin: 0;
-}
+nav ul li { margin: 0; }
 
-nav ul li a {
-  color: #00f0ff;
-  text-decoration: none;
-  padding: 0 10px;
-  border-right: 1px solid #00f0ff;
-}
+nav ul li a { color: #00f0ff; text-decoration: none; padding: 0 10px; border-right: 1px solid #00f0ff; font-family: 'Fira Code', 'Courier New', Courier, monospace; }
 
-nav ul li:last-child a {
-  border-right: none;
-}
+nav ul li:last-child a { border-right: none; }
 
-/* Headings */
-h1, h2, h3, h4, h5, h6 {
-  color: #00f0ff;
-  margin-top: 1.5em;
-  font-family: 'Courier New', Courier, monospace;
-}
+/* Headings */ h1, h2, h3, h4, h5, h6 { color: #00f0ff; margin-top: 1.5em; font-family: 'Fira Code', 'Courier New', Courier, monospace; }
 
-/* Links */
-a {
-  color: #00ccff;
-  text-decoration: none;
-}
+/* Links */ a { color: #00ccff; text-decoration: none; }
 
-a:hover {
-  text-decoration: underline;
-}
+a:hover { text-decoration: underline; }
 
-/* Hero Section (optional) */
-.hero {
-  background: #004466;
-  color: #00f0ff;
-  padding: 60px 20px;
-  text-align: center;
-  border-bottom: 2px solid #00f0ff;
-}
+/* Hero Section (optional) */ .hero { background: #004466; color: #00f0ff; padding: 60px 20px; text-align: center; border-bottom: 2px solid #00f0ff; font-family: 'Fira Code', 'Courier New', Courier, monospace; }
 
-.tagline {
-  font-size: 1.2em;
-  font-weight: 300;
-  color: #66faff;
-}
+.tagline { font-size: 1.2em; font-weight: 300; color: #66faff; font-family: 'Fira Code', 'Courier New', Courier, monospace; }
 
-/* Content Section */
-.section {
-  margin-top: 40px;
-}
+/* Content Section */ .section { margin-top: 40px; }
 
-/* Post Meta */
-.post-date {
-  color: #888;
-  font-size: 0.9em;
-}
+/* Post Meta */ .post-date { color: #888; font-size: 0.9em; }
 
-/* ASCII Art Formatting */
-pre, code {
-  background: #000;
-  color: #00f0ff;
-  font-family: 'Courier New', Courier, monospace;
-  overflow-x: auto;
-  font-size: 0.95em;
-  padding: 10px;
-  border-radius: 4px;
-  display: block;
-  white-space: pre;
-}
+/* ASCII Art Formatting */ pre, code, kbd, samp { background: #000; color: #00f0ff; font-family: 'Fira Code', 'Courier New', Courier, monospace; overflow-x: auto; font-size: 0.95em; padding: 10px; border-radius: 4px; display: block; white-space: pre; }
 
-/* Improve readability on mobile */
-@media (max-width: 600px) {
-  nav ul {
-    flex-direction: column;
-  }
+/* CRT Scanline Effect */ body::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; background-image: repeating-linear-gradient( to bottom, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02) 1px, transparent 1px, transparent 2px ); z-index: 9999; }
 
-  nav ul li a {
-    border-right: none;
-    border-bottom: 1px solid #00f0ff;
-    padding: 10px 0;
-  }
+/* Improve readability on mobile */ @media (max-width: 600px) { nav ul { flex-direction: column; }
 
-  nav ul li:last-child a {
-    border-bottom: none;
-  }
-}
+nav ul li a { border-right: none; border-bottom: 1px solid #00f0ff; padding: 10px 0; }
+
+nav ul li:last-child a { border-bottom: none; } }
+
