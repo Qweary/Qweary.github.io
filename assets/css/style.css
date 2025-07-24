@@ -1,100 +1,125 @@
-﻿/* assets/css/style.css */
+/* assets/css/style.css */
 
-
+/* Global Base Styles */
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background: #f9f9f9;
-  color: #333;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #0d0d0d;
+  color: #e0f7ff;
   line-height: 1.6;
   margin: 0;
   padding: 0;
 }
 
-
+/* Container for centered content */
 .container {
   max-width: 800px;
   margin: auto;
   padding: 20px;
 }
 
-
+/* Header & Footer */
 header, footer {
   background: #111;
-  color: white;
+  color: #00f0ff;
   padding: 10px 0;
   text-align: center;
+  border-bottom: 2px solid #00f0ff;
 }
 
-
+/* Navigation Bar */
 nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
-
 
 nav ul li {
-  margin: 0 10px;
+  margin: 0;
 }
-
 
 nav ul li a {
-  color: white;
-  text-decoration: none;
-}
-
-
-nav a {
   color: #00f0ff;
   text-decoration: none;
   padding: 0 10px;
   border-right: 1px solid #00f0ff;
 }
 
-nav a:last-child {
+nav ul li:last-child a {
   border-right: none;
 }
 
-
+/* Headings */
 h1, h2, h3, h4, h5, h6 {
-  color: #222;
+  color: #00f0ff;
+  margin-top: 1.5em;
+  font-family: 'Courier New', Courier, monospace;
 }
 
-
-
+/* Links */
 a {
-  color: #007acc;
+  color: #00ccff;
   text-decoration: none;
 }
-
 
 a:hover {
   text-decoration: underline;
 }
 
-
+/* Hero Section (optional) */
 .hero {
-  background: #007acc;
-  color: white;
+  background: #004466;
+  color: #00f0ff;
   padding: 60px 20px;
   text-align: center;
+  border-bottom: 2px solid #00f0ff;
 }
-
 
 .tagline {
   font-size: 1.2em;
   font-weight: 300;
+  color: #66faff;
 }
 
-
+/* Content Section */
 .section {
   margin-top: 40px;
 }
 
-
+/* Post Meta */
 .post-date {
   color: #888;
   font-size: 0.9em;
+}
+
+/* ASCII Art Formatting */
+pre, code {
+  background: #000;
+  color: #00f0ff;
+  font-family: 'Courier New', Courier, monospace;
+  overflow-x: auto;
+  font-size: 0.95em;
+  padding: 10px;
+  border-radius: 4px;
+  display: block;
+  white-space: pre;
+}
+
+/* Improve readability on mobile */
+@media (max-width: 600px) {
+  nav ul {
+    flex-direction: column;
+  }
+
+  nav ul li a {
+    border-right: none;
+    border-bottom: 1px solid #00f0ff;
+    padding: 10px 0;
+  }
+
+  nav ul li:last-child a {
+    border-bottom: none;
+  }
 }
