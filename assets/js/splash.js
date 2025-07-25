@@ -1,38 +1,58 @@
-// splash.js
 document.addEventListener("DOMContentLoaded", () => {
   const splash = document.getElementById("splash-screen");
+  const skipBtn = document.getElementById("skip-button");
+  const cursor = document.querySelector(".cursor");
+
   const messages = [
-    "authenticating...",
-    "verifying token...",
-    "bypassing splashguard...",
-    "accessing archives...",
-    "establishing secure session...",
-    "decrypting header...",
-    "parsing manifest...",
-    "resolving blog nodes...",
-    "initializing interface...",
-    "reading entrypoint..."
+    "Authenticating...",
+    "Bypassing biometric lock...",
+    "Initializing blog engine...",
+    "Fetching payload...",
+    "Spawning terminal shell...",
+    "Decrypting secrets...",
+    "Gaining shell...",
+    "Running splash sequence...",
   ];
 
-  const messageBox = document.getElementById("splash-message");
-  const skipButton = document.getElementById("skip-btn");
-  const cursor = document.getElementById("cursor");
+  const typeLine = (msg, container) => {
+    const line = document.createElement("div");
+    line.classList.add("splash-line");
+    container.appendChild(line);
 
-  // Set a random message
-  const msg = messages[Math.floor(Math.random() * messages.length)];
-  messageBox.innerText = msg;
-
-  // Flickering cursor
-  setInterval(() => {
-    cursor.style.visibility = (cursor.style.visibility === 'visible') ? 'hidden' : 'visible';
-  }, 500);
-
-  // Fade out after 4 seconds or on skip
-  const dismissSplash = () => {
-    splash.classList.add("hide");
-    setTimeout(() => splash.remove(), 1000);
+    let i = 0;
+    const interval = setInterval(() => {
+      line.textContent = msg.slice(0, ++i);
+      if (i === msg.length) clearInterval(interval);
+    }, 40);
   };
 
-  setTimeout(dismissSplash, 4000);
-  skipButton.addEventListener("click", dismissSplash);
+  const showMessages = () => {
+    const container = document.getElementById("splash-lines");
+    let index = 0;
+
+    const nextMessage = () => {
+      if (index < messages.length) {
+        typeLine(messages[index++], container);
+        setTimeout(nextMessage, 900);
+      } else {
+        setTimeout(hideSplash, 1000);
+      }
+    };
+
+    nextMessage();
+  };
+
+  const hideSplash = () => {
+    splash.classList.add("hidden");
+    splash.style.display = "none";
+  };
+
+  // Skip handlers
+  skipBtn.addEventListener("click", hideSplash);
+  document.addEventListener("keydown", hideSplash);
+
+  // Auto fallback
+  setTimeout(hideSplash, 9000);
+
+  showMessages();
 });
