@@ -1,5 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
   const splash = document.getElementById("splash");
+  if (!splash) {
+    // No splash present — just show main content
+    const siteContent = document.getElementById("site-content");
+    if (siteContent) siteContent.style.display = "block";
+    document.body.classList.remove('no-scroll');
+    return;
+  }
+
   const skipBtn = document.getElementById("skip-button");
   const cursor = document.querySelector(".cursor");
 
@@ -36,34 +44,32 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(nextMessage, 500);
         });
       } else {
-        setTimeout(endSplash, 1000);
+        setTimeout(endSplash, 3000);
       }
     };
 
     nextMessage();
   };
 
-  // ✅ Proper splash removal and content reveal
   function endSplash() {
     splash.classList.add('hidden');
     splash.style.display = 'none';
     document.body.classList.remove('no-scroll');
     document.body.classList.add("splash-done");
 
-    // Show main site content
     const siteContent = document.getElementById("site-content");
     if (siteContent) {
       siteContent.style.display = "block";
     }
   }
 
-  // ✅ Allow skipping
-  skipBtn.addEventListener("click", endSplash);
+  // Allow skipping
+  skipBtn?.addEventListener("click", endSplash);
   document.addEventListener("keydown", endSplash);
 
-  // ✅ Auto fallback if stuck
-  setTimeout(endSplash, 10000);
+  // Fallback auto-end
+  setTimeout(endSplash, 12000);
 
-  // Begin splash typing
+  // Start splash sequence
   showMessages();
 });
