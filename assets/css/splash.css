@@ -1,0 +1,74 @@
+/* Splash screen container */
+#splash-screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  color: #00ffff; /* Neon blue */
+  font-family: 'Fira Code', monospace;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  padding: 2rem;
+}
+
+/* Hide when done */
+#splash-screen.hidden {
+  display: none;
+}
+
+/* ASCII Art */
+#splash-logo {
+  white-space: pre-wrap;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+/* Random messages */
+#splash-lines {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Flickering cursor */
+.cursor {
+  display: inline-block;
+  width: 0.8em;
+  height: 1.2em;
+  background-color: #00ffff;
+  margin-left: 4px;
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Skip button */
+#skip-button {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  background: transparent;
+  color: #00ffff;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9rem;
+  border: 1px solid #00ffff;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  z-index: 10000;
+}
+
+#skip-button:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+}
