@@ -1,25 +1,50 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0d0d0d">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0d0d0d" />
   
   <title>{{ page.title }} | {{ site.title }}</title>
-  
+
   <!-- Fira Code: sleek monospace font -->
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
+
   <!-- Main stylesheet -->
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-  
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
+
   {% seo %}
 </head>
 <body>
-  {% include header.html %}
-  <main>
-    {{ content }}
-  </main>
-  {% include footer.html %}
+  <!-- Splash Screen -->
+  <div id="splash">
+    <pre class="ascii-logo">
+██████╗ ██╗    ██╗███████╗ █████╗ ██████╗ ██╗   ██╗
+██╔═══██╗██║    ██║██╔════╝██╔══██╗██╔══██╗╚██╗ ██╔╝
+██║   ██║██║ █╗ ██║█████╗  ███████║██████╔╝ ╚████╔╝ 
+██║▄▄ ██║██║███╗██║██╔══╝  ██╔══██║██╔══██╗  ╚██╔╝  
+╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║   ██║   
+ ╚══▀▀═╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
+    </pre>
+    <div id="terminal-message"></div>
+    <div class="cursor">█</div>
+    <button id="skip-btn">Click to skip</button>
+  </div>
+
+  <!-- Theme toggle (optional: you can move elsewhere later) -->
+  <button id="theme-toggle" aria-label="Toggle Theme">🌓</button>
+
+  <!-- Actual Page Content -->
+  <div id="site-content" style="display: none;">
+    {% include header.html %}
+    <main>
+      {{ content }}
+    </main>
+    {% include footer.html %}
+  </div>
+
+  <!-- Scripts -->
+  <script src="{{ '/assets/js/splash.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
 </body>
 </html>
