@@ -1,3 +1,9 @@
+// Only run splash screen logic on the homepage
+if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+    // Exit early if not on the homepage
+    return;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const splash = document.getElementById("splash");
   const skipBtn = document.getElementById("skip-button");
@@ -36,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(nextMessage, 500);
         });
       } else {
-        setTimeout(endSplash, 5000);
+        setTimeout(endSplash, 3000);
       }
     };
 
@@ -62,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("keydown", endSplash);
 
   // ✅ Auto fallback if stuck
-  setTimeout(endSplash, 15000);
+  setTimeout(endSplash, 13000);
 
   // Begin splash typing
   showMessages();
