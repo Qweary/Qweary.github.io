@@ -4,8 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0d0d0d" />
-  
+
   <title>{{ page.title }} | {{ site.title }}</title>
+
+  <!-- Splash and Theme Styles -->
+  <link rel="stylesheet" href="{{ '/assets/css/splash.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/theme.css' | relative_url }}">
 
   <!-- Fira Code: sleek monospace font -->
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
@@ -15,6 +19,8 @@
 
   {% seo %}
 </head>
+
+
 <body>
   <!-- Splash Screen -->
 <div id="splash" class="splash-hidden">
@@ -47,6 +53,6 @@
   <script src="{{ '/assets/js/splash.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/splash.js' | relative_url }}"></script>
-<script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
 </body>
 </html>
