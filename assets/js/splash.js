@@ -4,14 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const cursor = document.querySelector(".cursor");
 
   const messages = [
-    "Authenticating...",
-    "Bypassing biometric lock...",
-    "Initializing blog engine...",
-    "Fetching payload...",
-    "Spawning terminal shell...",
-    "Decrypting secrets...",
-    "Gaining shell...",
-    "Running splash sequence...",
+    "[OK] Bypassing biometric lock...",
+    "[OK] Initializing secure comms...",
+    "[OK] Loading encrypted modules...",
+    "[OK] Running splash sequence...",
+    "[OK] Welcome to Qweary."
   ];
 
   const typeLine = (msg, container) => {
