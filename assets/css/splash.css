@@ -1,5 +1,5 @@
 /* Splash screen container */
-#splash-screen {
+#splash {
   position: fixed;
   top: 0; left: 0;
   width: 100vw;
@@ -17,7 +17,7 @@
 }
 
 /* Hide when done */
-#splash-screen.hidden {
+#splash.hidden {
   display: none;
 }
 
@@ -58,6 +58,7 @@
   position: absolute;
   bottom: 2rem;
   right: 2rem;
+  padding: 0.5rem 1rem;
   background: transparent;
   color: #00ffff;
   font-family: 'Fira Code', monospace;
@@ -66,9 +67,19 @@
   padding: 0.5rem 1rem;
   cursor: pointer;
   transition: background 0.3s;
-  z-index: 10000;
+  z-index: 1001;
 }
 
 #skip-button:hover {
   background-color: rgba(0, 255, 255, 0.1);
+   opacity: 1;
 }
+
+#main-content {
+  display: none;
+}
+
+body.splash-done #main-content {
+  display: block;
+}
+

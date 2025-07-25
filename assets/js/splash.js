@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const splash = document.getElementById("splash-screen");
+  const splash = document.getElementById("splash");
   const skipBtn = document.getElementById("skip-button");
   const cursor = document.querySelector(".cursor");
 
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "[OK] Welcome to Qweary."
   ];
 
-  const typeLine = (msg, container) => {
+  const typeLine = (msg, container, callback) => {
     const line = document.createElement("div");
     line.classList.add("splash-line");
     container.appendChild(line);
@@ -19,7 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let i = 0;
     const interval = setInterval(() => {
       line.textContent = msg.slice(0, ++i);
-      if (i === msg.length) clearInterval(interval);
+      if (i === msg.length) {
+        clearInterval(interval);
+        if (callback) callback();
+      }
     }, 40);
   };
 
@@ -29,27 +32,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const nextMessage = () => {
       if (index < messages.length) {
-        typeLine(messages[index++], container);
-        setTimeout(nextMessage, 900);
+        typeLine(messages[index++], container, () => {
+          setTimeout(nextMessage, 500);
+        });
       } else {
-        setTimeout(hideSplash, 1000);
+        setTimeout(endSplash, 1000);
       }
     };
 
     nextMessage();
   };
 
-  const hideSplash = () => {
-    splash.classList.add("hidden");
-    splash.style.display = "none";
-  };
+  // ✅ Proper splash removal and content reveal
+  function endSplash() {
+    splash.classList.add('hidden');
+    splash.style.display = 'none';
+    document.body.classList.remove('no-scroll');
+    document.body.classList.add("splash-done");
 
+    // Show main site content
+    const siteContent = document.getElementById("site-content");
+    if (siteContent) {
+      siteContent.style.display = "block";
+    }
+  }
+
+  // ✅ Allow skipping
+  skipBtn.addEventListener("click", endSplash);
+  document.addEventListener("keydown", endSplash);
+
+  // ✅ Auto fallback if stuck
+  setTimeout(endSplash, 10000);
+
+  // Begin splash typing
   showMessages();
-
-  // Skip handlers
-  skipBtn.addEventListener("click", hideSplash);
-  document.addEventListener("keydown", hideSplash);
-
-  // Auto fallback
-  setTimeout(hideSplash, 9000);
 });
