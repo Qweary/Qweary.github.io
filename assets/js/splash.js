@@ -44,12 +44,12 @@ document.addEventListener("DOMContentLoaded", () => {
     splash.style.display = "none";
   };
 
+  showMessages();
+
   // Skip handlers
   skipBtn.addEventListener("click", hideSplash);
   document.addEventListener("keydown", hideSplash);
 
   // Auto fallback
   setTimeout(hideSplash, 9000);
-
-  showMessages();
 });
