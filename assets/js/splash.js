@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(nextMessage, 500);
         });
       } else {
-        setTimeout(endSplash, 1000);
+        setTimeout(endSplash, 5000);
       }
     };
 
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("keydown", endSplash);
 
   // ✅ Auto fallback if stuck
-  setTimeout(endSplash, 10000);
+  setTimeout(endSplash, 15000);
 
   // Begin splash typing
   showMessages();

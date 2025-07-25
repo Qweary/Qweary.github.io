@@ -55,10 +55,10 @@
 
 /* Skip button */
 #skip-button {
-  position: absolute;
-  bottom: 2rem;
-  right: 2rem;
-  padding: 0.5rem 1rem;
+ position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 8px 14px;
   background: transparent;
   color: #00ffff;
   font-family: 'Fira Code', monospace;
