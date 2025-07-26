@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "[OK] Initializing secure comms...",
     "[OK] Loading encrypted modules...",
     "[OK] Running splash sequence...",
-    ".... Welcome to Qweary's Blog."
+    ". . . Welcome to Qweary's Blog."
   ];
 
   const typeLine = (msg, container, callback) => {
