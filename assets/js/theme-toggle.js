@@ -1,27 +1,25 @@
 // theme-toggle.js
 document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.getElementById("theme-toggle");
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const storedTheme = localStorage.getItem("theme");
-  const currentTheme = storedTheme || (prefersDark ? "dark" : "light");
 
-  // Apply theme to body and html on load
-  document.body.classList.add(currentTheme);
+  // Retrieve stored theme or fall back to dark
+  const storedTheme = localStorage.getItem("theme");
+  const currentTheme = storedTheme || "dark";
+
+  // Apply theme
   document.documentElement.setAttribute("data-theme", currentTheme);
 
+  // Set toggle label accordingly
   if (toggle) {
     toggle.innerText = currentTheme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
 
     toggle.addEventListener("click", () => {
-      // Toggle theme class on body
-      document.body.classList.toggle("dark");
+      const current = document.documentElement.getAttribute("data-theme");
+      const newTheme = current === "dark" ? "light" : "dark";
 
-      // Determine new theme based on presence of 'dark' class
-      const newTheme = document.body.classList.contains("dark") ? "dark" : "light";
-
-      // Save and apply new theme
-      localStorage.setItem("theme", newTheme);
+      // Apply and store new theme
       document.documentElement.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
       toggle.innerText = newTheme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
     });
   }

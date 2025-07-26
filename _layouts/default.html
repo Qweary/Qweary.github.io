@@ -9,19 +9,23 @@
 
   <!-- ✅ Inline early theme detection script -->
   <script>
-    (function() {
+    (function () {
       const storedTheme = localStorage.getItem('theme');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       const theme = storedTheme || (prefersDark ? 'dark' : 'light');
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      }
+      document.documentElement.setAttribute('data-theme', theme);
     })();
   </script>
 
+  <!-- ✅ Prevent flash of unthemed content -->
+  <style>
+    html:not([data-theme]) body {
+      visibility: hidden;
+    }
+  </style>
+
   <!-- Splash and Theme Styles -->
   <link rel="stylesheet" href="{{ '/assets/css/splash.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/theme.css' | relative_url }}">
 
   <!-- Fira Code: sleek monospace font -->
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
@@ -32,9 +36,8 @@
   {% seo %}
 </head>
 
-
 <body>
-  {% if page.url == '/' %}  
+  {% if page.url == '/' %}
     <!-- Splash Screen -->
     <div id="splash" class="splash-hidden">
       <pre class="ascii-logo">
@@ -48,13 +51,13 @@
       <div id="splash-lines"></div>
       <div class="cursor">█</div>
       <button id="skip-button">Click to skip</button>
-  </div>
-{% endif %}
+    </div>
+  {% endif %}
 
-  <!-- Theme toggle (optional: you can move elsewhere later) -->
+  <!-- Theme toggle -->
   <button id="theme-toggle" aria-label="Toggle Theme">🌓</button>
 
-  <!-- Actual Page Content -->
+  <!-- Page Content -->
   <div id="site-content" style="display: none;">
     {% include header.html %}
     <main>
