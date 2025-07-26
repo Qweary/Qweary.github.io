@@ -44,30 +44,7 @@
   margin-top: 1rem;
 }
 
-/* Theme Toggle Button inside footer */
-#theme-toggle {
-  background: #0d0d0d;
-  color: #00f0ff;
-  border: 1px solid #00f0ff;
-  font-family: 'Fira Code', monospace;
-  cursor: pointer;
-  padding: 4px 8px;
-  font-size: 0.9rem;
-  border-radius: 4px;
-  opacity: 0.7;
-  transition: opacity 0.3s ease, transform 0.2s ease;
-  user-select: none;
-  margin-top: 0.5rem;
-}
-
-#theme-toggle:hover,
-#theme-toggle:focus {
-  opacity: 1;
-  transform: scale(1.1);
-  outline: none;
-}
-
-/* Light Theme */
+/* Light/Dark Theme Variables */
 :root[data-theme="light"] {
   --bg-color: #f9f9f9;
   --text-color: #222;
@@ -76,7 +53,6 @@
   --link-color: #007acc;
 }
 
-/* Dark Theme */
 :root[data-theme="dark"] {
   --bg-color: #0d0d0d;
   --text-color: #e0f7ff;
@@ -108,25 +84,12 @@ header, footer {
   width: 100%;
 }
 
-/* Main Content */
-main {
-  flex: 1;
-  padding: 2rem;
-  width: 100%;
-}
-
-/* Navigation separators using CSS only */
-nav {
-  display: inline-flex;
-  gap: 1.5rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
+/* Navigation */
 nav {
   display: flex;
   justify-content: center;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 nav a {
@@ -147,7 +110,23 @@ a {
   text-decoration: none;
 }
 
-/* Responsive font scaling */
+/* Footer Theme Toggle Button */
+footer #theme-toggle {
+  background: none;
+  color: inherit;
+  border: none;
+  font-family: 'Fira Code', monospace;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  margin-left: 0.5rem;
+}
+
+footer #theme-toggle:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Font */
 @media screen and (min-width: 1024px) {
   body {
     font-size: clamp(20px, 2vw, 24px);
