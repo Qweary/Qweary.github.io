@@ -7,6 +7,18 @@
 
   <title>{{ page.title }} | {{ site.title }}</title>
 
+  <!-- ✅ Inline early theme detection script -->
+  <script>
+    (function() {
+      const storedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = storedTheme || (prefersDark ? 'dark' : 'light');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
   <!-- Splash and Theme Styles -->
   <link rel="stylesheet" href="{{ '/assets/css/splash.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/theme.css' | relative_url }}">
