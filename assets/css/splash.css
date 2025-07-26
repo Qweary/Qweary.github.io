@@ -75,6 +75,14 @@
    opacity: 1;
 }
 
+/* Fade-out */
+#splash.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease;
+  pointer-events: none;
+}
+
+
 #main-content {
   display: none;
 }

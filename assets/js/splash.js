@@ -52,16 +52,19 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   function endSplash() {
-    splash.classList.add('hidden');
-    splash.style.display = 'none';
-    document.body.classList.remove('no-scroll');
-    document.body.classList.add("splash-done");
+  splash.classList.add('fade-out');
+  document.body.classList.remove('no-scroll');
+  document.body.classList.add("splash-done");
 
+  setTimeout(() => {
+    splash.style.display = 'none';
     const siteContent = document.getElementById("site-content");
     if (siteContent) {
       siteContent.style.display = "block";
     }
-  }
+  }, 1000); // Matches the CSS transition duration
+}
+
 
   // Allow skipping
   skipBtn?.addEventListener("click", endSplash);
