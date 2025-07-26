@@ -115,17 +115,22 @@ nav {
   flex-wrap: wrap;
 }
 
-nav a {
-  color: var(--link-color);
-  text-decoration: none;
-  position: relative;
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
-nav a:not(:last-child)::after {
+nav a {
+  position: relative;
+  padding: 0 0.5rem;
+}
+
+nav a + a::before {
   content: '|';
-  position: absolute;
-  right: -0.9rem;
   color: #00f0ff;
+  position: absolute;
+  left: -0.6rem;
 }
 
 /* Links */
