@@ -21,15 +21,22 @@
   display: none;
 }
 
+/* Scrollable wrapper for ASCII Art */
+.ascii-wrapper {
+  overflow-x: auto;
+  max-width: 100vw;
+  padding: 0 1rem;
+}
+
 /* ASCII Art */
-#splash-logo {
-  white-space: pre-wrap;
-  text-align: center;
+.ascii-logo {
+  white-space: pre;
+  text-align: left;
   font-size: 1rem;
   line-height: 1.2;
   margin-bottom: 2rem;
   max-width: 100%;
-  overflow-wrap: break-word;
+  overflow-wrap: normal;
 }
 
 /* Random messages */
@@ -55,16 +62,15 @@
 
 /* Skip button */
 #skip-button {
- position: fixed;
+  position: fixed;
   bottom: 20px;
   right: 20px;
-  padding: 8px 14px;
+  padding: 0.5rem 1rem;
   background: transparent;
   color: #00ffff;
   font-family: 'Fira Code', monospace;
   font-size: 0.9rem;
   border: 1px solid #00ffff;
-  padding: 0.5rem 1rem;
   cursor: pointer;
   transition: background 0.3s;
   z-index: 1001;
@@ -72,7 +78,7 @@
 
 #skip-button:hover {
   background-color: rgba(0, 255, 255, 0.1);
-   opacity: 1;
+  opacity: 1;
 }
 
 /* Fade-out */
@@ -82,7 +88,6 @@
   pointer-events: none;
 }
 
-
 #main-content {
   display: none;
 }
@@ -90,4 +95,3 @@
 body.splash-done #main-content {
   display: block;
 }
-

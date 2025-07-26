@@ -52,20 +52,18 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   function endSplash() {
-  splash.classList.add('fade-out');
-  document.body.classList.remove('no-scroll');
-  document.body.classList.add("splash-done");
+    splash.classList.add('fade-out');
+    document.body.classList.remove('no-scroll');
+    document.body.classList.add("splash-done");
 
-  setTimeout(() => {
-    splash.style.display = 'none';
-    const siteContent = document.getElementById("site-content");
-    if (siteContent) {
-      siteContent.style.display = "block";
-    }
-  }, 1000); // Match fade-out time
-}
-
-
+    setTimeout(() => {
+      splash.style.display = 'none';
+      const siteContent = document.getElementById("site-content");
+      if (siteContent) {
+        siteContent.style.display = "block";
+      }
+    }, 1000); // Match fade-out time
+  }
 
   // Allow skipping
   skipBtn?.addEventListener("click", endSplash);
@@ -76,4 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Start splash sequence
   showMessages();
+
+  // *** New: Scroll ASCII wrapper fully to right on load ***
+  const asciiWrapper = document.querySelector(".ascii-wrapper");
+  if (asciiWrapper) {
+    asciiWrapper.scrollLeft = asciiWrapper.scrollWidth;
+  }
 });
