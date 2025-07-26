@@ -62,8 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (siteContent) {
       siteContent.style.display = "block";
     }
-  }, 1000); // Matches the CSS transition duration
+  }, 1000); // Match fade-out time
 }
+
 
 
   // Allow skipping
