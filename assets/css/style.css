@@ -44,19 +44,30 @@
   margin-top: 1rem;
 }
 
-/* Theme Toggle Button */
+/* Theme Toggle Button - less prominent, anchored bottom-left */
 #theme-toggle {
   position: fixed;
-  top: 10px;
-  right: 10px;
+  bottom: 12px;
+  left: 12px;
   background: #0d0d0d;
   color: #00f0ff;
   border: 1px solid #00f0ff;
   font-family: 'Fira Code', monospace;
   cursor: pointer;
-  padding: 5px 10px;
-  z-index: 10000;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  opacity: 0.4;
   border-radius: 4px;
+  z-index: 10000;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+#theme-toggle:hover,
+#theme-toggle:focus {
+  opacity: 1;
+  transform: scale(1.1);
+  outline: none;
 }
 
 /* Light Theme */
