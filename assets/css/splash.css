@@ -81,6 +81,14 @@
   opacity: 1;
 }
 
+/* Final splash line styling */
+.splash-line.final-line {
+  color: #00ffff; /* Brighter neon blue */
+  font-weight: bold;
+  text-shadow: 0 0 8px #00ffff;
+  margin-top: 0.75rem;
+}
+
 /* Fade-out */
 #splash.fade-out {
   opacity: 0;
