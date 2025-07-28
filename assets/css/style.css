@@ -132,3 +132,23 @@ footer #theme-toggle:hover {
     font-size: clamp(20px, 2vw, 24px);
   }
 }
+
+/* Flicker Overlay for Page Transitions */
+#flicker-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 99998;
+  transition: opacity 0.2s ease-in-out;
+}
+
+#flicker-overlay.flicker-in {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.1s ease-in;
+}
