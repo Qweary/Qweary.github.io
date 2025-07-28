@@ -208,3 +208,75 @@ footer #theme-toggle:hover {
     transform: translate(0, 0);
   }
 }
+
+/* Glitch Line Overlays for CRT effect */
+.glitch-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 255, 255, 0.12);
+  opacity: 0.9;
+  z-index: 99999;
+  pointer-events: none;
+  animation: glitch-line-move 0.25s ease-out forwards;
+  transform: translateX(0) scaleX(1);
+}
+
+@keyframes glitch-line-move {
+  0% {
+    transform: translateX(-2px) scaleX(1.1);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translateX(2px) scaleX(1.3);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-1px) scaleX(1.05);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(0) scaleX(1);
+    opacity: 0;
+  }
+}
+
+/* Brief overlay for CRT-style fade */
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 255, 255, 0.05);
+  pointer-events: none;
+  z-index: 99997;
+  animation: crt-fade 0.25s ease-out forwards;
+}
+
+@keyframes crt-fade {
+  from {
+    opacity: 0.2;
+    backdrop-filter: blur(0.2px);
+  }
+  to {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+}
+
+/* Optional RGB split effect for brief glitching */
+body.glitch-color {
+  animation: glitch-color-fx 0.25s ease-in-out;
+}
+
+@keyframes glitch-color-fx {
+  0% {
+    filter: drop-shadow(-1px 0 red) drop-shadow(1px 0 cyan);
+  }
+  100% {
+    filter: none;
+  }
+}
