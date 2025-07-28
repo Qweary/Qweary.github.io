@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const splash = document.getElementById("splash");
   if (!splash) {
-    // No splash present — just show main content
     const siteContent = document.getElementById("site-content");
     if (siteContent) siteContent.style.display = "block";
     document.body.classList.remove('no-scroll');
@@ -11,27 +10,53 @@ document.addEventListener("DOMContentLoaded", () => {
   const skipBtn = document.getElementById("skip-button");
   const cursor = document.querySelector(".cursor");
 
-  const messages = [
+  // Pool of randomizable messages
+  const randomMessages = [
     "[OK] Bypassing biometric lock...",
     "[OK] Initializing secure comms...",
     "[OK] Loading encrypted modules...",
     "[OK] Running splash sequence...",
-    ". . . Welcome to Qweary's Blog."
+    "[OK] Scrambling return addresses...",
+    "[OK] Spoofing MAC address...",
+    "[OK] Disabling watchdog timers...",
+    "[OK] Tunneling through DNS..."
   ];
 
-  const typeLine = (msg, container, callback) => {
+  const finalMessage = ". . . Welcome to Qweary's Blog.";
+
+  // Shuffle using Fisher-Yates
+  for (let i = randomMessages.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [randomMessages[i], randomMessages[j]] = [randomMessages[j], randomMessages[i]];
+  }
+
+  const selectedMessages = randomMessages.slice(0, 3); // 3 randomized
+  const allMessages = [...selectedMessages, finalMessage]; // Add final message last
+
+  const typeLine = (msg, container, isFinal, callback) => {
     const line = document.createElement("div");
     line.classList.add("splash-line");
+    if (isFinal) line.classList.add("final-line");
     container.appendChild(line);
 
     let i = 0;
-    const interval = setInterval(() => {
-      line.textContent = msg.slice(0, ++i);
-      if (i === msg.length) {
-        clearInterval(interval);
-        if (callback) callback();
-      }
-    }, 40);
+
+    const startTyping = () => {
+      const interval = setInterval(() => {
+        line.textContent = msg.slice(0, ++i);
+        if (i === msg.length) {
+          clearInterval(interval);
+          if (callback) callback();
+        }
+      }, 40);
+    };
+
+    if (isFinal) {
+      // Slight extra pause before final message
+      setTimeout(startTyping, 800);
+    } else {
+      startTyping();
+    }
   };
 
   const showMessages = () => {
@@ -39,9 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let index = 0;
 
     const nextMessage = () => {
-      if (index < messages.length) {
-        typeLine(messages[index++], container, () => {
-          setTimeout(nextMessage, 500);
+      if (index < allMessages.length) {
+        const isFinal = (index === allMessages.length - 1);
+        typeLine(allMessages[index++], container, isFinal, () => {
+          setTimeout(nextMessage, isFinal ? 1000 : 500);
         });
       } else {
         setTimeout(endSplash, 3000);
@@ -62,20 +88,15 @@ document.addEventListener("DOMContentLoaded", () => {
       if (siteContent) {
         siteContent.style.display = "block";
       }
-    }, 1000); // Match fade-out time
+    }, 1000); // Match fade-out
   }
 
-  // Allow skipping
   skipBtn?.addEventListener("click", endSplash);
   document.addEventListener("keydown", endSplash);
-
-  // Fallback auto-end
   setTimeout(endSplash, 12000);
 
-  // Start splash sequence
   showMessages();
 
-  // *** New: Scroll ASCII wrapper fully to right on load ***
   const asciiWrapper = document.querySelector(".ascii-wrapper");
   if (asciiWrapper) {
     asciiWrapper.scrollLeft = asciiWrapper.scrollWidth;
