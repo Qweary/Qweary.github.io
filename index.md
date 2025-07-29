@@ -12,7 +12,8 @@ title: Home
 
 <section class="section">
   <h2>Welcome</h2>
-  <p>This site is a home for independent security research, hardware hacking, and systems analysis — all conducted with vendor cooperation and in the public interest. Whether it’s cracking a lock, probing firmware, or analyzing signal paths, the focus is always on ethical disclosure, transparency, and impact.</p>
+  <p><p>Welcome to a space for breaking things — responsibly. This site documents independent research across physical and digital systems: lock mechanisms, embedded protocols, misbehaving firmware, and whatever else invites a closer look. All investigations here are guided by ethics, transparency, and the belief that curiosity, when paired with consent, can make systems safer for everyone.</p>
+</p>
 </section>
 
 
