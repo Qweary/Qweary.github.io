@@ -5,7 +5,7 @@ title: Home
 
 
 <div class="hero">
-  <h1>Research with Purpose</h1>
+  <h1>🌌 Research with Purpose 🌌</h1>
   <p class="tagline">Reverse engineering, security research, and transparency advocacy.</p>
 </div>
 

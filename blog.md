@@ -5,7 +5,7 @@ permalink: /blog/
 ---
 
 
-# Blog
+# 📓 Blog 📓
 
 
 A chronological log of research findings, technical write-ups, and experiments.

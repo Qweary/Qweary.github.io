@@ -5,7 +5,7 @@ permalink: /future/
 ---
 
 
-# Future Research
+# 🔮 Future Research 🔮
 
 
 Ongoing and upcoming investigations include:
