@@ -10,11 +10,11 @@ permalink: /backburner/
 
 
 
-\# 🔥 Backburner 🔥
+# 🔥 Backburner 🔥
 
 
 
-\_No research is ever complete.\_
+_No research is ever complete._
 
 
 
