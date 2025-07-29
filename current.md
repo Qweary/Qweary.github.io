@@ -5,7 +5,7 @@ permalink: /current/
 ---
 
 
-# 🔬 Current Focus: T2/T3 Lock System Deep Dive
+# Current Focus: T2/T3 Lock System Deep Dive
 
 
 This research project began with a deceptively simple question: What assumptions are being made about the security of the devices we physically trust every day?

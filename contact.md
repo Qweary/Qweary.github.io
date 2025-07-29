@@ -5,7 +5,7 @@ permalink: /contact/
 ---
 
 
-# 📬 Contact
+# Contact
 
 
 Want to collaborate, ask questions, or discuss findings?
