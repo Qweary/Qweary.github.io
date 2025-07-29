@@ -36,7 +36,7 @@
   {% seo %}
 </head>
 
-<body>
+<body style="margin: 0; padding: 0;">
   {% if page.url == '/' %}
     <!-- Splash Screen -->
     <div id="splash" class="splash-hidden">
@@ -61,14 +61,16 @@
 
   <!-- Page Content -->
   <div id="site-content" style="display: none;">
-    {% include header.html %}
-    <main>
-      {{ content }}
-    </main>
-    {% include footer.html %}
+    <div style="min-height: 100vh; display: flex; flex-direction: column;">
+      {% include header.html %}
+      <main style="flex: 1;">
+        {{ content }}
+      </main>
+      {% include footer.html %}
+    </div>
   </div>
 
-<!-- Flicker Transition Overlay -->
+  <!-- Flicker Transition Overlay -->
   <div id="flicker-overlay"></div>
 
   <!-- Scripts -->

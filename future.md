@@ -11,10 +11,8 @@ permalink: /future/
 Ongoing and upcoming investigations include:
 
 
-- Emulating CP210x USB-UART bridge devices to intercept and replay proprietary software interactions.
-- Analyzing NAND flash command sequences across embedded access control platforms.
-- Publishing in Phrack-style formats to document full methodology for reverse engineering hardware/software co-design.
-- Exploratory tooling: developing open-source USB emulation frameworks compatible with modern OS stacks.
-
+- Typical alarm system contacts and their vulnerabilities: How large of an electromagnet would be necessary for the magnetic field to penetrate through various doors/walls?
+- Wireless locks: can communication be intercepted between a lock and a proprietary wireless hub?
+- Music generation through interactive visual art: can I revive a > decade's old senior design project to convert pictures into music? What if user's could interact with the picture?
 
 Follow the blog for updates, publications, and tooling.

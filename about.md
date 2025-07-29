@@ -5,12 +5,8 @@ permalink: /about/
 ---
 
 
-# About
 
-
-
-
-🧠 About Me
+#🧠 About Me
 
 
 I'm a security professional operating at the intersection of physical and cyber systems, with a specialization in vulnerability research, embedded systems, and protocol-level analysis. My work blends engineering discipline with a red-team mindset: find the weak points, understand how they break, and—when possible—show how they can be fixed.
