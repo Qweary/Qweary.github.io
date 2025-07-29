@@ -9,10 +9,10 @@ permalink: /about/
 # 🧭 About Me 🧭
 
 
-I'm a security professional operating at the intersection of physical and cyber systems, with a specialization in vulnerability research, embedded systems, and protocol-level analysis. My work blends engineering discipline with a red-team mindset: find the weak points, understand how they break, and—when possible—show how they can be fixed.
+I’ve spent the last few years breaking into things I’m explicitly allowed to — from malfunctioning vault locks to embedded systems with forgotten debug ports. Most of my work sits at the intersection of physical and digital access: firmware, bypasses, trust boundaries, and the messy assumptions in between.
 
+This blog is where I dig into security research — often in the form of hardware hacking, system analysis, or the occasional off-the-wall idea that deserves a deeper look.
 
-Over the years, I've developed and deconstructed systems ranging from consumer IoT to critical infrastructure components. My focus is not just on exploitability, but on trust boundaries—what people assume a system will do, and what it actually does under pressure.
+I believe physical, digital, and social engineering should be viewed as parts of a single threat model. This is my space to explore that philosophy, share research, and occasionally cause good trouble.
 
-
-This blog documents deep dives, real-world case studies, and occasionally the dead ends—because in this field, failure teaches too. All testing is conducted under proper authorization and legal clearance.
+Not everything here is production-ready — but the goal is always impact, not polish.
