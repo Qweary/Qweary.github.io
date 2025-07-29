@@ -9,7 +9,8 @@ author: Qweary
 categories: [research, hardware hacking, NAND, flash, t2t3]
 tags: [access control, embedded, alarm lock, NAND, security audits]
 
-﻿—
+﻿---
+ 
 <pre><code>
 ██████╗ ██╗    ██╗███████╗ █████╗ ██████╗ ██╗   ██╗
 ██╔═══██╗██║    ██║██╔════╝██╔══██╗██╔══██╗╚██╗ ██╔╝
