@@ -12,7 +12,7 @@ title: Home
 
 <section class="section">
   <h2>Welcome</h2>
-  <p>This is a central hub for showcasing security research, hardware reversing, and all investigations conducted with vendor cooperation and public interest in mind. Transparency and ethical disclosure are paramount. This site is maintained by a security professional working across physical and cyber domains.</p>
+  <p>This site is a home for independent security research, hardware hacking, and systems analysis — all conducted with vendor cooperation and in the public interest. Whether it’s cracking a lock, probing firmware, or analyzing signal paths, the focus is always on ethical disclosure, transparency, and impact.</p>
 </section>
 
 
