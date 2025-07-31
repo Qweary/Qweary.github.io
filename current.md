@@ -16,7 +16,4 @@ Full write-ups are being release now. Proof of concept video below.
 
 Video shows a factory reset of the lock after injection to the firmware (only code 123456 should work after reset).
 
-<video controls width="100%" style="margin-top: 1rem;">
-  <source src="https://raw.githubusercontent.com/Qweary/T2-T3-Lock-Exploitation-Research/main/Media/20250530_225150_1.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+(OK, video needs to be hosted somewhere else, so I guess coming soon lol)
