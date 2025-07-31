@@ -190,8 +190,7 @@ Stay tuned.
 🔗 Resources  
 - [RadiomanV’s XGecu Software (GitHub)](https://github.com/radiomanV/XGecu_Software)  
 - [Boseji's Guide for TL866II+ on Linux](https://boseji.com/posts/running-tl866ii-plus-in-manjaro/)  
-- Decoder and scripts (coming soon)  
-- Sample NAND dumps (coming soon)  
+- [Notes, Dumps, Uploads, and Logs](https://github.com/Qweary/T2-T3-Lock-Exploitation-Research) 
 
 ---
 
