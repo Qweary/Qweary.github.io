@@ -16,4 +16,4 @@ Full write-ups are being release now. Proof of concept video below.
 
 Video shows a factory reset of the lock after injection to the firmware (only code 123456 should work after reset).
 
-(OK, video needs to be hosted somewhere else, so I guess coming soon lol)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tD7BfMAFk9E" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
