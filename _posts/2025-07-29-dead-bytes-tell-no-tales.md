@@ -8,6 +8,8 @@ date: 2025-07-29
 author: Qweary
 categories: [research, hardware hacking, NAND, flash, t2t3]
 tags: [access control, embedded, alarm lock, NAND, security audits]
+permalink: /2025-07-29-dead-bytes-tell-no-tales.md
+
 
 ﻿---
  
