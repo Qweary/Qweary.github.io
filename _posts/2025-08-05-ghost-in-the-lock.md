@@ -1,7 +1,7 @@
 ---
 
 layout: post
-title: "🔓 Ghost in the Lock: Injecting MSP430 Firmware for Undetectable Entry 🔓"
+title: "Ghost in the Lock: Injecting MSP430 Firmware for Undetectable Entry"
 date: 2025-08-05
 author: Qweary
 categories: [research, hardware hacking, MSP430, firmware, t2t3]
