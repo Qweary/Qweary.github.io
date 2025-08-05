@@ -99,13 +99,13 @@ Using a `BR` (branch) opcode instead of `CALL` (lesson learned the hard way), I 
 30 40 20 fa          ; BR #0xFA20 -> jump to custom code
 
 @fa20
-D2 43 e7 11              ; MOV.B #1, &0x11E7         ; overwritten opcode for BR
+D2 43 e7 11          ; MOV.B #1, &0x11E7       ; overwritten opcode for BR
 F2 40 69 00 81 11    ; MOV.B #0x69, &0x1181    ; code byte 1
 F2 40 69 00 b3 11    ; MOV.B #0x69, &0x11B3    ; code byte 2
 F2 40 69 00 e5 11    ; MOV.B #0x69, &0x11E5    ; code byte 3
-D2 43 17 12              ; MOV.B #1, &0x1217          ; enable user
+D2 43 17 12          ; MOV.B #1, &0x1217       ; enable user
 F2 40 e1 00 49 12    ; MOV.B #0xE1, &0x1249    ; permission = E1
-30 40 ec 9e               ; BR #0x9EEC                     ; return to original flow
+30 40 ec 9e          ; BR #0x9EEC              ; return to original flow
 ```
 
 ### ✅ Result
