@@ -7,7 +7,7 @@ date: 2025-07-23
 author: Qweary
 categories: [research, physical-security, t2t3]
 tags: [access control, embedded, alarm lock, proxmark, security audits]
-permalink /when-physical-meets-digital.html
+permalink: /when-physical-meets-digital.html
 
 ---
 
