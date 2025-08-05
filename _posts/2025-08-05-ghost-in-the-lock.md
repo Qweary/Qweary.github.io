@@ -6,7 +6,7 @@ date: 2025-08-05
 author: Qweary
 categories: [research, hardware hacking, MSP430, firmware, t2t3]
 tags: [access control, embedded, alarm lock, MSP430, microprocessor, firmware, reverse engineering, security audits, second code, ghost code]
-permalink: /2025-08-05-ghost-in-the-lock.html
+permalink: /ghost-in-the-lock.html
 
 ---
 
