@@ -106,6 +106,7 @@ F2 40 69 00 e5 11    ; MOV.B #0x69, &0x11E5    ; code byte 3
 D2 43 17 12              ; MOV.B #1, &0x1217          ; enable user
 F2 40 e1 00 49 12    ; MOV.B #0xE1, &0x1249    ; permission = E1
 30 40 ec 9e               ; BR #0x9EEC                     ; return to original flow
+```
 
 ### ✅ Result
 
