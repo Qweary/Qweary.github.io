@@ -139,7 +139,7 @@ In legal or forensic contexts, this is an unacceptable risk.
 
 ---
 
-## 🧕‍♂️ **Red Team Takeaways**
+## 🥷 **Red Team Takeaways**
 
 - If it plugs into USB, it can be emulated  
 - Logs are just data — and data can lie  
