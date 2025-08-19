@@ -1,0 +1,1252 @@
+                       Call for Papers [Phrack #72]
+             	  Phile 0x00 - Physical Access, Digital Lies
+
+ 
+===========================================================================
+      	               Physical Access, Digital Lies:
+	       Reverse Engineering a Hybrid Lock's Hidden Stack
+ 
+                              By [Louis Piano]
+===========================================================================
+     "Locks are mechanical. Computers are digital. This thing was both - 
+                          and neither played fair."
+ 
+                                 .--------.       
+                                / .------. \      
+                               / /        \ \     
+                               | |        | |     
+                              _| |________| |_    
+                            .' |_|        |_| '.  
+                            '._____ ____ _____.'  
+                            |     .'____'.     |  
+                            '.__.'.'    '.'.__.'   
+                             '.__  '----'  __.'    
+                                 '.______.'
+                                // ||  || \\
+                               ||  ||  ||  ||  
+                               ||__||__||__||
+                              '--''--''--''--'
+
+This paper is the result of a long-term reverse engineering project
+targeting a commercial-grade electronic lock system deployed in 
+everything from schools to banks. It combines physical access methods with
+embedded flash modification, firmware patching via JTAG, and USB emulation
+of the audit hardware itself.
+ 
+From NAND flash tampering, to microcontroller firmware hooks,
+to spoofed CP2102 USB cables -- this paper walks through the actual
+attack chains, the debugging processes, and the deep scars of figuring
+it all out the hard way.
+ 
+No 0-days here. Just persistent access. Literally.
+ 
+
+                  ========================================
+                   Introduction -- Physical Meets Digital
+                  ========================================
+                   "Lockpicks don't get firmware updates."
+
+
+The worlds of physical and cybersecurity have been colliding for 
+a long time -- but more often than not, the people tasked with 
+securing these domains still treat them like separate problems. 
+From a cheap wafer lock on a server cabinet to a networked keypad 
+on a smart lockset, misunderstandings in one domain can have 
+catastrophic consequences in the other.
+ 
+This isn't just theoretical. Today's access control products are 
+fully integrated systems, often cobbled together by manufacturers 
+more comfortable with mechanical deadbolts than firmware. A door lock 
+that was once a passive device, is now a miniature networked computer --
+with an audit trail, onboard NAND flash, and a USB cable for configuration.
+And yet, many of these products are deployed as if they were still 
+just physical hardware.
+ 
+I've spent the past year digging into these systems -- not from the
+outside, but through embedded analysis, firmware hooks, and forensic
+teardown. The findings suggest a dangerous level of complacency: 
+insecure default configurations, opaque protocols, and attack surfaces
+that span from the silicon to the lock cylinder.
+ 
+ --[ This phile presents:
+ 
+ - Real-world case studies of lock security (and insecurity)
+ 
+ - A series of deep-dives into NAND memory structures, firmware
+   internals, and reverse-engineered communications protocols
+ 
+ - Practical takeaways for both attackers and defenders
+ 
+As more physical security products become part of the networked IoT
+landscape, it's time to stop treating physical and cyber domains as two
+separate worlds. What follows is an argument -- through demonstration --
+that securing one means understanding both.
+ 
+
+                  ========================================
+                      Case Studies: The Good, The Meh,    
+                              The Bad, The Ugly           
+                  ========================================
+            "Good intentions. Bad defaults. Ugly consequences."
+
+
+                  ----------------------------------------
+                                  The Good
+                  ----------------------------------------
+             "A Proxmark, a Phone, and a Binder of Master Keys"
+
+ 
+It started with a walk through a 24-hour reception area. Facing outward
+like a dare, a workstation monitor showed a live feed from the building's
+access control system. Names, badge usage, door locations, and full
+card credentials -- including facility code and Wiegand 26 formatting--
+were all proudly on display.
+ 
+Naturally, I struck up a conversation.
+ 
+The building's physical security team -- seasoned pros, mind you --
+were unfazed. "Nobody in here would know how to do that kind of thing,"
+one told me confidently. Challenge accepted.
+ 
+A few days later, I returned -- this time with a Proxmark3 paired 
+over Bluetooth to my phone, using a BT/TCP bridge and Termux for remote
+shell access. I walked them through the tool: cheap, searchable, and 
+entirely capable of turning anyone into anyone, so long as they happened
+to glance at the conveniently exposed monitor.
+ 
+Then I asked: "What happens if someone loses their badge?"
+ 
+As expected, a paper binder labeled "Master Card Sign-Out" sat nearby -- 
+just like in every other building using this outdated Millennium system.
+I signed out the master card, tapped it against the cloner, and then 
+casually returned it: "Oh, found my card after all." One NFC playback
+later, I popped the nearest door. On their terminal, the event lit up:
+access granted by the master.
+ 
+That demo didn't trigger a full system upgrade -- but it did trigger
+change. The team chose to retire the aging centralized system in favor of
+standalone, auditable locks. In doing so, they traded real-time
+event monitoring for simplicity, confidentiality, and ease of management.
+A calculated risk -- but one that acknowledged the vulnerabilities inherent
+in the status quo.
+ 
+Why were credentials visible in the first place? Because they'd lost the
+packaging with the facility code -- and the terminal was the easiest way
+to display card numbers during enrollment. It's the same pattern seen
+across industries: convenience layered atop forgotten processes, with
+security treated like a suggestion rather than a foundation.
+ 
+It's easy to laugh at how quickly some of these systems fall over.
+But the uncomfortable truth is that real people rely on them -- to protect
+physical spaces, digital assets, and their sense of safety. The line
+between a harmless demo and real-world harm is vanishingly thin. All I can
+do is keep shining light into these blind spots -- and try to leave things
+better than I found them.
+ 
+
+                  ----------------------------------------
+                                  The Meh
+                  ----------------------------------------
+                        "Low-Hanging Fruit, Unpicked"
+ 
+
+Sometimes a vulnerability is less about smoking craters and more about slow
+burns: latent issues born of legacy design, well-meaning developers, and
+market inertia. This section isn't a teardown of a catastrophic breach --
+it's a walk through of common flaws that persist in security hardware, made
+worse by indifferent responses and cost-cutting decisions. Call it the
+"soft underbelly" of access control: not the worst offenders, but still
+ripe for exploitation.
+ 
+My initial attention was drawn to the Alarm Lock T2/T3 series not through
+some exotic failure, but because they were everywhere -- and because they
+answered emails. In the early days of my locksmithing career, Alarm Lock
+stood out as one of the few vendors actually willing to engage with
+vulnerability reports. When I found subtle flaws or unexpected behaviors,
+their reps responded constructively. For a while, that earned them my focus
+and, perhaps, my loyalty.
+ 
+That changed as the scope of my findings grew.
+ 
+The earliest discovery was an unintended throwback to phone phreaking.
+On certain T2/T3 units, keypresses on the 3x4 matrix keypad would generate
+a log event -- after which, the residual voltage from the keypress was
+routed through a speaker whose tone or volume varied depending on the
+voltage/amperage. This created a unique acoustic fingerprint for
+each digit. While the variance wasn't precise enough to keylog reliably
+at scale, it was sufficient for a nearby attacker to infer 6-digit codes
+with a 1-2 digit error margin -- enough to brute-force the rest. I
+told Alarm Lock that they could fix the issue by using cheaper, less
+consistent speakers. To their credit, they did -- within two weeks.
+ 
+Then there was a bypass technique straight out of the 1950s locksmithing
+playbook: a stiff wire, slipped behind an unshielded core, could deflect
+the tailpiece just enough to retract the latch on improperly installed
+units. I privately disclosed this method to three different manufacturers.
+BEST responded immediately and redesigned their tailpiece. Alarm Lock
+held out until I calculated the ROI on a $0.01 fix versus a $1M liability.
+Kaba acknowledged the flaw, but brushed it off, citing "specialized
+knowledge" is required to pull it off. (To their credit, the handle
+retaining clip is a pain in the ass.)
+ 
+Another proof-of-concept involved upside-down compressed air cans and the
+joys of thermodynamic abuse: by freezing the wires behind the battery pack,
+it was possible to interrupt power long enough to trigger a reset from the
+outside of a locked door. I thought I saw beefier wire shrouds show up in
+later production runs, but maybe that was wishful thinking.
+ 
+Then there's the remote release wires -- arguably the most egregious
+vulnerability in the whole system. These two leads, designed to connect
+to a third-party remote receiver, could unlock the door when shorted.
+The problem wasn't that the function existed -- it was that it was enabled
+by default. Worse, the only reason given was convenience: "Users purchasing
+our remote receiver product don't want to go through extra setup steps."
+Fair enough, until you consider that the wires, though hidden behind the
+lock body, were still physically accessible. Misaligned installations,
+damaged doors, or just the right drilling angle could allow an attacker to
+bridge the wires and open the door with little evidence. As a final insult,
+one of the communication ports lined up perfectly with the target leads --
+meaning a hole drilled straight through the center could expose them, and
+leave the communication port functional.
+ 
+That stuck with me. It felt like something a single flipped bit could fix.
+After all, pairing the remote still requires user input at the keypad --
+why not have a user explicitly enable the function while they're at it?
+I reached out to Alarm Lock to offer help. They stopped replying.
+ 
+That was the moment the research turned inward. I started wondering:
+What else was stored inside this thing? How was it protecting user codes
+and access logs? could the firmware be dumped? Were credentials stored in
+plaintext or obscured? What happened to those values after a factory reset?
+ 
+I never got answers from Alarm Lock -- just a message passed through a
+third party: "We're not worried about it."
+ 
+And yet, some issues forced their hand. The mortise spindle defect --
+a design oversight that could trap occupants in a room due to vibration
+loosening a screw -- took multiple real-world incidents before correction.
+I heard the company president was furious that a penny-per-unit saving had
+caused physical entrapments. That fury, at least, seemed well placed.
+ 
+It wasn't just Alarm Lock. I once had a surreal conversation with Kaba
+tech support when trying to debug audit logging on a 5031 unit. The lock
+was managed via an air-gapped machine (no ethernet, no Wi-Fi credentials).
+Tech support's proposed fix? "Please let us remote into the machine." I
+refused. They suggested tethering it to my personal phone to create a
+mobile hotspot for tunneling. I ended the call and escalated. Eventually,
+they admitted this technician had a reputation for questionable advice --
+but was still their "best."
+ 
+All of this illustrates something that's hard to teach: there's no patch
+for complacency. Whether it's a speaker chosen for convenience instead of
+signal inconsistency, a wire routed for ease instead of security, or a
+support tech trying to backdoor a secure enclave via Wi-Fi tether --
+these are choices. None of these flaws would make headlines alone. But
+as a system, they add up -- quietly expanding the attack surface,
+inviting edge-case abuse, and punishing those who assume "good enough"
+is safe enough.
+
+Let's break it down.
+ 
+ ]--[ Possible attack vectors:
+
+ - Acoustic side-channel code harvesting
+ - Tailpiece latch manipulation via physical bypass
+ - Reset triggering via thermal interruption of battery rails
+ - Remote unlock via pin-bridging or surgical access to lock-side wires
+ - Credential scraping from physical reset or dump points (see Deep Dive)
+ 
+ ]--[ Possible remediations:
+
+ - Shield tailpieces and internals; proper door gap & latch engagement
+ - Disable remote unlock enabled by default
+ - Store credentials encrypted
+ - Improve QA oversight for high-vibration and extreme environments
+ - Fix your tech support policies -- seriously
+ 
+This section isn't meant to dunk on Alarm Lock or Kaba. If anything, it's a
+reflection on what happens when a product line gets "good enough" and
+freezes in time. These locks worked - until they didn't. They were secure -
+until someone looked. They were supported - until the support guy asked you
+to plug a SCIF box into your iPhone.
+ 
+Up next, I go deeper: dumping the NAND, reading the firmware, and testing
+what it takes to really reset a lock.
+ 
+
+                  ----------------------------------------
+                                  The Bad
+                  ----------------------------------------
+                        "Fuse Bits? What Fuse Bits?"
+
+
+I knew I needed to read the firmware -- maybe even pull raw memory --
+but I had no idea where it was stored or how it was accessed. My
+usual trick of scraping FCC filings for detailed circuit diagrams came up
+dry: Alarm Lock had filed theirs as proprietary. No pinouts, no schematics.
+Nothing. I was on my own.
+ 
+Despite acting as the local expert for these locks, I was a locksmith,
+not a hardware hacker. Sure, I'd dabbled in CTFs and basic web app
+security, but dumping firmware from a microcontroller felt like unknown
+magic. Still, I couldn't shake the question: how did this thing work?
+I was attesting to the security of this hardware with every install.
+I needed to know.
+ 
+So I dove in. The hacker community, thankfully, is more generous with
+knowledge than the locksmith world. I devoured free tutorials, tried
+every tool I could find or afford, and adopted the universal method of all
+desperate tinkerers: try, fail, and try again, slightly differently.
+Probing debug ports. Reading datasheets I barely understood. Asking smarter
+people why I was wrong. Then doing it again from a different angle.
+ 
+This went on for over a year before I recovered a single meaningful byte.
+ 
+Don't get me wrong -- it was rewarding. The process felt familiar in its
+chaos. Just like locksmithing, there were dead ends, expensive "miracle
+tools" that weren't, and an endless string of tiny, infuriating failures.
+But eventually, persistence paid off. I got the firmware. I got the user
+data. I got everything.
+ 
+But getting there meant bricking boards. A lot of them.
+ 
+                I. Soldering, JTAG, and Other Tiny Nightmares
+ 
+My early attempts at non-destructive debugging were laughable.
+Acupuncture needles worked great on some tiny debug headers, but were
+useless for the larger JTAG ports. The "video game controller method" --
+pressing wires into ports with hand pressure -- was wildly unreliable.
+Eventually, I dialed in a more stable solder-and-breakout method involving
+micro tips, flux layers, breakout leads, and enough heat to make any ESD-
+conscious engineer twitch. It wasn't elegant, but it worked. Repeatedly.
+ 
+Curious details kept popping up. On some boards, two sets of debug ports
+were bridged with solder -- sometimes with a U-pin jammed between them.
+Naturally, I unbridged them. Most of my testing happened in that unbridged
+state. Later, I re-bridged them. No difference. Then I got a newer board
+that didn't have the bridge at all. I never did figure out what it was for.
+ 
+                    II. Writing Flash: Not As Advertised
+ 
+Eventually I graduated from reading to writing, but progress remained
+fickle. Some memory regions (notably 0x3100 and below) refused to accept
+writes, regardless of connection stability. That's when I learned the
+phrase, "JRTFM;" TI's code for the microprocessor lives below 0x3100, and
+the maincode memory exists 0x3100 and above. Yet, even when everything
+seemed perfect, flashing would fail with bizarre offset errors. Sometimes
+writes would abort halfway through a successful read. Sometimes nothing
+worked -- until it did.
+ 
+I don't know why it worked. Maybe it was luck. Maybe it was because I
+unplugged every other USB device. Maybe it was the battery pack. Maybe it
+was Linux and Wine conspiring against me. All I know is that when it did
+work, it happened in a very specific setup:
+ 
+ - Only the programmer was plugged into USB.
+ - The board was rock still.
+ - A successful memory read occurred first.
+ - A small write was done.
+ - Then the main memory was erased and a full upload attempted.
+ 
+This sequence succeeded three times. No idea why. It was like I had to
+break each board in before they wanted to behave.
+ 
+                       III. The Value of a Single Bit
+ 
+One of my more disastrous successes involved locating the SetMasterCode
+function. Before it ran, a set of values were initialized -- mostly
+zeroes, but a few ones. Curious, and lacking the skills to hook and
+modify execution flow, I flipped all those ones to zeroes and re-flashed
+the firmware.
+ 
+It "worked," in that I disabled the remote release -- it also bricked
+the board. Beeps were slower on power-up. Keypad was dead after power-up.
+NAND flash returned only zeroes and refused to accept writes. The
+microcontroller was still accessible, but the NAND was gone. I'd turned
+a lock into a very expensive paperweight by toggling four bits.
+ 
+Was it write protection? Voltage configuration? Some undocumented NAND
+state? I still don't know. But I learned a lesson the hard way:
+insight before action. Poking bytes blindly, even a few, is a great way
+to end up soldering a new board.
+ 
+                             IV. No Help Coming
+ 
+This entire journey happened in a vacuum. Alarm Lock didn't publish specs.
+They didn't offer a devkit. They didn't even update their software
+dependencies until I pointed out they were shipping SQL Server Express 2008
+in 2022 -- with no mitigation against remote exploits. Their response was
+to upgrade to SQL 2012. After I objected again, they started recommending
+SQL 2022. It only took 14 years and one email.
+ 
+A well-respected locksmith once told me, "They're not worried about the
+1% of people like you." He wasn't being dismissive -- just realistic.
+But that 1% is where the research comes from. It's where security gets
+stress-tested. The people willing to burn time, boards, and reputation
+to figure out how things actually work.
+ 
+The industry isn't hostile, exactly. It just doesn't care. It moves when
+pushed. Usually after someone breaks something. Or after a customer asks
+the right question in front of the wrong person. Rarely before.
+ 
+                      V. The Moment I Knew It Mattered
+ 
+I never expected any of this to make a difference. I was doing it for
+myself, maybe for a presentation someday. But while helping OSI investigate
+a break-in, I glanced down at a T3's communication port. The agent stopped
+me, mid-reach:
+ 
+ "Looking for the hole in the comm port thing?"
+ "Yeah," I said, surprised. "You can bridge the-"
+ "-the two white wires. Yeah, they tell us to look for that now."
+ 
+Something I'd quietly disclosed had become standard procedure.
+ 
+I had no idea anyone was listening.
+ 
+
+                  ----------------------------------------
+                                  The Ugly
+                  ----------------------------------------
+  "A lock that logs itself is like a suspect writing their own alibi.
+   The story might check out -- until you notice the ink's still wet."
+
+
+                    I. The Locks Are Watching Themselves
+ 
+At the heart of many commercial access control systems lies a dangerous
+assumption: that the lock itself is trustworthy. Not just to control
+physical access, but to audit its own behavior. This might feel
+efficient -- one device to secure and monitor an entry point --
+but in practice, it sets up a single point of failure with no
+external validation.
+ 
+These locks produce logs of every access event, badge scan, code entry, and
+failed attempt. But what if that log can be rewritten? What if codes can be
+injected to grant access -- and then purged from memory? That's not just a
+hypothetical concern. I achieved exactly that: persistent code injection,
+surviving factory reset, complete with audit trail manipulation. The NAND
+flash research revealed that codes, flags, and logs coexist in a loosely
+defined memory structure -- one ripe for tampering.
+ 
+You don't have to erase the log to hide an intrusion. You just need to add
+a convincing line of fiction: "Master code used, successful unlock." And
+suddenly, your break-in looks like an authorized user at 2:17 AM.
+ 
+                      II. Broken Trust at the Perimeter
+ 
+These aren't bargain-bin smart home locks. Alarm Lock positions the T3/T2
+lines as secure, institutional-grade products -- installed in pharmacies,
+banks, schools, and government buildings. That positioning comes with
+consequences. These are environments where audit logs are legal evidence
+and where physical access may mean access to controlled substances,
+financial systems, or sensitive data.
+ 
+And yet, my research shows that these locks trust too much: their own
+firmware, their own memory layout, their own audit trails, and even
+their own communication interface. There's no secure boot, no encryption
+at rest, and -- until tampered with -- wide-open JTAG interfaces.
+ 
+This is perimeter tech designed with an interior threat model: assume
+no one will try too hard. That assumption fails in environments where
+"trying hard" is the job.
+ 
+                        III. What If the Cable Lies?
+ 
+DL-Windows, the vendor-provided management software, communicates with
+these locks over a custom USB-to-UART cable -- specifically, a Silicon Labs
+CP2102-based adapter with a single bidirectional data line - and GND.
+It's how audit logs are extracted, how new codes are programmed, how
+"secure" facilities manage access.
+ 
+I emulated that cable.
+ 
+By capturing and replaying control sequences, I built a FaceDancer-based
+emulator that registers as the correct device and survives the entire
+Windows onboarding handshake. It's not perfect yet -- the Loopback Test
+within the DL-Windows software still needs to be conquered -- but it's
+far enough along to prove the point:
+ 
+If you can swap the cable, you can change what the software sees.
+ 
+Imagine a malicious cable, installed between the lock and the PC used
+for audits. It could intercept, forge, replay, or inject data. It could
+falsify logs. It could mimic a legitimate interaction while quietly
+planting a future access path -- like my injected programming code.
+ 
+Locks that self-report already have a trust problem. Locks that rely on
+trusted cables to verify those reports are even worse.
+ 
+                        IV. Sophisticated Actor Model
+ 
+I didn't brute force a keypad or grind a hinge. I clipped onto the NAND
+to read existing codes and write my own. I soldered micro-jumpers to UART
+pins under conformal coating - barely connecting to the BSL for an instant
+one time. I dumped the firmware contents through undocumented JTAG
+interfaces, reverse engineered portions of assembly code, and wrote a hook
+that writes an elevated user code during factory reset. I reversed
+proprietary control traffic and mimicked USB device descriptors byte-for
+byte. That's not a smash-and-grab -- it's a red team with time and budget.
+ 
+Some might argue these attacks are too complex to matter. But that's an
+unacceptable bar for a lock installed in financial institutions, government
+buildings, or healthcare environments.
+ 
+Yes, I can micro-solder leads onto the JTAG ports of an MSP430, or to
+the UART if the JTAG fuse was accidently blown. Yes, I can simulate
+audit data and spoof access codes. But the point isn't just that I can
+do it. The point is that a capable adversary could do it better. With
+smaller hardware. With stealthier payloads. And with no intention of ever
+writing a paper about it.
+ 
+The risk isn't theoretical. It's just unpriced -- because the industry has
+stopped imagining threats that don't wear hoodies.
+ 
+                        V. Remediation Isn't That Hard
+ 
+There's no silver bullet here -- but there are steps that would raise
+the bar substantially. Blow the JTAG fuse. Encrypt the NAND contents. Use a
+basic TPM or secure element to attest firmware state. I'm not talking about
+rocket science -- I'm talking about table stakes.
+ 
+The best remediation, though, isn't on the board. It's in the architecture.
+ 
+                       "Observer System Model"
+ 
+                       |   Motion Sensor     |
+                       | (Interior Room PIR) |
+ 
+        	                 |
+        	                 V
++---------+       +--------------+---------------+      +----------------+
+|  Lock   |       |   Observer System / Audit    |      | Door Sensor    |
+|         |  ->   |   Aggregator & Correlator    |  <-  | (Open/Closed)  |
+| (Self-  |       |  (e.g., MCU, SoC, TPM-based) |      +----------------+
+|auditing)|	  +------------------------------+
++---------+
+                       Diagram Notes:
+     |                 The lock still reports events, but it's no longer
+     | USB/Serial      the source of truth. An independent Observer
+     |                 System collates motion detection + door open/close
+     V                 + lock events. This model supports tamper detection,
++----------+           redundant logging, and forensic clarity.
+| Auditing |
+| Software |
+| (DL-Win) |
++----------+ 
+ 
+
+The observer system can be as simple as a microcontroller with multiple
+inputs, or as complex as a trusted TPM-backed access controller.
+ 
+Locks shouldn't self-audit. Period. Audit logs should come from independent
+observers: door sensors, motion detectors, cameras, or badge readers on
+separate systems. When one device controls access and narrates its own
+behavior, it creates a feedback loop with no external validation. If the
+audit log says "door closed" but the motion detector says "movement
+inside," someone should get an alert -- because something's lying.
+ 
+That's not paranoia. That's layered security.
+ 
+                       VI. We Should've Expected This
+ 
+When the Department of Defense specs out physical security, they don't just
+harden networks. They harden objects. Lock cores, access panels, even badge
+readers are treated as attackable. Sometimes they embed tamper switches.
+Sometimes they pour epoxy over debug ports. And always -- always -- they
+assume that supply chain risk is real. That's if all of the best practices
+are enforced.
+ 
+So what does it mean that a lock in a pharmacy can be reprogrammed through
+a USB cable and have its audit logs rewritten by injecting three bytes into
+a flash page?
+ 
+It means we failed to ask: what if the attacker is inside the building?
+ 
+Or worse -- what if the attacker installed the lock?
+ 
+
+             ===================================================
+             Deep Dive 1: NAND Flash - The Memory That Remembers
+             ===================================================
+            "They forgot to blow the JTAG fuse. I forgot to care.
+ 	         The flash chip was the better target anyway."
+
+
+                            I. Why NAND First?
+ 
+The MSP430's JTAG protection was surprisingly... nonexistent.
+The fuse was intact. The micro was readable.
+ 
+And yet -- I didn't go for it. I went for the flash.
+ 
+The Adesto AT45DB041E NAND flash chip (4 Mbit, SPI) was:
+ - Accessible
+ - Tool-agnostic
+ - Explicitly designed for non-volatile storage
+ 
+User codes and audit data practically begged to be stored here.
+The MSP430 likely held volatile runtime logic; the NAND was where
+the dead bodies were buried.
+ 
+The fact that it could be read/written with a $30 Xgecu T48 programmer
+didn't hurt either.
+ 
+                      II. Tooling Note: Xgpro Software 
+ 
+The tooling setup is... an exercise in patience.
+ 
+ - The official Xgpro software is only available via sketchy .cn sites over
+   plaintext HTTP
+ - It runs on Windows, but can be coerced into working with Linux/Wine
+ - You'll need custom udev rules and a setupapi.dll dropped into the
+   install directory
+ 
+For a safer software source:
+ ]--[  https://github{dot}com/radiomanV/XGecu_Software ]--[
+ 
+Linux setup guide:
+ ]--[  https://boseji{dot}com/posts/running-tl866ii-plus-in-manjaro/ ]--[
+ 
+                         III. How the Flash Behaves
+ 
+What makes this NAND interesting isn't just what it stores -- it's
+when it stores it.
+ 
+Despite being the non-volatile repository for user codes and audit data,
+The flash doesn't receive immediate updates when changes are made.
+ 
+Instead:
+ - Data is written only after batteries are removed
+ - Or after a long idle timeout (presumed low-power state)
+ 
+Hypothesis:
+ => The MSP430 uses a low-voltage interrupt to commit volatile data to NAND
+    before power-down
+ 
+Supporting evidence:
+ - Audit logs contain:
+   "Low Battery Detected"
+   "Power Up Complete, Data Restored From Flash"
+ - Flash reads taken *before* power loss show no changes
+ - Flash reads taken *after* power loss show complete updates
+ 
+This lazy write model has... consequences.
+ 
+                      IV. Data Layout and Code Encoding
+ 
+The NAND flash layout is weird -- and not in the good "clever" way.
+ 
+    ]==[ User Code Format
+ 
+User codes are stored as 6-digit, right-padded decimal strings:
+   123 -> "123000"
+ 
+Encoding quirks:
+ - "0" is encoded as ASCII 'B'
+   (The MSP430 treats "00" as masking -- possibly the reason)
+ - Every user group is prefixed with a fixed byte:
+   FD -- a page or section marker, not part of the code itself
+ 
+    ]==[ NAND Flash Page Layout (50 User Entries)
+ 
++------------+-----------------------------------------------------------+
+| Offset     | Description                                               | 
++------------+-----------------------------------------------------------+
+| 0x0000     | FD (page header marker)                                   |
+| 0x0001..32 | 1st byte of each user code (50 total)                     |
+| 0x0033..64 | 2nd byte of each user code                                |
+| 0x0065..96 | 3rd byte of each user code                                |
+| 0x0097..C8 | Active flags (01 = active, FF = inactive)                 |
+| 0x00C9..FA | Permission flags                                          |
+|            |  F1 = Master, E1 = Elevated, C1 = Supervisor              |
+|            |  01 = Normal, 11-41 = Grouped users (1-4), FF = Inactive  |
+| 0x00FB..FF | Padding (13 bytes)                                        |
++------------+-----------------------------------------------------------+
+ 
+Examples:
+ 
+   Code 123456 -> '12' '34' '56'
+   Code 123    -> '12' '30' '00'
+ 
+Codes are not encrypted. No MAC. No CRC. No checksums.
+ 
+Just raw bytes.
+ 
+An attacker's dream.
+ 
+                        V. Flash and Reset Behavior
+ 
+Modifying NAND flash seems persistent -- but it's not that simple.
+ 
+If a user code is flashed via programmer:
+ 
+ - A different user code can overwrite it via keypad
+ - A factory reset via keypad wipes codes, sets default 123456
+ - Audit log is preserved
+ 
+However, if you wipe the flash - entirely - (all 0x00, including
+headers and logs):
+ 
+ - The lock triggers a full factory reset on battery replug
+ - All user codes cleared, event log gone, master code resets to 123456
+ - This behavior has been observed in-field:
+   => Unexpected resets after unexpected full battery drain
+   => Sudden reversion to factory config
+ 
+In effect: Erasing the NAND is equivalent to "soft-bricking" the lock
+into default behavior.
+ 
+                VI. Audit Inconsistencies: Printer vs. Export
+ 
+And here's where it gets spooky.
+ 
+Sometimes:
+ - Injected codes appear in printed user lists ("Print Users" command)
+ - But do NOT appear in exported user lists via PC ("Export Users" option)
+ 
+Permissions inconsistencies:
+ - Injected users sometimes show blank/ungrouped roles
+ - C1 or E1 roles in atypical locations cause audit problems more often
+ 
+This opens a nasty stealth window:
+ - Auditor sees "User 13" open the door
+   => But doesn't see that User 13 had F1 (Master) privileges
+   => Or that they entered programming mode to make changes
+ 
+Even worse:
+ - Bad NAND injections triggered application-side exceptions:
+   => "Input string was not in a correct format."
+ - This crashes the PC software or fails to export the audit
+ 
+                      VII. Attack Path: NAND Injection 
+ 
+With off-the-shelf tools and modest effort, I achieved full arbitrary
+NAND injection.
+ 
+Here's the result matrix:
+ 
++----------------------------+-------------------------------------------+
+| Capability                 | Result                                    |
++----------------------------+-------------------------------------------+
+| Inject code at arbitrary   | Yes (via Xgecu and raw hex write)         |
+| position                   |                                           |
+| Grant elevated permissions | Yes (F1, E1, C1 all functional)           |
+| Bypass audit               | Partial (log shows user, not role)        |
+| Evade export               | Yes (printer shows, PC export may not)    |
+| Survive factory reset      | No                                        |
++----------------------------+-------------------------------------------+
+ 
+                      VII. What's Next: Micro Injection
+ 
+The flash was writable -- but volatile.
+ 
+To make persistent changes, I needed to inject code into the MSP430's
+firmware, using assembly code to write to NAND -- triggered by the lock.
+ 
+That's where Deep Dive 2 begins.
+ 
+ 
+           ======================================================
+           Deep Dive 2: MSP430F2418 Firmware - Hooking the Master
+           ======================================================
+             "They forgot to blow the fuse. I forgot to stop."
+
+ 
+When you've bricked three boards and still feel like the dumbest thing
+you've done was trust an opcode mnemonic, it's time to sit down and rethink
+your life -- or at least your assembly hook.
+ 
+                              I. Why Firmware?
+ 
+The NAND flash was an open book, but every time the board reset, our
+clever injected codes got wiped. That left only one conclusion: To
+write persistent backdoor codes, we'd have to go deeper -- into the
+firmware itself.
+ 
+And wouldn't you know it, Alarm Lock had left the fuse bits untouched. The
+MSP430F2418 was entirely readable and writable over JTAG. No protection, no
+BSL lockout, no warning.
+ 
+                                 II. Tooling
+ 
+ - MSP-FET debugger
+ - UniFlash (TI)
+ - Ghidra + custom memory map + infinite patience
+ - MSP430 assembly reference and chip documentation (lot's of it)
+ - Optional: brain damage
+ 
+                               III. Objective
+ 
+Inject a persistent elevated code during board reset by modifying
+the firmware, to write a second privileged user to NAND -- ideally in a
+position that wouldn't be audited or expected.
+ 
+                             IV. Function Found
+ 
+After following the firmware's factory-reset flow, I discovered the
+"SetMasterCode()" routine began at 0x9ECA. It writes the default
+master code (123456) into a known region of RAM (likely mapped to NAND
+via a page write), sets flags (active + F1 privilege), then calls a
+flush routine. A hardcoded value is a dead giveaway when searching for
+these sorts of things:
+ 
+  9ed6 f2 40 12 	MOV.B   #0x12, &DAT_1151
+  9edc f2 40 34 	MOV.B   #0x34, &LAB_1180+3
+  9ee2 f2 40 56 	MOV.B   #0x56, &LAB_11b4+1
+ 
+                            V. First Hook Attempt
+ 
+At first, I tried branching out with CALL or BR to a new code stub at
+0xFA20 using the B0 40 XX XX opcode. My inserted logic mirrored the memory
+writes of the master code logic, but targeted a different user position.
+ 
+Unfortunately: this bricked the board. The NAND came up blank, and no code
+worked. Probably due to the mismatch between my RET and the unbalanced
+stack state of a BR call. A few weeks learning TI assembly later, and I
+found out the hard way:
+ 
+ - Use BR (MOV #addr, PC) instead of CALL when you're hijacking control
+   flow from the middle of a function.
+ 
+                         VI. Final Working Injection 
+ 
+I settled on hijacking the execution at 0x9EE8 with a clean BR
+(30 40 20 FA), redirecting execution to unused space at 0xFA20 containing
+our code payload. It writes a second elevated user code (696969) at user
+slot 49, then returns execution with another BR.
+ 
+                     VII Firmware Patch (TI-TXT format)
+ 
+@9ee8
+30 40 20 fa          ; BR #0xFA20 -> jump to custom code
+ 
+@fa20
+D2 43 e7 11          ; MOV.B #1, &0x11E7       ; active flag
+F2 40 69 00 81 11    ; MOV.B #0x69, &0x1181    ; byte one of code
+F2 40 69 00 b3 11    ; MOV.B #0x69, &0x11B3    ; byte two of code
+F2 40 69 00 e5 11    ; MOV.B #0x69, &0x11E5    ; byte three of code
+D2 43 17 12          ; MOV.B #1, &0x1217       ; active bit
+F2 40 e1 00 49 12    ; MOV.B #0xE1, &0x1249    ; permission = E1 (elevated)
+30 40 ec 9e          ; BR #0x9EEC              ; return to original flow
+ 
+Q
+ 
+                                VIII. Result
+ 
+ - Code 123456 (master) and 696969 (elevated) both work after reset
+ - NAND shows proper entries in expected locations
+ - User 49 receives full elevated access with no audit visibility until
+   queried (typically after an event)
+ - Injection is stable and survives multiple resets
+ 
+                    IX. Failed Exploits & Lessons Learned
+ 
+ - Using CALL broke stack state -> use BR for inline patches
+ - Writing to later NAND pages requires changing the selected page -
+   not just memory address
+ - Writes to NAND fail silently if setup/teardown logic isn't preserved
+ - NAND interface likely uses memory-mapped I/O buffers and a delayed flush
+ - Ghidra + GPT != magic. Manual verification of every opcode is still
+   required
+ 
+                           X. NAND Page Limitation 
+ 
+Page selection appears to be hardcoded or controlled by early setup logic,
+meaning:
+ 
+ - You can inject multiple users to the same page (e.g., user 1 + user 49)
+ - You canNOT write to page 2+ without re-implementing page switching logic
+ 
+                          XII. Attack Path Summary 
+ 
+ - No JTAG fuse -> full firmware read/write
+ - "SetMasterCode()" hijack -> persistent backdoor code
+ - Multiple elevated users possible, even in normally restricted slots
+ - Firmware injection bypasses audit visibility
+ - Injection could be used to change any behavior of the lock (even remove
+   the audit reporting function altogether)
+ 
+                   XIII. Deep Dive 3: DL-Windows Emulation
+ 
+We've injected codes via NAND.
+We've backdoored firmware via JTAG.
+ 
+Now we'll step back from the hardware and target the audit tool itself:
+The DL-Windows cable and protocol stack.
+ 
+Skimmer cable, forensic auditor, or both?
+ 
+Let's find out.
+ 
+
+            =====================================================
+            Deep Dive 3: DL-Windows Cable - Emulating the Auditor
+            =====================================================
+       "When the tools used to detect tampering can be tampered with."
+
+
+                          I. Why Cable Emulation?
+ 
+After compromising the lock's NAND and firmware, I set my sights on
+the final authority in the room: the PC software used to interrogate it.
+ 
+DL-Windows is Alarm Lock's official audit and configuration utility.
+Investigators plug a USB cable into the lock, pull an "Event Log" and
+"User List," and assume it reflects the device's true state.
+ 
+But what if the cable lies?
+ 
+                              II. Objective
+ 
+Build a USB device that:
+ - Emulates the official CP2102-based programming cable
+ - Enumerates correctly in Windows and DL-Windows
+ - Passes part (or all) of the loopback test
+ - Demonstrates the potential to spoof or manipulate audit results
+ 
+                              III. The Setup  
+ 
+Using a GreatFET One with the FaceDancer framework, I intercepted the
+USB descriptor exchange and reproduced the key components:
+ 
+ - Full Device + Config + Interface descriptors
+ - Vendor-specific requests (e.g., 0xFF expecting 0x02)
+ - Bulk endpoints: 0x01 OUT, 0x81 IN
+ 
+                        IV. Loopback: Partial Success
+ 
+DL-Windows expects the cable to echo data sent to endpoint 0x01 OUT on
+0x81 IN. This is the so-called "Loopback Test," and the software refuses
+to continue without it.
+ 
+I recreated part of this test -- passing the first ~40 of 303 expected
+packets. Then, the software aborted the request, returned "Invalid Port
+Number," and logged a failed loopback.
+ 
+Still, the partial pass proved two things:
+
+ - My emulator can pass Windows CP2102 enumeration and is recognized
+   by DL-Windows
+ - DL-Windows interacts with my device as if it were real, making it a
+   viable attack surface
+ 
+     V. Sidebar: Framework Showdown - FaceDancer vs. umap2 vs. usbproxy
+ 
+Before FaceDancer worked, other options were explored:
+ 
+ - umap2 (NCC Group)
+   => Python-based USB emulation with scriptable PHY backends
+   => Pros: Powerful device scripting, support for HID/storage/mass-class
+   => Cons: Lack of GreatFET backend (fd:greatfet was broken), custom
+      PHY integration needed
+ 
+ - usbproxy
+   => Proxy and MITM between USB device and host
+   => Pros: Promising for sniff-and-spoof setups
+   => Cons: GreatFET support limited; PHY bridge not usable out of the box
+ 
+ - FaceDancer (modern fork)
+   => Active dev, GreatFET support, CP210x descriptors doable
+   => Cons: Minimal high-level docs, no built-in CP210x class,
+            full emulation coded manually
+ 
+Ultimately, FaceDancer struck the best balance between low-level
+USB descriptor control and Python-based flexibility, making it ideal for
+a handcrafted spoofing cable.
+
+                          VI. UART Activation Quirk
+
+It's worth noting that the comm port -- while externally accessible --
+does not appear to respond until the lock has been placed into programming
+mode and a specific command is issued. This suggests the MSP430
+reconfigures its UART pins dynamically, switching from an inactive or high-
+impedance state into an active communication mode only after user input.
+
+This is, to their credit, a smart design choice. It prevents casual probing
+and reduces passive attack exposure.
+
+But even good ideas can be misplaced.
+
+Best practice dictates that critical communication interfaces should be
+inside the secure envelope. The DL-Windows port -- used for audit logs,
+firmware updates, and credential programming -- sits outside the door,
+on the keypad side. So does the main circuit board. A better design
+would route the keypad as a peripheral, with the logic board and comm
+interface on the interior.
+
+Had that been the case, it could have prevented:
+
+ - Cold-triggered resets via battery-freeze attack
+
+ - Fishing for remote release leads through drilled holes
+
+ - UART-based attacks from outside the secured area
+
+External interfaces are always risk multipliers. Design like your attacker
+is already at the door -- because they are.
+
+         VII. Partial Protocol Observation: What Might Be Possible?
+ 
+I captured traffic from real lock sessions using USBPcap and Wireshark,
+observing full enumeration and bulk IN/OUT command traffic:
+ 
+ - Framing starts with 0xFD, followed by opcode/data
+ - Software requests users, logs, and config over bulk OUT
+ - Lock responds on bulk IN with FF-padded blocks, decoded into tables
+ 
+Though my emulator doesn't yet complete a session, it does provoke
+software behavior. Also, during NAND flash manipulation, a corrupted code
+injection triggered:
+ 
+  "Input string was not in a correct format."
+ 
+This indicates weak type handling -- and raises the question: what else
+can a "bad" cable make the software do?
+ 
+                    VIII. Software Vulnerability Vector?
+ 
+DL-Windows has no cable authentication, and the only gatekeeping is an
+echo test. A rogue cable with partial compatibility could:
+ 
+ - Crash the audit software
+ - Corrupt or falsify logs
+ - Inject spoofed user tables
+ - Execute firmware commands from a compromised PC
+ 
+                             IX. Reality Check
+ 
+I haven't spoofed the full audit -- yet. But I've proven that:
+ 
+ - DL-Windows trusts CP2102 class devices blindly
+ - Echo tests are not sufficient for device authenticity
+ - Partial emulation provokes real behavior, including exceptions
+ 
+                  IX. Up Next: Attack Vectors & Remediations
+ 
+The lock can lie. The firmware can lie. And now, so can the cable.
+ 
+I'm not just tampering with the lock anymore -- I'm tampering with
+the audit trail.
+ 
+Time to talk about threat models, TPMs, and the absurdity of
+self-auditing endpoints.
+ 
+
+     ===================================================================
+     Attack Vectors & Remediations - How to Lie Better, or Defend Better
+     ===================================================================
+            "Security by obscurity? More like security by luck."
+
+
+                 I. Threat Model: The Lock vs. The Ecosystem
+ 
+It's easy to point at a board and say "just blow the JTAG fuse." But
+this isn't about one pin.
+ 
+Alarm Lock positions itself in verticals like:
+ 
+ - Schools
+ - Pharmacies
+ - Federal agencies
+ - Financial institutions
+ 
+Their locks often aren't online - but that doesn't lower the risk.
+It changes the vector. If a product is used in a sensitive environment,
+the threat model changes with it.
+ 
+This is no longer a locksmith's problem. It's an ecosystem one.
+ 
+               II. Known Vectors Mapped to Real-World Threats
+ 
+Attack Path                 Tools Needed           Impact
+--------------------- --------------------- -------------------------
+Badge cloning         <$100 hardware, phone  Badge duplication, door access
+
+Firmware injection    MSP-FET, UniFlash      Persistent backdoor + code
+
+NAND injection        Xgecu T48              Ghost users, audit mismatch
+
+Emulated cable        GreatFET, FaceDancer   Fake logs, corrupt audits
+                                                  
+Wire bridging         Drill, wire hook       Unlock door without code
+
+Factory reset         Screwdriver, access    Code wipe, access fallback
+
+Software Vulns        Invalid inputs,        Instability, crashes, audit
+(DL-Windows)          malformed USB          and user code manipulation
+ 
+                   III. Why Self-Auditing is a Dead End
+ 
+If the only device that *tracks* access is the device that *grants* access,
+then compromise is silent.
+ 
+ - A malicious cable can spoof the lock.
+ - A modified lock can spoof the log.
+ - And a cleared NAND wipes its own crime scene.
+ 
+Redundancy matters. Audit devices should verify the lock - not rely on it.
+A few options:
+ 
+-  Observer Systems:
+   Passive entryway monitors (motion sensors, doorframe sensors) that log
+   physical activity outside of the lock's account.
+ 
+-  TPM Integration:
+   Trusted Platform Modules for code+config attestation. Board validation,
+   secure boot, anti-rollback - standard on laptops, missing in locks.
+ 
+-  Out-of-band audit beacon:
+   A second module inside the lock - invisible to the keypad or PC -
+   that triggers whenever the board resets, reboots, or firmware changes.
+ 
+                      IV. Suggested Vendor Remediations
+ 
+This paper isn't just a critique. It's a to-do list.
+ 
+Mitigation                  Description
+--------------------------  ----------------------------------------
+Blow JTAG fuse              Locks must disable debug interfaces pre-ship
+
+Enable flash  protection    Prevent NAND overwrite without PC/PIN handshake
+
+Encrypt data at rest        Hash user codes/logs
+
+Implement cable-side auth   Use challenge-response, firmware validation
+
+Eliminate battery reset     Require PC handshake, jumper, or secure unlock
+
+Add audit beacon            Alert if firmware or NAND is modified
+
+Document security posture   If used in high-risk zones, treat accordingly
+ 
+                            V. Secure != Complex
+ 
+None of this demands a cryptographic moonshot.
+ 
+Cable-side auth could be as simple as a 4-byte challenge-response with CRC.
+ 
+JTAG protection exists on the silicon, unused.
+ 
+TPMs are <$5 in bulk, and many SoCs include secure boot by default.
+ 
+The failure isn't technological. It's philosophical.
+ 
+The current system assumes:
+ 
+ - Audits are truthful.
+ - Locks aren't targeted.
+ - Resets are rare.
+ - Nobody opens the case.
+ 
+This research highlights the danger of those assumptions.
+ 
+                  VI. Up Next: Future Work & Call to Arms
+ 
+From spoofed logs to injected firmware to emulated cables, we've shown the
+full lifecycle of access compromise --  and where it's being ignored.
+ 
+But there's still more to explore.
+ 
+ 
+            ====================================================
+            Future Work & Call to Arms - You Can't Patch Reality
+            ====================================================
+            "Because what comes next isn't just a lock problem."
+
+
+                          I. Unfinished Business
+ 
+You've seen how far the stack goes:
+ 
+ - Physical interface
+ - NAND storage
+ - Microcontroller firmware
+ - Communication cable
+ - Auditing software
+ 
+But several things still remain open:
+ 
+-  Full CP2102 loopback emulation
+   I passed some of the test. But with deeper descriptor manipulation and
+   tighter endpoint timing, I believe this could be fully spoofed - opening
+   the door to cable-based audit spoofing, credential exfiltration, or
+   toolchain fuzzing.
+ 
+-  Remote-release wire identification
+   A hardware trigger - buried in the firmware - could be accessible
+   through exposed leads. This line could silently trigger admin access,
+   unlock events, or "service" mode states.
+ 
+-  Audit parsing tool
+   Manual inspection of exported audits is slow and fragile. An open-source
+   parser + validator would allow for differential forensics across
+   firmware versions, user data sets, and methods of capture.
+ 
+-  MSP430 injection toolkit
+   Right now, writing firmware mods is a painful mix of Ghidra offsets,
+   hand-coded TI-TXT payloads, and high hopes. A structured platform could
+   reduce this to a reusable payload library, opcode templating system, and
+   memory map engine. I do know for a fact that multiple electronic cipher
+   locks use the MSP430 microprocessor.
+ 
+               II. High-Value Targets (If You're Listening...)
+ 
+This isn't just about this one lock. Or this one company.
+ 
+I'd love to see research into:
+ 
+-  Networked models
+   DL-Windows is paired with both wireless and touchscreen locks (the
+   wireless password is even restricted to exactly 6 characters per
+   DL-Windows configuration). That means OTA, that means BLE, that means
+   new firmware delivery mechanisms, and maybe new attack surfaces.
+   What's left exposed when the lock hits Wi-Fi?
+ 
+-  Live bus tracing on flash/NAND lines
+   What if we stopped guessing and watched the chip's I/O activity in
+   real time? Tracing SPI during code entry, power down, or reset might
+   give a complete state machine for the micro/NAND interaction.
+ 
+-  Tamper-aware firmware
+   Injected code that burns itself if cloned. One-time use credentials.
+   Canary values in NAND. There are a dozen ways to turn this platform
+   into a hardware CTF -- or a lesson in secure engineering.
+ 
+                              III. Final Words
+ 
+This isn't just a teardown. It's a stress test.
+ 
+Access control is physical, yes -- but it's also memory-mapped,
+USB-describable, firmware-hijackable, and wirelessly auditable. The
+separation between physical and digital security is long gone.
+ 
+And yet, in many of these products, digital attack surfaces remain
+unacknowledged -- not unexploited, just unseen.
+ 
+That ends here.
+ 
+The tools exist. The knowledge exists. The attackers exist.
+ 
+All that's left is the response.
+ 
+
+                  ========================================
+                        Thank You & Acknowledgments
+                  ========================================
+
+ 
+To the lockpickers, the reverse engineers, the physical security
+specialists, the USB tinkerers, and the keyboard masochists who still
+write their own TI-TXT and assembly payloads -- thank you.
+ 
+To Egypt, Ross, and everyone at my local maker-space -- thank you for
+helping me ask the right questions and directing me toward the answer.
+ 
+To my wife and friends who put up with my learning obsessed struggles --
+Thank you for your patience and encouragement.
+ 
+And to the engineers who still think JTAG is obscure and flash is safe:
+We're rooting for you.
+ 
+But we're also watching.
