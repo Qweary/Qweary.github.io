@@ -4,33 +4,46 @@ title: Current Focus
 permalink: /current/
 ---
 
-# 🔬 Current Focus
+# 🔬 Current Focus 🔬
+
+This section highlights the research I’m actively working on.  
+It will grow as new posts are released, giving a rolling log of progress, challenges, and breakthroughs.  
 
 ---
 
-## 🏷️ T2/T3 Lock System Deep Dive
+## 🔑 T2/T3 Lock System Deep Dive  
 
-This research project began with a deceptively simple question: What assumptions are being made about the security of the devices we physically trust every day?
+This project began with a deceptively simple question:  
 
-The DL-Windows system, the CP210x bridge, and the embedded lock firmware all present a fascinating challenge: a blend of old-school protocol behavior, misunderstood trust boundaries, and under-scrutinized deployments.
+> What assumptions are being made about the security of the devices we physically trust every day?  
 
-We're emulating hardware, deconstructing USB conversations, and replicating interactions from scratch using custom tools. Why? Because real-world lock infrastructure shouldn't be a black box.
+The DL-Windows system, the CP210x USB bridge, and the embedded lock firmware all presented a fascinating challenge: a blend of old-school protocol behavior, misunderstood trust boundaries, and under-scrutinized deployments.  
 
-Full write-ups are being released now. Proof of concept video below.
+The research has produced multiple blog posts, culminating in a working firmware injection PoC and system reset bypass.  
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/tD7BfMAFk9E" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-
-{% for post in site.categories.t2t3 %}
-### [{{ post.title }}]({{ post.url | relative_url }})
-*{{ post.date | date: "%B %d, %Y" }}*  
-{{ post.excerpt }}
+### Posts so far:
+{% for post in site.categories.research %}
+- [{{ post.title }}]({{ post.url | relative_url }}) <small>({{ post.date | date: "%b %d, %Y" }})</small>
 {% endfor %}
 
+📺 Proof of concept video:  
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tD7BfMAFk9E" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+
 ---
 
-## 🏷️ AudioHax (Preview)
+## 🎙️ AudioHax: Image → Music → Data  
 
-The next chapter dives into audio-based data encoding and covert channel research.  
-We’re building a modem-like system that hides structured payloads inside audio signals—bridging DSP, stego, and exploitation techniques.  
+Fifteen years ago, *Acoustic Art* was a student project with the audacious goal of translating images into music. Today, it has evolved into **AudioHax** — a fusion of art, theory, and security research.  
 
-First posts coming soon…
+The new vision:  
+- Use computer vision to analyze images (or live video).  
+- Map features into structured music.  
+- Encode and transmit data over audio channels.  
+
+This is both an artistic installation project *and* an exploration of covert communication channels.  
+
+### Posts so far:
+- [🎙️ AudioHax: Reviving a 15-Year-Old Dream 🎙️](/audiohax-intro.html) <small>(Aug 26, 2025)</small>  
+- [📡 AudioHax: Building a Robust MFSK Audio Modem in Rust 📡](/audiohax-mfsk.html) <small>(Sep 2, 2025)</small>  
+
+---
