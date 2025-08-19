@@ -66,7 +66,9 @@ For those just getting into hardware security: this is proof that persistence, n
 <details>
 <summary><strong>Click to expand Phrack submission (full .txt format)</strong></summary>
 
+<pre><code>
 {% include backups/PhysAccessDigiLies_PhrackSub.txt %}
+</code></pre>
 
 </details>
 
