@@ -21,6 +21,9 @@ Stay curious.
 A multi-part exploration of embedded locks, USB bridges, and firmware injection.  
 This research series closed with a working proof-of-concept for persistent physical access, but it’s far from the last word.
 
+📺 Proof of concept video:  
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tD7BfMAFk9E" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+
 {% for post in site.categories.t2t3 %}
 ### [{{ post.title }}]({{ post.url | relative_url }})
 *{{ post.date | date: "%B %d, %Y" }}*  
