@@ -4,7 +4,7 @@ layout: post
 title: "🔓 Ghost in the Lock: Injecting MSP430 Firmware for Undetectable Entry 🔓"
 date: 2025-08-05
 author: Qweary
-categories: [research, hardware hacking, MSP430, firmware, t2t3]
+categories: [research, hardware hacking, MSP430, firmware, t2t3, backburner]
 tags: [access control, embedded, alarm lock, MSP430, microprocessor, firmware, reverse engineering, security audits, second code, ghost code]
 permalink: /ghost-in-the-lock.html
 
