@@ -27,7 +27,7 @@ permalink: /phys-access-digi-lies.html
 This post contains the full-text of my Phrack-style research submission:  
 **"Physical Access, Digital Lies: Exploiting Trust Across the Access Control Stack."**
 
-It’s a condensed, high-impact retelling of the T2/T3 lock research — covering everything from NAND flash manipulation to firmware patching and USB cable spoofing — with an eye toward both technical rigor and narrative clarity.
+It’s a consolidated, high-impact retelling of the T2/T3 lock research — covering everything from NAND flash manipulation to firmware patching and USB cable spoofing — with an eye toward both technical rigor and narrative clarity.
 
 It wasn't selected for publication — and I fully understand why. But I believe the piece has value, especially for readers interested in how embedded trust can be broken across layers, and how a real-world lock system can fail in every phase of its lifecycle.
 
@@ -38,9 +38,9 @@ It wasn't selected for publication — and I fully understand why. But I believe
 Phrack has long been one of the most respected spaces in the infosec underground.  
 When I realized how deep this T2/T3 research had taken me — from circuit probing to firmware patching to spoofing USB trust boundaries — it felt like a story that could live there.
 
-I spent weeks adapting my raw notes and blog content into something that fit their tone, formatting, and ethos. It was a challenging process. Writing clearly for an advanced audience while staying technically precise is no small task.
+I spent weeks adapting my raw notes and blog content into something that fit their tone, formatting, and ethos. It was a challenging process. Writing clearly for an advanced audience while keeping a Phrack-worthy tone is no small task.
 
-The submission wasn’t selected for the current issue, and that’s fair — the bar is high, the content is long, and I’m still growing.
+The submission wasn’t selected for the current issue, and that’s fair — the bar is high, my content is long, and I’m still growing.
 But I’m proud of what it represents, and I want it to be accessible to others who might be walking a similar road.
 
 ---
@@ -90,9 +90,10 @@ And if you’re a developer, vendor, or policymaker reading this:
 
 ## 🔗 Resources
 
-- 🔓 [The Trilogy Research Series (Main Site)](https://qweary.github.io/)
+- 🔓 [The Trilogy Research Series (Main Site)](https://qweary.github.io)
 - 💾 [GitHub Repository (Code + PoC)](https://github.com/Qweary/T2-T3-Lock-Exploitation-Research)
-- 📬 [Contact / About Me](https://qweary.github.io/contact/)
+- 📬 [Contact](https://qweary.github.io/contact)
+- 🎝️ [About Me](https://qweary.github.io/about)
 
 
 
