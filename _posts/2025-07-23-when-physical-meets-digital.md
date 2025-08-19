@@ -5,7 +5,7 @@ layout: post
 title: "When Physical Meets Digital: The Early Vulnerabilities That Led to Hardware Hacking"
 date: 2025-07-23
 author: Qweary
-categories: [research, physical-security, t2t3]
+categories: [research, physical-security, t2t3, backburner]
 tags: [access control, embedded, alarm lock, proxmark, security audits]
 permalink: /when-physical-meets-digital.html
 
