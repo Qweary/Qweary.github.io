@@ -24,5 +24,4 @@ This research series closed with a working proof-of-concept for persistent physi
 {% for post in site.categories.t2t3 %}
 ### [{{ post.title }}]({{ post.url | relative_url }})
 *{{ post.date | date: "%B %d, %Y" }}*  
-{{ post.excerpt }}
 {% endfor %}
