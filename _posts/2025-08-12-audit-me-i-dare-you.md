@@ -3,7 +3,7 @@ layout: post
 title: "🎝️ Audit Me, I Dare You: CP2102 Spoofing and Self-Auditing Lock Failures 🎝️"
 date: 2025-08-12
 author: Qweary
-categories: [research, hardware hacking, usb, facedancer, spoofing, t2t3]
+categories: [research, hardware hacking, usb, facedancer, spoofing, t2t3, backburner]
 tags: [access control, USB emulation, embedded, audit trail, CP2102, DL-Windows, reverse engineering, GreatFET, digital forensics, spoofing]
 permalink: /audit-me-i-dare-you.html
 ---
