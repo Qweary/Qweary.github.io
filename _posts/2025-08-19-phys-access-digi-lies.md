@@ -5,6 +5,7 @@ date: 2025-08-19
 author: Qweary
 categories: [research, phrack, access control]
 tags: [hardware hacking, embedded, reverse engineering, physical security, t2t3, CP2102, MSP430, phrack, NAND, USB, audit]
+permalink: /phys-access-digi-lies.html
 ---
 
 <pre><code>
