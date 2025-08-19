@@ -66,9 +66,7 @@ For those just getting into hardware security: this is proof that persistence, n
 <details>
 <summary><strong>Click to expand Phrack submission (full .txt format)</strong></summary>
 
-{% raw %}
 {% include_relative ../../../T2-T3-Lock-Exploitation-Research/PhysAccessDigiLies_PhrackSubPiano.txt %}
-{% endraw %}
 
 </details>
 
