@@ -90,7 +90,7 @@ And if you’re a developer, vendor, or policymaker reading this:
 
 ## 🔗 Resources
 
-- 🔓 [The Trilogy Research Series (Main Site)](https://qweary.github.io)
+- 🔓 [The Trilogy Research Series](https://qweary.github.io/backburner)
 - 💾 [GitHub Repository (Code + PoC)](https://github.com/Qweary/T2-T3-Lock-Exploitation-Research)
 - 📬 [Contact](https://qweary.github.io/contact)
 - 🎝️ [About Me](https://qweary.github.io/about)
