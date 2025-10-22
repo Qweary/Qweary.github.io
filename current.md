@@ -43,7 +43,7 @@ The new vision:
 This is both an artistic installation project *and* an exploration of covert communication channels.  
 
 ### Posts so far:
-- [🎙️ AudioHax: Reviving a 15-Year-Old Dream 🎙️](/audiohax-intro.html) <small>(Aug 26, 2025)</small>  
-- [📡 AudioHax: Building a Robust MFSK Audio Modem in Rust 📡](/audiohax-mfsk.html) <small>(Sep 2, 2025)</small>  
+- [🎙️ AudioHax: Reviving a 15-Year-Old Dream 🎙️](/audiohax-intro.html) <small>(Oct 21, 2025)</small>  
+
 
 ---
