@@ -93,8 +93,8 @@ It’s also proof that some ideas aren’t meant to be abandoned. They just need
 
 Next up: building a **custom Rust-based audio modem** — a tool that can encode arbitrary data, transmit it over audio, and decode it on the other end. That’s going to open up a lot of possibilities, both in art and in security research.  
 
-But first, here’s the proof-of-concept that started it all… again:  
+But first, here’s the proof-of-concept that started it all… again:
 
-<iframe width="560" height="315" src="https://youtu.be/q1FTtV_WLrA?i=FgHKd2XduWGIlqjw” title="AudioHax music engine version 1" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://youtube.com/watch?v=q1FtV_WLrA” title="AudioHax music engine version 1" frameborder="0" allowfullscreen></iframe>
 
 
