@@ -95,6 +95,6 @@ Next up: building a **custom Rust-based audio modem** — a tool that can encode
 
 But first, here’s the proof-of-concept that started it all… again:
 
-<iframe width="560" height="315" src="https://youtube.com/watch?v=q1FtV_WLrA” title="AudioHax music engine version 1" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/q1FTtV_WLrA?si=wiMjOjbww-zP6i9Y" title="AudioHax music engine version 1" frameborder="0" allowfullscreen></iframe>
 
 
