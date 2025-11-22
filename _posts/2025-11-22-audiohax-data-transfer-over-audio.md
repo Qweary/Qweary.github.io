@@ -178,6 +178,6 @@ Project found at (work in progress): https://github.com/Qweary/AudioHax
 
 Video PoC:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/xvSG6uns5bA?si=sdP-Y4wWUTHtNPmi” title="AudioHax MFSK PoC”  frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xvSG6uns5bA?si=CgjTnX0q6bsl2gHy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 
