@@ -173,6 +173,11 @@ Check the recovered file → matches original.
 This project reminded me that the hardest problems weren’t exotic math, but engineering: alignment, error locality, recovery strategies.
 By layering diagnostics, majority-vote depacketization, and parameter tuning, I pushed AudioHax past the “toy” stage into something that can reliably send and recover files over sound.
 And this is just the start. Next up: scaling to images, adding robust FEC, and testing across real acoustic channels.
-https://github.com/Qweary/AudioHax
+
+Project found at (work in progress): https://github.com/Qweary/AudioHax
+
+Video PoC:
+
 <iframe width="560" height="315" src="https://youtu.be/xvSG6uns5bA” title="AudioHax MFSK PoC”  frameborder="0" allowfullscreen></iframe>
+
 
