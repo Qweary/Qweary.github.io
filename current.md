@@ -11,23 +11,21 @@ It will grow as new posts are released, giving a rolling log of progress, challe
 
 ---
 
-## 🔑 T2/T3 Lock System Deep Dive  
+## 👻 Apparition Delivery System (ADS) Research
 
-This project began with a deceptively simple question:  
+### **Focus:** Exploring advanced NTFS Alternate Data Stream persistence and modular C2-agnostic payload delivery.
 
-> What assumptions are being made about the security of the devices we physically trust every day?  
+### **What I'm Doing Now:**
+- Building a **modular framework** for storing and executing encrypted payloads in ADS
+- Testing **LOLBAS execution chains** via VBScript and PowerShell loaders
+- Investigating **novel persistence techniques**: volume root ADS, NTFS metadata streams
+- Crafting **red team operational workflows** while considering detection and evasion
+- Preparing **next-level stealth** experiments on stream naming and recovery mechanisms
 
-The DL-Windows system, the CP210x USB bridge, and the embedded lock firmware all presented a fascinating challenge: a blend of old-school protocol behavior, misunderstood trust boundaries, and under-scrutinized deployments.  
+### **Goal:** Demonstrate resilient, multi-method persistence that is **C2-framework agnostic**, while documenting blue team detection guidance and real-world limitations.
 
-The research has produced multiple blog posts, culminating in a working firmware injection PoC and system reset bypass.  
+> _This work is in progress — stay tuned for practical demonstrations, tutorials, and the next wave of stealthy ADS techniques._
 
-### Posts so far:
-{% for post in site.categories.research %}
-- [{{ post.title }}]({{ post.url | relative_url }}) <small>({{ post.date | date: "%b %d, %Y" }})</small>
-{% endfor %}
-
-📺 Proof of concept video:  
-<iframe width="560" height="315" src="https://www.youtube.com/embed/tD7BfMAFk9E" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
 
 ---
 
