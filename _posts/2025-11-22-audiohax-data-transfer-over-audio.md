@@ -103,21 +103,26 @@ Packets were repeated `N` times with headers (`PKT1`) so decoding had multiple c
 
 Commands:  
 
-```bash
+```
+bash
 cargo run --bin modem_encode -- out.wav HaxTest.txt \
 --compress --channels 1 --mtones 12 --symbol-ms 50 --pkt-size 100 --repeats 7
 
 cargo run --bin modem_decode -- out.wav recovered \
 --channels 1 --mtones 12 --symbol-ms 50 --repeats 7
-
+```
 
 Result: file recovered perfectly.
 
-🔐 What This Is Not
+---
+
+## 🔐 What This Is Not
 This isn’t a new crypto scheme. I used standard AES-GCM (via the aes-gcm crate).
  The novelty here is in combining framing + modulation + pragmatic FEC inside a Rust-based acoustic modem.
 
-📚 Lessons Learned
+---
+
+## 📚 Lessons Learned
 Repetition works for prototypes, but Reed–Solomon or LDPC will be needed for efficiency.
 
 
@@ -135,9 +140,9 @@ Preambles are essential for sync.
 
 Sequence numbers & totals save your sanity during reassembly.
 
+---
 
-
-🛠️ Next Steps
+## 🛠️ Next Steps
 Add Reed–Solomon per-packet FEC.
 
 
@@ -155,9 +160,9 @@ Streaming WAV output + resumable receiver.
 
 Unit tests with synthetic noise injection.
 
+---
 
-
-🧪 Reproducibility
+## 🧪 Reproducibility
 Quick test:
 cargo build --bins
 
@@ -169,7 +174,9 @@ cargo run --bin modem_decode -- out.wav recovered \
 
 Check the recovered file → matches original.
 
-💡 Closing Thoughts
+---
+
+##💡 Closing Thoughts
 This project reminded me that the hardest problems weren’t exotic math, but engineering: alignment, error locality, recovery strategies.
 By layering diagnostics, majority-vote depacketization, and parameter tuning, I pushed AudioHax past the “toy” stage into something that can reliably send and recover files over sound.
 And this is just the start. Next up: scaling to images, adding robust FEC, and testing across real acoustic channels.
