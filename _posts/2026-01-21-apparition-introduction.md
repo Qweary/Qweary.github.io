@@ -20,7 +20,9 @@ permalink: /apparition-introduction.html
 ---
 
 ## Executive Summary
+
 Repository: https://github.com/Qweary/Apparition-Delivery-System
+
 This research began as a small proof-of-concept exploring NTFS Alternate Data Streams (ADS) as a persistence mechanism in CCDC-style environments. Over time, it expanded into a broader investigation of how ADS can be combined with native Windows tooling, modular loaders, and multiple persistence primitives in the hopes of creating resilient persistence techniques.
 In other words, I used four different AIs and maxed out all my free tokens for a couple weeks to learn how to use the gadget I found in the way I want (listen, I’m a locksmith, not a powershell and windows internals expert).
 The result is a C2-agnostic, modular ADS experimentation framework, implemented primarily in PowerShell and VBScript. The research focuses on:
