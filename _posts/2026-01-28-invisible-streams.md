@@ -2,7 +2,7 @@
 
 
 layout: post
-title: "≋≋Invisible Streams - Zero-Width Unicode Streams for NTFS Stealth≋≋"
+title: "≋≋ Invisible Streams - Zero-Width Unicode Streams for NTFS Stealth ≋≋"
 date: 2026-01-28
 author: Qweary
 categories: [redteam, windows, ads, ntfs, apparition]
@@ -125,14 +125,16 @@ New-Item "important.txt" -ItemType File
 
 ``` powershell
 # Add hidden content
-$char = [char]0x200B
-'EXTRA SECRET' | Add-Content "C:\ProgramData\demo.txt:$char"
+$char = [char]0x200B; 'EXTRA SECRET' | Add-Content "C:\ProgramData\syc.dll:$char"
 
 # List streams (name appears blank)
-Get-Item C:\ProgramData\demo.txt -Stream *
+Get-Item "C:\ProgramData\syc.dll" -Stream *
 
 # Access content (must know the character)
-Get-Content "C:\ProgramData\demo.txt:$char"
+Get-Content "C:\ProgramData\syc.dll:$char"
+
+# Remove (dont forget to cleanup)
+rm C:\ProgramData\syc.dll
 ```
 
 ⚠️ Note: You cannot reliably copy-paste these stream names. You must recreate the character programmatically.
