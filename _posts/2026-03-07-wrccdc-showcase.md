@@ -103,7 +103,9 @@ The meme payloads went from a handful of ideas to a validated library with sessi
 
 ---
 
-## 4. Honest Assessment — What Still Needs Work
+## 4. Honest Assessment
+
+I was delightfully surprised. I know there will be edge cases to debug and improvements to be made, but I can say that I am genuinely happy at how this tool performs. Considering this is my first red team tool development that spawned out of a proof of concept I had in my mind for a couple years after reading a decade old research, I think I can be proud of the Apparition Delivery System.
 
 In the spirit of not overselling:
 
