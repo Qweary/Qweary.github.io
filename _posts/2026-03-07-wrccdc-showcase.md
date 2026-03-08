@@ -109,7 +109,7 @@ I was delightfully surprised. I know there will be edge cases to debug and impro
 
 In the spirit of not overselling:
 
-Some meme payloads (Desktop Goose, Rick Astley audio) require pre-staged binaries or audio files on the attacker's web server, which adds operational complexity. The validated set (will release after competitions - notepads, caps lock disco, matrix rain, OIIA cat, clipboard rickroll, desktop graffiti, and more - work entirely self-contained.
+Some meme payloads (Desktop Goose, Rick Astley audio) require pre-staged binaries or audio files on the attacker's web server, which adds operational complexity. The validated set (will release after competitions) - notepads, caps lock disco, matrix rain, OIIA cat, clipboard rickroll, desktop graffiti, and more - work entirely self-contained.
 
 The tool still requires PowerShell on target (which, to be fair, is present on every modern Windows system), and the base64-encoded one-liners can get long for complex payloads. Compression helps, but there's a floor to how small you can make a deployment command that includes its own AMSI bypass, persistence setup, and payload.
 
