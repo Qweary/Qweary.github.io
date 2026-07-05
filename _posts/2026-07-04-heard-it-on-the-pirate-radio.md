@@ -93,16 +93,11 @@ One more detail, because it is funnier and truer than the clean version. The loc
 
 ## The workshops
 
-I ran hands-on workshops, and they were the best kind of tired.
+I ran hands-on workshops, and they were some of the best hours I put in all week.
 
 The lock-drilling workshop got out of hand in the best way. Demand was high enough that we stretched it from one hour to an hour and a half to two and a half, and that was before day one had even started. I helped adults and kids. I helped people who had a lock at home they needed to drill. I helped first-time drill users and lockpicking enthusiasts and people who were walking past and got curious. I met a master locksmith from ASSA who had crossed over into cybersecurity, the first and only other person I have ever met who came at these two professions from the same strange sideways angle I did.
 
 My favorite moment was small. Someone waited over an hour, just to drill a lock, for the fun of it. Drilling locks has quietly become a chore for me. Watching it be pure novelty and joy for someone else reset something.
-
-<figure>
-  <img src="/assets/images/pirate-radio/narwhal-amateur-radio.jpg" alt="The author in a black brimmed hat soldering at the Narwhal Amateur Radio Society table, a teardrop banner behind, tents and a trans flag in the background." loading="lazy">
-  <figcaption>Staff means you are always working on something. I did not mind.</figcaption>
-</figure>
 
 The other workshop was the flash one. People clipped a programmer onto a real lock's flash chip, read it, decoded the user-code page, wrote their own code in, and watched the lock open. Partway through, someone I respect told me you do not need to sit behind a screen to be a hacker. That one landed, because I have always believed you become a hacker the moment another hacker calls you one. A couple of attendees asked me to help on their own projects afterward, which I will keep to myself, and which I am ecstatic about.
 
@@ -177,11 +172,6 @@ The camp runs on a simple current. Everyone looked out for everyone. Lost items 
 
 <figure>
   <img src="/assets/images/pirate-radio/alien-flora-figure.jpg" alt="A night art installation, a red-outlined winged figure with hanging LED jellyfish in the trees." loading="lazy">
-</figure>
-
-<figure>
-  <img src="/assets/images/pirate-radio/uv-forest-path.jpg" alt="A UV-lit purple forest path with art at night." loading="lazy">
-  <figcaption>Alien flora, the whole trail.</figcaption>
 </figure>
 
 ## The people who kept handing me doors
