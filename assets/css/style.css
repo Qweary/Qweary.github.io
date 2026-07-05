@@ -133,6 +133,31 @@ footer #theme-toggle:hover {
   }
 }
 
+/* Post Images: responsive figures for photo-carrying posts */
+.post img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-radius: 3px;
+}
+
+.post figure {
+  margin: 2.5rem auto;
+  max-width: 100%;
+  text-align: center;
+}
+
+.post figcaption {
+  font-size: 0.72em;
+  line-height: 1.4;
+  opacity: 0.7;
+  margin-top: 0.6rem;
+  font-style: italic;
+  padding: 0 0.5rem;
+}
+
 /* Flicker Overlay for Page Transitions */
 #flicker-overlay {
   position: fixed;
