@@ -43,6 +43,11 @@ Here is what that arc found.
 
 The app reads the plan Claude writes and puts small chips on the meal cards: what to take out of the freezer tonight, what to thaw in the refrigerator, what you can and cannot refreeze. Those refreeze sentences are the scary ones. One flipped word turns "do not refreeze" into permission to refreeze.
 
+<figure>
+  <img src="/assets/images/weekly-feast-the-fix-that-was-wired-to-nothing/weekly-feast-desktop-plan.png" alt="The weekly-feast Plan tab on a desktop screen, with the sidebar menu on the left and meal cards for Days 1 through 3. Day 1, Arroz con Pollo, carries a bold amber chip reading PUT IT IN THE FREEZER TODAY and a shopping day note saying there are three freezer jobs today. Day 2 has a timer chip saying to cook the rest of the fresh chicken thighs today, inside the 1 to 2 day window for raw poultry. Day 3 has an eat or freeze by chip for the cooked chicken." loading="lazy">
+  <figcaption>A demo week the model planned, not ours. The chips are the part that has to be right every single time.</figcaption>
+</figure>
+
 Back in September an earlier session built a check for exactly that kind of flip, and the record said it was cured, gated, and re-cured.
 
 When the food-safety reviewer went back to it on October 10, the cure was wired into no gate at all. The gate's own row for that check could not see an inverted sentence. A deliberately broken copy of the app only went red because a piece of text the test was anchored on had moved, and the message for that is "anchor miss." An anchor miss tells whoever is maintaining the test to go re-point the anchor. In September a reviewer tried exactly that on a deliberately broken copy, and got 9 passed, 0 failed, on a version telling households to refreeze food that had sat out over two hours.
@@ -100,6 +105,11 @@ That last line of fixes ran three rounds. I have a standing rule for loops like 
 Pushing is my call, every time. I said yes on October 10, and two pushes in this arc went live for my household and for the third-party user.
 
 The first, partway through, was mostly phone work. Shopping list rows got a real grid, because on a 360 pixel wide phone one tilapia note was wrapping to about 40 lines. The bottom navigation labels went up to 11px, Dashboard became Plan, the Export confirmation moved onto the button instead of a toast that covered the checklist, and the bought-frozen chip now leads with "NEVER ON THE COUNTER, NEVER IN HOT WATER."
+
+<figure>
+  <img src="/assets/images/weekly-feast-the-fix-that-was-wired-to-nothing/weekly-feast-mobile-pantry.jpg" alt="The weekly-feast Pantry tab on a phone. Tier 1, 2, and 3 tabs sit above a row for adding an item, then stock cards for flour, sugar, white rice, and olive oil, each with a green WELL-STOCKED chip. The bottom navigation bar runs along the bottom of the screen with Pantry highlighted." loading="lazy">
+  <figcaption>The Pantry on a phone, bottom nav and all. This is the screen the upgrade directions are there to protect.</figcaption>
+</figure>
 
 The second carried the migration work: upgrade directions in the README and a line inside the app, Special Instructions in backups, the import hardening that closed the live XSS, a fix to a banner that pointed at the wrong button (it now says Prompt, then Edit Template, then Reset to Default), and an estimated-cost label going from amber to grey to match the rest of that card's details.
 
