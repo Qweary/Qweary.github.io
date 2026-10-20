@@ -64,6 +64,17 @@
   const skipBtn = document.getElementById("skip-button");
   const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // While the overlay is up, the page behind it is inert, so Tab cannot
+  // wander under it. Restored when the splash ends (and by the head-script
+  // failsafe if this file ever fails).
+  const behind = [document.getElementById("site-content"), document.querySelector(".skip-link")].filter(Boolean);
+  behind.forEach(el => { el.inert = true; });
+
+  // The skip hint matches the input: touch-only devices have no keys.
+  let touchOnly = false;
+  try { touchOnly = window.matchMedia("(hover: none) and (pointer: coarse)").matches; } catch (e) {}
+  if (skipBtn && touchOnly) skipBtn.textContent = "Tap to skip intro";
+
   const timers = [];
   const later = (fn, ms) => timers.push(setTimeout(fn, ms));
   let ended = false;
@@ -75,6 +86,7 @@
     document.removeEventListener("keydown", onKey, true);
     // Reveal underneath at the start of the fade, not the end.
     root.classList.remove("splash-active");
+    behind.forEach(el => { el.inert = false; });
     root.classList.add("splash-leaving");
     const done = () => {
       root.classList.remove("splash-leaving");
