@@ -1,6 +1,13 @@
 <footer>
   <div class="footer-content">
-    <p>&copy; {{ site.time | date: '%Y' }} Qweary | Security Research With Purpose</p>
+    {%- comment -%}
+    Easter egg: the span below holds a message in zero-width characters
+    (U+200B = 0, U+200C = 1, U+200D between characters, 8 bits each).
+    It decodes to "erase your history." qweary.decode() in the console reads it.
+    aria-hidden keeps it away from screen readers.
+  {%- endcomment %}
+    <!-- some streams have no name. qweary.decode() -->
+    <p class="footer-copy">&copy; {{ site.time | date: '%Y' }} Qweary<span class="zw" aria-hidden="true">​‌‌​​‌​‌‍​‌‌‌​​‌​‍​‌‌​​​​‌‍​‌‌‌​​‌‌‍​‌‌​​‌​‌‍​​‌​​​​​‍​‌‌‌‌​​‌‍​‌‌​‌‌‌‌‍​‌‌‌​‌​‌‍​‌‌‌​​‌​‍​​‌​​​​​‍​‌‌​‌​​​‍​‌‌​‌​​‌‍​‌‌‌​​‌‌‍​‌‌‌​‌​​‍​‌‌​‌‌‌‌‍​‌‌‌​​‌​‍​‌‌‌‌​​‌‍​​‌​‌‌‌​</span> | Security Research With Purpose</p>
     <p>
       <a href="https://www.linkedin.com/in/louis-piano-099826b2" target="_blank" rel="noopener noreferrer">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a>
       <span class="footer-separator" aria-hidden="true">|</span>
