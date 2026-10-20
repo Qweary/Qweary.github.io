@@ -54,6 +54,55 @@
   --selection: rgba(138, 92, 255, 0.35);
 }
 
+/* Hidden phosphor modes (easter egg: 5 quick clicks on the theme toggle,
+   or qweary.phosphor() in the console). Same token names as Aurora.
+   Every text pair is >= 4.5:1 on bg, surface and header/footer. */
+:root[data-theme="p1"] {
+  --bg-color: #050b07;
+  --surface: #0b1a10;
+  --text-color: #7dffa0;       /* 15.78:1 */
+  --heading-color: #b4ffc8;
+  --muted: #4fa86a;            /* 6.75:1 on bg */
+  --header-footer-bg: #08120b;
+  --header-footer-text: #7dffa0;
+  --link-color: #c6ffd6;       /* 17.66:1, underlined */
+  --link-hover: #ffffff;
+  --link-line: rgba(198, 255, 214, 0.5);
+  --code-color: #3dff7a;
+  --glow: #2bff6a;             /* decoration only */
+  --rule: #143a20;
+  --rule-strong: #2f7a47;
+  --banner-from: #3dff7a;
+  --banner-to: #c6ffd6;
+  --aurora-1: rgba(61, 255, 122, 0.14);
+  --aurora-2: rgba(61, 255, 122, 0.06);
+  --heading-glow: 0 0 14px rgba(61, 255, 122, 0.45);
+  --selection: rgba(61, 255, 122, 0.30);
+}
+:root[data-theme="p3"] {
+  --bg-color: #0c0904;
+  --surface: #1a130a;
+  --text-color: #ffb347;       /* 11.16:1 */
+  --heading-color: #ffd08a;
+  --muted: #b8843a;            /* 6.06:1 on bg */
+  --header-footer-bg: #130e07;
+  --header-footer-text: #ffb347;
+  --link-color: #ffe0b0;       /* 15.66:1, underlined */
+  --link-hover: #fff4e2;
+  --link-line: rgba(255, 224, 176, 0.5);
+  --code-color: #ffc870;
+  --glow: #ff9a1f;             /* decoration only */
+  --rule: #3a2a12;
+  --rule-strong: #8a6024;
+  --banner-from: #ff9a1f;
+  --banner-to: #ffe0b0;
+  --aurora-1: rgba(255, 154, 31, 0.14);
+  --aurora-2: rgba(255, 179, 71, 0.06);
+  --heading-glow: 0 0 14px rgba(255, 154, 31, 0.45);
+  --selection: rgba(255, 154, 31, 0.30);
+}
+:root[data-theme="p1"], :root[data-theme="p3"] { color-scheme: dark; }
+
 /* No JS (so no data-theme): follow the OS preference. Keep in sync with the dark block above. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
