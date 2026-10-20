@@ -376,7 +376,7 @@ pre {
   border: 0;
   padding: 0;
   margin: 1.5rem 0 0;
-  overflow-x: auto;
+  overflow: hidden;           /* not a scroller: aria-hidden must not be a Tab stop */
   line-height: 1.15;
   /* 53-column banner fits a phone without sideways scroll */
   font-size: min(0.85em, calc((100vw - 2.5rem) / 34));
