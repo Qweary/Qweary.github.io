@@ -6,19 +6,59 @@ count: 3
 rare_weight: 0.12
 final: ". . . Welcome to Qweary's Blog."
 lines:
-  - text: "[OK] Bypassing biometric lock..."
+  - text: "[OK] Tuning the trombone slide..."
     rarity: common
-  - text: "[OK] Initializing secure comms..."
+  - text: "[OK] Re-pinning lock core 7 of 40..."
     rarity: common
-  - text: "[OK] Loading encrypted modules..."
+  - text: "[OK] Rotating the duffel of lock cores..."
     rarity: common
-  - text: "[OK] Running splash sequence..."
+  - text: "[OK] Sorting lock cores by mood..."
     rarity: common
-  - text: "[OK] Scrambling return addresses..."
+  - text: "[OK] Reading the flash chip. Again..."
     rarity: common
-  - text: "[OK] Spoofing MAC address..."
+  - text: "[OK] Waking the red team swarm..."
     rarity: common
-  - text: "[OK] Disabling watchdog timers..."
+  - text: "[OK] Counting bees. All eight present..."
     rarity: common
-  - text: "[OK] Tunneling through DNS..."
+  - text: "[OK] Waiting on the next inject..."
     rarity: common
+  - text: "[OK] Checking this week's grocery ads..."
+    rarity: common
+  - text: "[OK] Planning dinner from the sale flyer..."
+    rarity: common
+  - text: "[OK] Turning the header image into a waltz..."
+    rarity: common
+  - text: "[OK] Converting thumbnails to sheet music..."
+    rarity: common
+  - text: "[OK] Squeezing a model into 8 GB of VRAM..."
+    rarity: common
+  - text: "[WARN] VRAM full. Evicting the trombone..."
+    rarity: common
+  - text: "[OK] Warming up the GPU fans..."
+    rarity: common
+  - text: "[OK] Asking the local model what 2 + 2 is..."
+    rarity: common
+  - text: "[OK] 2 + 2 = 4. Checked it twice..."
+    rarity: common
+  - text: "[OK] Tuning in the pirate radio..."
+    rarity: common
+  - text: "[OK] Feeding the Meshtastic cat..."
+    rarity: common
+  - text: "[FAIL] Lip buzz too weak. Retrying..."
+    rarity: common
+  - text: "[????] 2 + 2 = 5. Getting a second opinion..."
+    rarity: rare
+  - text: "[????] The cat node is broadcasting purrs..."
+    rarity: rare
+  - text: "[FAIL] Meal plan vetoed by the household..."
+    rarity: rare
+  - text: "[????] The swarm has started its own blog..."
+    rarity: rare
+  - text: "[OK] AudioHax says this page is in B flat..."
+    rarity: rare
+  - text: "[WARN] Trombone detected in the server rack..."
+    rarity: rare
+  - text: "[????] Found a lock core in the silverware..."
+    rarity: rare
+  - text: "[OK] Rare line unlocked. Nice pull..."
+    rarity: rare
