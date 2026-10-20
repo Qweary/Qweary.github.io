@@ -1,0 +1,18 @@
+# Primary navigation, in display order. `url` must match the page's permalink
+# exactly (trailing slash included) so aria-current can mark the current page.
+- title: Home
+  url: /
+- title: About
+  url: /about/
+- title: Focus
+  url: /current/
+- title: Projects
+  url: /projects/
+- title: Talks
+  url: /talks/
+- title: Blog
+  url: /blog/
+- title: Open Questions
+  url: /future/
+- title: Contact
+  url: /contact/

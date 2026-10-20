@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{%- comment -%}
+  Static redirect stub (works on GitHub Pages with no plugin). Usage, in a page:
+    layout: redirect
+    permalink: /old-path/
+    redirect_to: /new-path/
+{%- endcomment %}
+{%- assign target = page.redirect_to | relative_url %}
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Redirecting to {{ target }}</title>
+  <link rel="canonical" href="{{ page.redirect_to | absolute_url }}" />
+  <meta name="robots" content="noindex" />
+  <meta http-equiv="refresh" content="0; url={{ target }}" />
+  <script>location.replace("{{ target }}" + location.hash);</script>
+</head>
+<body>
+  <p>This page has moved to <a href="{{ target }}">{{ target | absolute_url }}</a>.</p>
+</body>
+</html>
