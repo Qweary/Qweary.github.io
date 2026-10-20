@@ -11,16 +11,6 @@ permalink: /invisible-streams.html
 
 ---
 
-
-<pre><code>
-██████╗ ██╗    ██╗███████╗ █████╗ ██████╗ ██╗   ██╗
-██╔═══██╗██║    ██║██╔════╝██╔══██╗██╔══██╗╚██╗ ██╔╝
-██║   ██║██║ █╗ ██║█████╗  ███████║██████╔╝ ╚████╔╝ 
-██║▄▄ ██║██║███╗██║██╔══╝  ██╔══██║██╔══██╗  ╚██╔╝  
-╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║   ██║   
- ╚══▀▀═╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
-</code></pre>
-
 ## TL;DR
 
 NTFS fully supports zero-width Unicode characters inside Alternate Data Stream (ADS) names. These streams:

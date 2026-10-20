@@ -8,15 +8,6 @@ tags: [hardware hacking, embedded, reverse engineering, physical security, t2t3,
 permalink: /phys-access-digi-lies.html
 ---
 
-<pre><code>
-██████╗ ██╗    ██╗███████╗ █████╗ ██████╗ ██╗   ██╗
-██╔═══██╗██║    ██║██╔════╝██╔══██╗██╔══██╗╚██╗ ██╔╝
-██║   ██║██║ █╗ ██║█████╗  ███████║██████╔╝ ╚████╔╝ 
-██║▄▄ ██║██║███╗██║██╔══╝  ██╔══██║██╔══██╗  ╚██╔╝  
-╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║   ██║   
- ╚══▀▀═╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
-</code></pre>
-
 > “The firmware can lie. The audit trail can lie. The cable can lie.
 > Even the credentials can be faked. What’s left is the attacker’s imagination.”
 

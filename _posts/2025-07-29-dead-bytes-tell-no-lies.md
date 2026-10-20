@@ -9,17 +9,6 @@ tags: [access control, embedded, alarm lock, NAND, security audits]
 permalink: /dead-bytes-tell-no-lies.html
 
 ---
- 
-<pre><code>
-██████╗ ██╗    ██╗███████╗ █████╗ ██████╗ ██╗   ██╗
-██╔═══██╗██║    ██║██╔════╝██╔══██╗██╔══██╗╚██╗ ██╔╝
-██║   ██║██║ █╗ ██║█████╗  ███████║██████╔╝ ╚████╔╝ 
-██║▄▄ ██║██║███╗██║██╔══╝  ██╔══██║██╔══██╗  ╚██╔╝  
-╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║   ██║   
- ╚══▀▀═╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
-</code></pre>
-
-
 
 > TL;DR:  
 > By connecting to the Adesto AT45DB041E flash chip in the Alarm Lock T3, I reverse-engineered its proprietary NAND flash write protocol. The system uses a lazy write model, controlled by the MSP430 microprocessor, triggered only on battery removal or low-power idle. User codes and privilege flags are stored in a predictable layout with minimal encoding and no cryptographic protections. Using a $30 universal programmer, I extracted, decoded, modified, and re-flashed user data to inject elevated privileges, bypass audit trails, and persist unauthorized access—until factory reset wipes the flash. This post details the technical steps, memory layout, forensic nuances, and a real-world case study.

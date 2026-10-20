@@ -10,18 +10,6 @@ permalink: /swarnam-at-wrccdc-regionals.html
 
 ---
 
-
-<pre><code>
-██████╗ ██╗    ██╗███████╗ █████╗ ██████╗ ██╗   ██╗
-██╔═══██╗██║    ██║██╔════╝██╔══██╗██╔══██╗╚██╗ ██╔╝
-██║   ██║██║ █╗ ██║█████╗  ███████║██████╔╝ ╚████╔╝ 
-██║▄▄ ██║██║███╗██║██╔══╝  ██╔══██║██╔══██╗  ╚██╔╝  
-╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║   ██║   
- ╚══▀▀═╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
-</code></pre>
-
-
-
 # When the Swarm Met the Swarm
 
 A competition retrospective on deploying Swarnam against student blue teams, professional hackers, and an all-Claude AI defense at WRCCDC 2026 Regional Finals

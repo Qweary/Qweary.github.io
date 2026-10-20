@@ -240,8 +240,8 @@ pre {
 }
 .post > .post-meta { color: var(--muted); font-size: 0.85em; margin-top: 0; }
 
-/* ASCII banner: the first <pre> right after the post meta line */
-.post > .post-meta + pre {
+/* ASCII banner: rendered by _layouts/post.html (aria-hidden) right after the meta line */
+.post > pre.ascii-banner {
   background: linear-gradient(100deg, var(--banner-from) 10%, var(--banner-to) 75%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -254,8 +254,8 @@ pre {
   /* 53-column banner fits a phone without sideways scroll */
   font-size: min(0.85em, calc((100vw - 2.5rem) / 34));
 }
-.post > .post-meta + pre code { color: transparent; background: none; border: 0; padding: 0; }
-:root[data-theme="dark"] .post > .post-meta + pre {
+.post > pre.ascii-banner code { color: transparent; background: none; border: 0; padding: 0; }
+:root[data-theme="dark"] .post > pre.ascii-banner {
   filter: drop-shadow(0 0 6px rgba(138, 92, 255, 0.35));
 }
 

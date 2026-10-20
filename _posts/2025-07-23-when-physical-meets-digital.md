@@ -11,17 +11,6 @@ permalink: /when-physical-meets-digital.html
 
 ---
 
-
-<pre><code>
-██████╗ ██╗    ██╗███████╗ █████╗ ██████╗ ██╗   ██╗
-██╔═══██╗██║    ██║██╔════╝██╔══██╗██╔══██╗╚██╗ ██╔╝
-██║   ██║██║ █╗ ██║█████╗  ███████║██████╔╝ ╚████╔╝ 
-██║▄▄ ██║██║███╗██║██╔══╝  ██╔══██║██╔══██╗  ╚██╔╝  
-╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║   ██║   
- ╚══▀▀═╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
-</code></pre>
-
-
 > TL;DR:
 This post examines real-world physical vulnerabilities in a range of commercial electronic locks, revealed during authorized security assessments. By reverse-engineering mechanical tolerances, exploiting design oversights, and leveraging non-destructive covert entry techniques, we were able to bypass security mechanisms without leaving visible signs of tampering. The findings highlight the importance of aligning electronic and mechanical security postures, particularly in high-assurance environments where audit trails and forensic visibility are relied on but easily subverted. We also highlight poor physical design decisions — such as externalized logic boards and audit ports — that undermine otherwise solid digital controls.
 

@@ -10,18 +10,6 @@ permalink: /building-swarnam.html
 
 ---
 
-
-<pre><code>
-██████╗ ██╗    ██╗███████╗ █████╗ ██████╗ ██╗   ██╗
-██╔═══██╗██║    ██║██╔════╝██╔══██╗██╔══██╗╚██╗ ██╔╝
-██║   ██║██║ █╗ ██║█████╗  ███████║██████╔╝ ╚████╔╝ 
-██║▄▄ ██║██║███╗██║██╔══╝  ██╔══██║██╔══██╗  ╚██╔╝  
-╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║   ██║   
- ╚══▀▀═╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
-</code></pre>
-
-
-
 # Building Swarnam — A Multi-Agent Red Team Swarm in Three Weeks
 
 How a locksmith got nerd sniped twice, built a multi-agent offensive security swarm on Claude Code, trained it on historical competition data, deployed it at a regional finals, submitted 30+ scoring tickets, and finally understood they are a red team operator.
