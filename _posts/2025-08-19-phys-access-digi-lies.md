@@ -1,4 +1,5 @@
 ---
+
 layout: post
 title: "📚 Physical Access, Digital Lies: Full-Stack Lock Exploitation — Phrack Submission 📚"
 date: 2025-08-19
@@ -6,6 +7,8 @@ author: Qweary
 categories: [research, phrack, access control, t2t3, backburner]
 tags: [hardware hacking, embedded, reverse engineering, physical security, t2t3, CP2102, MSP430, phrack, NAND, USB, audit]
 permalink: /phys-access-digi-lies.html
+description: "The full Phrack-style writeup of my lock research in one place: mechanical tolerances, flash memory, firmware, the programming cable, and the audit trail."
+
 ---
 
 > “The firmware can lie. The audit trail can lie. The cable can lie.

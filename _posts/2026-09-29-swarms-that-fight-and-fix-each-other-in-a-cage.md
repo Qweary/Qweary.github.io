@@ -7,6 +7,7 @@ author: Qweary
 categories: [cybrseccon, cybrhakcon, ai village, agentic-ai, red team, blue team, ai security, talk]
 tags: [cybrseccon, cybrhakcon, ai village, agentic ai, ai security, offensive ai, adversarial ai, red team, blue team, swarms, improvement loop, talk]
 permalink: /swarms-that-fight-and-fix-each-other-in-a-cage.html
+description: "A red swarm, a blue swarm, a third that builds the network and keeps the records, and a loop that rewrites one agent's prompt between rounds."
 
 ---
 

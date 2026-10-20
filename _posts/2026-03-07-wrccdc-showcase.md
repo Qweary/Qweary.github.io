@@ -7,6 +7,7 @@ author: Qweary
 categories: [redteam, windows, ads, ntfs, apparition, ccdc]
 tags: [redteam, ads, ntfs, windows, powershell, persistence, alternate data stream, ccdc, wrccdc, competition, evasion]
 permalink: /wrccdc-showcase.html
+description: "Showing Apparition to the WRCCDC red team, written with the adrenaline still going. Where the tool stood, what Defender thought of it, and what changed."
 
 ---
 

@@ -1,6 +1,5 @@
 ---
 
-
 layout: post
 title: "≋≋ Invisible Streams - Zero-Width Unicode Streams for NTFS Stealth ≋≋"
 date: 2026-01-28
@@ -8,6 +7,7 @@ author: Qweary
 categories: [redteam, windows, ads, ntfs, apparition]
 tags: [redteam, ads, ntfs, windows, stream, red team, alternate data stream, persistence]
 permalink: /invisible-streams.html
+description: "NTFS accepts zero-width Unicode in Alternate Data Stream names. What those invisible streams survive, and why they make a confusing thing to hunt for."
 
 ---
 

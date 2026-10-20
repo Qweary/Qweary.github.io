@@ -1,4 +1,5 @@
 ---
+
 layout: post
 title: "🎙️ AudioHax: Reviving a 15-Year-Old Dream 🎙️"
 date: 2025-10-21
@@ -6,6 +7,8 @@ author: Qweary
 categories: [project intro, audiohax, acoustic art]
 tags: [audiohax, acoustic art, rust, image, music, midi, fluidsynth, opencv]
 permalink: /audiohax-intro.html
+description: "A project fifteen years in the making. AudioHax turns images into music, and this time I am the one writing the code."
+
 ---
 
 ---

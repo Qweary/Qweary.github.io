@@ -7,6 +7,7 @@ author: Qweary
 categories: [side project, meal planning, claude, agentic-ai, verification]
 tags: [side project, meal planning, weekly-feast, claude, agentic ai, food safety, xss, testing, verification, mechanism, practice]
 permalink: /weekly-feast-the-fix-that-was-wired-to-nothing.html
+description: "A cleanup pass on weekly-feast: a food safety fix that was checking nothing, two stored XSS bugs fixed on the public app, and the plan to call it finished."
 
 ---
 

@@ -7,6 +7,7 @@ author: Qweary
 categories: [redteam, nccdc, ccdc, swarnam, agentic-ai, anthropic, nationals, competition]
 tags: [redteam, nccdc, ccdc, swarnam, agentic-ai, anthropic, nationals, competition]
 permalink: /nccdc-nationals-2026.html
+description: "Five days of notice, one SSH tunnel, and a salvaged laptop. My first year red teaming, at NCCDC Nationals, against the best blue team I have ever faced."
 
 ---
 

@@ -7,6 +7,7 @@ author: Qweary
 categories: [toorcamp, cyberhakcon, hardware hacking, locks, community, conference, recap]
 tags: [toorcamp, cyberhakcon, ai village, lockpicking, darknet diaries, pirate radio, community, hardware hacking, meshtastic, conference, recap]
 permalink: /heard-it-on-the-pirate-radio.html
+description: "Two conferences, my first main-stage talk, and a pile of lock research I never knew if anyone would care about. A recap from ToorCamp and CyberHakCon."
 
 ---
 

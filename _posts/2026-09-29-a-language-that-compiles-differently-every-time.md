@@ -7,6 +7,7 @@ author: Qweary
 categories: [cybrseccon, cybrhakcon, ai village, agentic-ai, ai engineering, verification, talk]
 tags: [cybrseccon, cybrhakcon, ai village, agentic ai, non-determinism, controls, verification, testing, mechanism, practice, lets encrypt, talk]
 permalink: /a-language-that-compiles-differently-every-time.html
+description: "My AI Village talk on what you have to build around a language that recompiles itself every run, plus a card you can run against your own controls."
 
 ---
 

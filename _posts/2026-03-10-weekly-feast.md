@@ -1,6 +1,5 @@
 ---
 
-
 layout: post
 title: "🍽️ weekly-feast: When Your Spouse Breaks Your Threat Model 🍽️"
 date: 2026-03-10
@@ -8,6 +7,7 @@ author: Qweary
 categories: [side project, meal planning, claude, prompt engineering]
 tags: [side project, meal planning, claude, prompt engineering]
 permalink: /weekly-feast.html
+description: "My spouse was tired of reading grocery ads, so I built weekly-feast, a Claude meal planner. It took one evening for my spouse to break my threat model."
 
 ---
 

@@ -7,6 +7,7 @@ author: Qweary
 categories: [research, hardware hacking, NAND, flash, t2t3, backburner]
 tags: [access control, embedded, alarm lock, NAND, security audits]
 permalink: /dead-bytes-tell-no-lies.html
+description: "Reading and rewriting the flash chip inside an Alarm Lock T3. How user codes sit in memory with no encryption, and what that means for access control."
 
 ---
 

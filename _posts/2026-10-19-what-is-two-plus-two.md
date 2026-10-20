@@ -8,6 +8,7 @@ categories: [agentic-ai, ai security, claude, research, verification]
 tags: [agentic ai, ai security, claude, anthropic, cyber verification program, cvp, safeguards, classifiers, measurement, method, local models, ollama]
 permalink: /what-is-two-plus-two.html
 published: true
+description: "My agent framework stopped running on some newer Claude models. What I measured, what I got wrong, three CVP enrollments, and the GPU box I built to cope."
 
 ---
 

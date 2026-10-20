@@ -7,6 +7,7 @@ author: Qweary
 categories: [redteam, ccdc, swarnam, agentic-ai, anthropic, multi-agent, development, architecture]
 tags: [redteam, ccdc, swarnam, agentic-ai, anthropic, competition, development, architecture]
 permalink: /building-swarnam.html
+description: "How a locksmith built an eight-agent red team swarm on Claude Code in three weeks: the architecture, the problems I saw coming, and the ones I did not."
 
 ---
 

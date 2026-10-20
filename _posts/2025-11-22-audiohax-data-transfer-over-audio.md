@@ -1,4 +1,5 @@
 ---
+
 layout: post
 title: "📡 AudioHax: Building a Robust MFSK Audio Modem in Rust 📡"
 date: 2025-11-22
@@ -6,6 +7,8 @@ author: Qweary
 categories: [project progress, audiohax, acoustic art]
 tags: [audiohax, acoustic art, rust, image, music, midi, security research, data transmission, encryption, mfsk, modem]
 permalink: /audiohax-mfsk.html
+description: "Turning AudioHax into an acoustic modem: a Rust MFSK prototype that sends files as tones and recovers them on the other side, noise included."
+
 ---
 
 ---

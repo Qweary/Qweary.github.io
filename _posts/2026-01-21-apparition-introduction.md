@@ -1,4 +1,5 @@
 ---
+
 layout: post
 title: "👻 Introducing Apparition Delivery System: An ADS Persistence Framework 👻"
 date: 2026-01-21
@@ -6,6 +7,8 @@ author: Qweary
 categories: [tool, apparition, redteam]
 tags: [ads, ntfs, red team, alternate data streams, persistence, windows, ccdc]
 permalink: /apparition-introduction.html
+description: "Introducing the Apparition Delivery System, a red team persistence framework built on NTFS Alternate Data Streams for CCDC-style competition environments."
+
 ---
 
 ---

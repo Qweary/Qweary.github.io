@@ -7,6 +7,7 @@ author: Qweary
 categories: [redteam, ccdc, swarnam, agentic-ai, anthropic, competition]
 tags: [redteam, ccdc, swarnam, agentic-ai, anthropic, competition]
 permalink: /swarnam-at-wrccdc-regionals.html
+description: "Swarnam, my red team swarm, at WRCCDC 2026 Regional Finals against student blue teams and an all-Claude AI blue team. AI against AI, live and scored."
 
 ---
 

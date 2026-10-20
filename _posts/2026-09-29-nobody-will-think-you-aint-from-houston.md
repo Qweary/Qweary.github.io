@@ -7,6 +7,7 @@ author: Qweary
 categories: [cybrseccon, cybrhakcon, ai village, agentic-ai, bsides, houston, community, conference, recap]
 tags: [cybrseccon, cybrhakcon, ai village, agentic ai, ai security, offensive ai, bsides, bsides houston, houston, community, conference, recap]
 permalink: /nobody-will-think-you-aint-from-houston.html
+description: "Two days running an AI village at CYBR.SEC.CON, a BSides that came back to Houston after five years, and the best t-shirt anybody has ever handed me."
 
 ---
 

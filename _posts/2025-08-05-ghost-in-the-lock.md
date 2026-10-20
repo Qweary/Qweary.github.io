@@ -7,6 +7,7 @@ author: Qweary
 categories: [research, hardware hacking, MSP430, firmware, t2t3, backburner]
 tags: [access control, embedded, alarm lock, MSP430, microprocessor, firmware, reverse engineering, security audits, second code, ghost code]
 permalink: /ghost-in-the-lock.html
+description: "Reverse engineering the MSP430 in Alarm Lock Trilogy locks over JTAG, and a firmware patch that adds an access code the audit trail never sees."
 
 ---
 
