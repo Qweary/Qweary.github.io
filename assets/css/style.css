@@ -69,10 +69,11 @@ body {
 
 ::selection { background: var(--selection); color: inherit; }
 
-/* Reading column: ~72 characters, 16px phone gutter */
+/* Reading column: 68ch of the mono base (Spectrum's sans measure;
+   about 70-75 proportional characters per line), 16px phone gutter */
 main {
   width: 100%;
-  max-width: 72ch;
+  max-width: 68ch;
   margin: 0 auto;
   padding: 1.5rem 1rem 3rem;
 }
@@ -201,7 +202,7 @@ a:focus-visible, button:focus-visible {
 .post-date { color: var(--muted); font-size: 0.85em; }
 
 /* Code */
-code { font-family: inherit; }
+code, pre, kbd, samp { font-family: 'Fira Code', ui-monospace, monospace; }
 :not(pre) > code {
   background: var(--surface);
   color: var(--code-color);
@@ -281,10 +282,23 @@ pre {
 }
 .post figcaption::before { content: "// "; color: var(--link-color); }
 
-/* OPTIONAL (taste call, off by default): proportional prose in posts.
-   Requires adding Fira Sans to the Google Fonts link. Uncomment to enable.
-.post p, .post li { font-family: 'Fira Sans', system-ui, sans-serif; font-size: 1.06em; }
-*/
+/* Type roles: long-form paragraphs and list text use Fira Sans, the
+   proportional sibling of Fira Code. Nav, headings, titles, banners,
+   code, captions, post lists, the splash and the toggle stay mono. */
+main p, main li, main blockquote, main dd {
+  font-family: 'Fira Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.06em;
+  line-height: 1.7;
+}
+main li p, main li li, main blockquote p { font-size: 1em; }
+main p em, main li em, main blockquote em { font-style: italic; }   /* real Fira Sans italic is loaded */
+main p strong, main li strong, main blockquote strong,
+main p b, main li b { font-weight: 600; }                            /* real 600 is loaded: no faux bold */
+.post > h1:first-child + p,            /* post meta line */
+.post-list li, .post-date, .hero .tagline {
+  font-family: 'Fira Code', ui-monospace, monospace;
+}
+.post-list li { font-size: 1em; }
 
 /* Flicker Overlay for Page Transitions */
 #flicker-overlay {

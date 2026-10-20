@@ -11,7 +11,7 @@ permalink: /blog/
 A chronological log of research findings, technical write-ups, and experiments.
 
 
-<ul>
+<ul class="post-list">
   {% for post in site.posts %}
     <li>
       <a href="{{ post.url }}">{{ post.title }}</a>

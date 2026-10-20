@@ -19,7 +19,7 @@ title: Home
 
 <section class="section">
   <h2>Recent Blog Posts</h2>
-  <ul>
+  <ul class="post-list">
     {% for post in site.posts limit:3 %}
       <li><a href="{{ post.url }}">{{ post.title }}</a> - <span class="post-date">{{ post.date | date: "%B %d, %Y" }}</span></li>
     {% endfor %}
