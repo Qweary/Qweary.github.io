@@ -18,7 +18,6 @@ permalink: /swarms-that-fight-and-fix-each-other-in-a-cage.html
 ╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║   ██║   
  ╚══▀▀═╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
 </code></pre>
-=============
 
 Swarms That Fight and Fix Each Other in a Cage
 ==============================================

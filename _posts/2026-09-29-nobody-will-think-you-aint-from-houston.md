@@ -18,7 +18,6 @@ permalink: /nobody-will-think-you-aint-from-houston.html
 ╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║   ██║   
  ╚══▀▀═╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
 </code></pre>
-=============
 
 Nobody Will Think You Ain't From Houston
 ========================================

@@ -18,7 +18,6 @@ permalink: /a-language-that-compiles-differently-every-time.html
 ╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║   ██║   
  ╚══▀▀═╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
 </code></pre>
-=============
 
 A Language That Compiles Differently Every Time
 ===============================================

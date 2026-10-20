@@ -18,7 +18,6 @@ permalink: /heard-it-on-the-pirate-radio.html
 ╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║   ██║   
  ╚══▀▀═╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
 </code></pre>
-=============
 
 Heard It on the Pirate Radio
 ============================

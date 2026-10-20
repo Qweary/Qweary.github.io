@@ -18,7 +18,6 @@ permalink: /wrccdc-showcase.html
 ╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║   ██║   
  ╚══▀▀═╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
 </code></pre>
-=============
 
 WRCCDC Red Team Showcase — From "Defender Says No" to "Defender Says Nothing"
 =============================================================================

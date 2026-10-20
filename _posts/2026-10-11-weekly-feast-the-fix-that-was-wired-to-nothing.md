@@ -18,7 +18,6 @@ permalink: /weekly-feast-the-fix-that-was-wired-to-nothing.html
 ╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║   ██║   
  ╚══▀▀═╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
 </code></pre>
-=============
 
 weekly-feast: The Fix That Was Wired to Nothing
 ===============================================
