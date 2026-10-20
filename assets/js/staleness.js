@@ -33,11 +33,12 @@
     if (today < expires || el.classList.contains("is-stale")) return;
 
     el.classList.add("is-stale");
-    const asOfEl = el.querySelector(".as-of time");
-    const asOf = el.getAttribute("data-as-of") || (asOfEl && asOfEl.textContent.trim());
+    // A visible as-of stamp already gives the date, so the note does not repeat it.
+    const hasStamp = !!el.querySelector(".as-of");
+    const asOf = el.getAttribute("data-as-of");
     const note = document.createElement("p");
     note.className = "stale-note";
-    note.textContent = asOf
+    note.textContent = (asOf && !hasStamp)
       ? `Written as of ${asOf}; this may be out of date.`
       : "This may be out of date.";
     el.insertBefore(note, el.firstChild);
