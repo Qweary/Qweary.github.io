@@ -5,24 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0a10" />
 
-  <title>{{ page.title }} | {{ site.title }}</title>
-
-  <!-- ✅ Inline early theme detection script -->
+  <!-- Early setup, before first paint. Every storage access is guarded:
+       when site data is blocked, reading localStorage/sessionStorage throws,
+       and the page must still render. -->
   <script>
     (function () {
-      const storedTheme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const theme = storedTheme || (prefersDark ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', theme);
+      var root = document.documentElement;
+      root.classList.add('js');
+
+      // Theme: stored choice, else the OS preference.
+      var stored = null;
+      try { stored = localStorage.getItem('theme'); } catch (e) {}
+      var prefersDark = false;
+      try { prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {}
+      root.setAttribute('data-theme', (stored === 'light' || stored === 'dark') ? stored : (prefersDark ? 'dark' : 'light'));
+
+      {%- if page.url == '/' %}
+      // Splash: once per session, never when arriving from another page of this site.
+      var seen = false;
+      try { seen = sessionStorage.getItem('splashSeen') === '1'; } catch (e) {}
+      var internal = false;
+      try { internal = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
+      if (!seen && !internal) root.classList.add('splash-active');
+      try { sessionStorage.setItem('splashSeen', '1'); } catch (e) {}
+      {%- endif %}
     })();
   </script>
 
-  <!-- ✅ Prevent flash of unthemed content -->
-  <style>
-    html:not([data-theme]) body {
-      visibility: hidden;
-    }
-  </style>
+  <link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml" />
 
   <!-- Splash and Theme Styles -->
   <link rel="stylesheet" href="{{ '/assets/css/splash.css' | relative_url }}">
@@ -35,49 +45,54 @@
   <!-- Main stylesheet -->
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
 
+  {%- comment -%}
+    jekyll-seo-tag emits <title>, the meta description and og/twitter tags.
+    It uses page.description when a page or post sets `description:` in its
+    front matter, and falls back to the excerpt, then site.description.
+  {%- endcomment %}
   {% seo %}
+  {% feed_meta %}
 </head>
 
-<body style="margin: 0; padding: 0;">
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
   {% if page.url == '/' %}
-    <!-- Splash Screen -->
-    <div id="splash" class="splash-hidden">
-      <div class="ascii-wrapper">
+    <!-- Splash: an overlay above the page, never a gate. It is hidden unless
+         the head script set html.splash-active, so with no JS it never shows. -->
+    <div id="splash" role="dialog" aria-label="Intro animation">
+      <div class="ascii-wrapper" aria-hidden="true">
         <pre class="ascii-logo">
 ██████╗ ██╗    ██╗███████╗ █████╗ ██████╗ ██╗   ██╗
 ██╔═══██╗██║    ██║██╔════╝██╔══██╗██╔══██╗╚██╗ ██╔╝
-██║   ██║██║ █╗ ██║█████╗  ███████║██████╔╝ ╚████╔╝ 
-██║▄▄ ██║██║███╗██║██╔══╝  ██╔══██║██╔══██╗  ╚██╔╝  
-╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║   ██║   
- ╚══▀▀═╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
+██║   ██║██║ █╗ ██║█████╗  ███████║██████╔╝ ╚████╔╝
+██║▄▄ ██║██║███╗██║██╔══╝  ██╔══██║██╔══██╗  ╚██╔╝
+╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║   ██║
+ ╚══▀▀═╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝
         </pre>
       </div>
-      <div id="splash-lines"></div>
-      <div class="cursor">█</div>
-      <button id="skip-button">Click to skip</button>
+      <div id="splash-lines" aria-hidden="true"></div>
+      <div class="cursor" aria-hidden="true"></div>
+      <button id="skip-button" type="button">Skip intro (any key)</button>
     </div>
+    <script type="application/json" id="splash-pool">{{ site.data.splash_lines | jsonify | replace: '</', '<\/' }}</script>
   {% endif %}
 
-  <!-- Theme toggle -->
-  <button id="theme-toggle" aria-label="Toggle Theme">🌓</button>
-
-  <!-- Page Content -->
-  <div id="site-content" style="display: none;">
-    <div style="min-height: 100vh; display: flex; flex-direction: column;">
-      {% include header.html %}
-      <main style="flex: 1;">
-        {{ content }}
-      </main>
-      {% include footer.html %}
-    </div>
+  <div id="site-content">
+    {% include header.html %}
+    <main id="main" tabindex="-1">
+      {{ content }}
+    </main>
+    {% include footer.html %}
   </div>
 
   <!-- Flicker Transition Overlay -->
-  <div id="flicker-overlay"></div>
+  <div id="flicker-overlay" aria-hidden="true"></div>
 
   <!-- Scripts -->
   <script src="{{ '/assets/js/splash.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/flicker.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/staleness.js' | relative_url }}"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 /* Light/Dark Theme Variables (existing names kept, new tokens added) */
+:root,
 :root[data-theme="light"] {
   --bg-color: #f8f7fc;
   --surface: #efecf8;
@@ -53,6 +54,32 @@
   --selection: rgba(138, 92, 255, 0.35);
 }
 
+/* No JS (so no data-theme): follow the OS preference. Keep in sync with the dark block above. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg-color: #0b0a10;
+    --surface: #13111c;
+    --text-color: #e6e1f5;       /* 15.45:1 */
+    --heading-color: #f1edff;
+    --muted: #8f88a8;            /* 5.87:1 on bg, 5.70:1 on header */
+    --header-footer-bg: #100e18;
+    --header-footer-text: #e6e1f5;
+    --link-color: #c3a6ff;       /* 9.59:1 on bg, 9.31:1 on header/footer */
+    --link-hover: #e0d2ff;
+    --link-line: rgba(195, 166, 255, 0.45);
+    --code-color: #5ee9ff;       /* 13.68:1 on bg, 12.96:1 on surface */
+    --glow: #8a5cff;             /* decoration only */
+    --rule: #2a2440;
+    --rule-strong: #4a3f73;
+    --banner-from: #5ee9ff;
+    --banner-to: #c3a6ff;
+    --aurora-1: rgba(138, 92, 255, 0.30);
+    --aurora-2: rgba(94, 233, 255, 0.14);
+    --heading-glow: 0 0 18px rgba(138, 92, 255, 0.55);
+    --selection: rgba(138, 92, 255, 0.35);
+  }
+}
+
 /* Apply Theme */
 body {
   background-color: var(--bg-color);
@@ -71,7 +98,14 @@ body {
 
 /* Reading column: 68ch of the mono base (Spectrum's sans measure;
    about 70-75 proportional characters per line), 16px phone gutter */
+#site-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main:focus { outline: none; }
 main {
+  flex: 1 0 auto;
   width: 100%;
   max-width: 68ch;
   margin: 0 auto;
@@ -96,6 +130,28 @@ hr {
   opacity: 0.6;
 }
 
+/* Skip link: off-screen until focused */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 100000;
+  padding: 0.6rem 1rem;
+  background: var(--surface);
+  color: var(--link-color);
+  border: 1px solid var(--link-color);
+  font-family: 'Fira Code', monospace;
+}
+.skip-link:focus { top: 0.5rem; }
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* Header and Footer */
 header, footer {
   background-color: var(--header-footer-bg);
@@ -106,6 +162,7 @@ header, footer {
   width: 100%;
 }
 header {
+  position: relative;
   background-image: linear-gradient(90deg, transparent, var(--rule-strong), transparent);
   background-size: 100% 1px;
   background-repeat: no-repeat;
@@ -136,8 +193,17 @@ nav a:hover {
   text-underline-offset: 0.25em;
 }
 .nav-separator, .footer-separator { color: var(--rule-strong); user-select: none; }
+nav a[aria-current="page"] {
+  color: var(--link-color);
+  text-decoration: underline;
+  text-decoration-color: var(--link-color);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35em;
+}
 @media (max-width: 600px) {
-  nav a { min-height: 44px; padding: 0 0.6rem; }
+  /* 8 items wrap onto rows; every target is >= 44px tall, no pipes */
+  nav { gap: 0; }
+  nav a { min-height: 44px; padding: 0 0.55rem; }
   .nav-separator { display: none; }          /* no orphan pipes at line ends */
 }
 
@@ -158,10 +224,13 @@ a:focus-visible, button:focus-visible {
   border-radius: 2px;
 }
 
-/* Theme toggle (sits outside the footer in default.html, so the old
-   `footer #theme-toggle` selector never matched) */
+/* Theme toggle: lives in the header landmark. Accessible name = visible
+   text ("Dark mode"); state = aria-pressed. Hidden without JS (it needs JS). */
 #theme-toggle {
-  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-top: 0.25rem;
   background: none;
   color: var(--muted);
   border: 0;
@@ -174,6 +243,11 @@ a:focus-visible, button:focus-visible {
 #theme-toggle::before { content: "[ "; color: var(--rule-strong); }
 #theme-toggle::after  { content: " ]"; color: var(--rule-strong); }
 #theme-toggle:hover { color: var(--link-color); }
+#theme-toggle .toggle-state { color: var(--link-color); }
+html:not(.js) #theme-toggle { display: none; }
+@media (min-width: 1100px) {
+  #theme-toggle { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); margin: 0; }
+}
 
 /* Homepage hero: the one aurora moment */
 .hero {
@@ -219,6 +293,7 @@ pre {
   border-radius: 3px;
   padding: 0.8em 1em;
   overflow-x: auto;
+  tab-size: 4;
   font-size: 0.85em;
   line-height: 1.5;
 }
@@ -307,6 +382,32 @@ main p b, main li b { font-weight: 600; }                            /* real 600
 }
 .post-list li { font-size: 1em; }
 
+/* Media: embeds and images never wider than the column */
+img, video { max-width: 100%; height: auto; }
+iframe {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  margin: 1rem auto;
+}
+
+/* Staleness (assets/js/staleness.js): a quiet note, content stays visible */
+.as-of { color: var(--muted); font-family: 'Fira Code', monospace; font-size: 0.8em; }
+.is-stale { border-left: 2px dashed var(--rule-strong); padding-left: 0.9rem; }
+.stale-note {
+  color: var(--muted);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8em;
+  margin: 0 0 0.6rem;
+}
+.stale-note::before { content: "// "; color: var(--link-color); }
+
+/* 404 */
+.not-found pre { color: var(--code-color); }
+
 /* Flicker Overlay for Page Transitions */
 #flicker-overlay {
   position: fixed;
@@ -329,7 +430,7 @@ main p b, main li b { font-weight: 600; }                            /* real 600
 
 /* Glitch Flicker Overlay */
 #flicker-overlay.glitch {
-  animation: glitchFade 0.4s ease-out;
+  animation: glitchFade 0.2s ease-out;
   background: 
     repeating-linear-gradient(
       to bottom,
