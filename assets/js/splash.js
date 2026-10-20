@@ -56,7 +56,10 @@
   };
 
   const messages = pick();
-  const finalMessage = finals[Math.floor(Math.random() * finals.length)];
+  let finalMessage = finals[Math.floor(Math.random() * finals.length)];
+  // Easter egg: at 13:37 local time.
+  const clock = new Date();
+  if (clock.getHours() === 13 && clock.getMinutes() === 37) finalMessage += " (13:37. nice.)";
   const container = document.getElementById("splash-lines");
   const skipBtn = document.getElementById("skip-button");
   const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
