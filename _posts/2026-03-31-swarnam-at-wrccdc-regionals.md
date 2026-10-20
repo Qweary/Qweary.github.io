@@ -1,4 +1,4 @@
-﻿---
+---
 
 layout: post
 title: "🐝🤖 Swarnam at WRCCDC Regionals — AI vs. AI in a First-of-Its-Kind Live Cyber Competition 🤖🐝"

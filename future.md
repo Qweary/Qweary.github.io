@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: Future Research
 permalink: /future/
