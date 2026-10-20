@@ -617,3 +617,66 @@ body.glitch-color {
   .hero::before { animation: none; opacity: 0.85; }
   #flicker-overlay.glitch, .glitch-line, .crt-overlay, body.glitch-color { animation: none !important; display: none; }
 }
+
+/* ==========================================================
+   Easter eggs (assets/js/eggs.js)
+   ========================================================== */
+
+/* One shared status line, bottom-left. Never takes focus. */
+.egg-toast {
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 9000;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  max-width: min(34rem, calc(100vw - 2rem));
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 0.6rem 0.5rem 0.6rem 0.9rem;
+  background: var(--surface);
+  color: var(--text-color);
+  border: 1px solid var(--rule-strong);
+  border-left: 2px solid var(--code-color);
+  border-radius: 3px;
+  box-shadow: 0 8px 28px -10px rgba(0, 0, 0, 0.5);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  animation: egg-in 0.18s ease-out;
+}
+.egg-toast[hidden] { display: none; }
+@keyframes egg-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.egg-msg { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+.egg-msg p { margin: 0; }
+.egg-msg p::before { content: "> "; color: var(--code-color); }
+.egg-close, .egg-play {
+  background: none;
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  color: var(--link-color);
+  font: inherit;
+  cursor: pointer;
+}
+.egg-close { flex: 0 0 auto; min-width: 2rem; min-height: 2rem; padding: 0 0.4rem; }
+.egg-play { margin-top: 0.5rem; padding: 0.35rem 0.8rem; min-height: 2.25rem; }
+.egg-close:hover, .egg-play:hover { color: var(--link-hover); border-color: var(--link-color); }
+.egg-history ol { list-style: none; margin: 0; padding: 0; }
+.egg-history li { white-space: pre-wrap; }
+.egg-history .egg-n { color: var(--muted); }
+.egg-history p { margin-top: 0.4rem; color: var(--muted); }
+
+/* Long-press target for the audiohax egg: no text-selection callout */
+.post > pre.ascii-banner { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+
+/* Footer: zero-width message (invisible by nature) and the July 23 uptime line */
+footer .zw { font-size: 0; }
+footer .uptime { color: var(--code-color); }
+
+/* 404: "stream not found" */
+.not-found .ads-out { white-space: pre; overflow-x: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .egg-toast { animation: none; }
+}

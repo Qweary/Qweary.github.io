@@ -1,0 +1,9 @@
+# Commands for the `history` easter egg (assets/js/eggs.js).
+# Keyed by post slug (the filename without the date and .md).
+# Every post appears in the egg automatically, oldest first. A post with no
+# entry here gets `less <slug>.md`. Quote every string.
+dead-bytes-tell-no-lies: "flashrom -r at45db041e.bin"
+audiohax-data-transfer-over-audio: "cargo run --release  # mfsk modem"
+invisible-streams: "dir /r"
+ads-v2: "./ads --minimal"
+what-is-two-plus-two: "echo \"what is 2 + 2?\""
