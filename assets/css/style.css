@@ -432,7 +432,8 @@ main p b, main li b { font-weight: 600; }                            /* real 600
 .post-list li, .post-date, .hero .tagline {
   font-family: 'Fira Code', ui-monospace, monospace;
 }
-.post-list li { font-size: 1em; }
+.post-list li { font-size: 1em; margin-bottom: 0.5em; }
+.post-list .post-date { display: block; }
 
 /* Tables scroll inside the column instead of widening the page */
 main table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
