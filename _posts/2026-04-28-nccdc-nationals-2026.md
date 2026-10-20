@@ -34,7 +34,7 @@ On April 13th, I was asked if I could "hold the days of April 23rd through 26th.
 
 NCCDC Nationals. The top ten collegiate blue teams in the country, roughly 30 red teamers, Anthropic fielding an all-Claude AI blue team as Team 11. I was placed on Egyp7's team, assigned to attack one of the strongest blue teams in the competition. My first year red teaming. A year that transformed me from simple locksmith to red teamer.
 
-If you haven't read the [WRCCDC regionals recap](https://qweary.github.io/wrccdc-regionals-2026.html) or the [Swarnam development post](https://qweary.github.io/swarnam-development.html), those provide context on how the swarm works and what happened at regionals. This post is the nationals story.
+If you haven't read the [WRCCDC regionals recap](https://qweary.github.io/swarnam-at-wrccdc-regionals.html) or the [Swarnam development post](https://qweary.github.io/building-swarnam.html), those provide context on how the swarm works and what happened at regionals. This post is the nationals story.
 
 ---
 
@@ -239,7 +239,7 @@ And to Swarnam, for VERMILION's cron running autonomously to the final second.
 
 * Swarnam: [https://github.com/Qweary/Swarnam](https://github.com/Qweary/Swarnam)
 * Apparition Delivery System: [https://github.com/Qweary/Apparition-Delivery-System](https://github.com/Qweary/Apparition-Delivery-System)
-* Previous posts: [WRCCDC Regionals Recap](https://qweary.github.io/wrccdc-regionals-2026.html) · [Building Swarnam](https://qweary.github.io/swarnam-development.html) · [ADS v2.0](https://qweary.github.io/ads-v2.html)
+* Previous posts: [WRCCDC Regionals Recap](https://qweary.github.io/swarnam-at-wrccdc-regionals.html) · [Building Swarnam](https://qweary.github.io/building-swarnam.html) · [ADS v2.0](https://qweary.github.io/ads-v2.html)
 * NCCDC 2026 Results: [https://www.nationalccdc.org/winners.html](https://www.nationalccdc.org/winners.html)
 
 ---

@@ -30,7 +30,7 @@ How a locksmith got nerd sniped twice, built a multi-agent offensive security sw
 
 ## Context
 
-If you read my [WRCCDC regionals post](https://qweary.github.io/wrccdc-regionals-2026.html), you know what Swarnam did during competition. This post is about how it was built: the architecture decisions, the problems I anticipated, the problems I didn't, and the methodology I've developed for building specialized multi-agent systems that I'm now carrying into future work.
+If you read my [WRCCDC regionals post](https://qweary.github.io/swarnam-at-wrccdc-regionals.html), you know what Swarnam did during competition. This post is about how it was built: the architecture decisions, the problems I anticipated, the problems I didn't, and the methodology I've developed for building specialized multi-agent systems that I'm now carrying into future work.
 
 Swarnam is an eight-agent Claude Code swarm for red team operations. It coordinates reconnaissance, exploitation, persistence, evasion, lateral movement, intelligence, and payload generation through a single tactical coordinator, with shared state managed through coordination files that agents read and write between invocations. It runs on Kali Linux with MCP integration for tool access. The operator stays in the driver seat (sometimes the swarm moves very quickly, but the human is still driving). Agents prepare, recommend, and generate; humans review and execute (or give the swarm permission to act agentically).
 
