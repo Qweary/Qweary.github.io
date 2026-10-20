@@ -102,6 +102,11 @@
   --selection: rgba(255, 154, 31, 0.30);
 }
 :root[data-theme="p1"], :root[data-theme="p3"] { color-scheme: dark; }
+/* Phosphor modes read as a terminal: mono prose, glowing banner */
+:root[data-theme="p1"] main :is(p, li, blockquote, dd),
+:root[data-theme="p3"] main :is(p, li, blockquote, dd) { font-family: 'Fira Code', monospace, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji'; font-size: 0.95em; }
+:root[data-theme="p1"] .post > pre.ascii-banner,
+:root[data-theme="p3"] .post > pre.ascii-banner { filter: drop-shadow(0 0 6px var(--glow)); }
 
 /* No JS (so no data-theme): follow the OS preference. Keep in sync with the dark block above. */
 @media (prefers-color-scheme: dark) {
@@ -133,7 +138,7 @@
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: 'Fira Code', monospace;
+  font-family: 'Fira Code', monospace, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
   font-size: clamp(16px, 0.5vw + 14px, 20px);
   line-height: 1.7;
   margin: 0;
@@ -164,6 +169,8 @@ main {
 }
 
 h1, h2, h3 { color: var(--heading-color); line-height: 1.25; font-weight: 600; }
+main h3 { font-size: 1em; }
+main h3 strong { font-weight: inherit; }
 h2::after {
   content: "";
   display: block;
@@ -176,7 +183,7 @@ h2::after {
 hr {
   border: 0;
   height: 1px;
-  margin: 2.5em 0;
+  margin: 2em 0;
   background: linear-gradient(90deg, transparent, var(--code-color) 25%, var(--link-color) 75%, transparent);
   opacity: 0.6;
 }
@@ -297,7 +304,7 @@ a:focus-visible, button:focus-visible {
 #theme-toggle .toggle-state { color: var(--link-color); }
 html:not(.js) #theme-toggle { display: none; }
 @media (min-width: 1100px) {
-  #theme-toggle { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); margin: 0; }
+  #theme-toggle { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); margin: 0; font-size: 0.8rem; }
 }
 
 /* Homepage hero: the one aurora moment */
@@ -327,7 +334,7 @@ html:not(.js) #theme-toggle { display: none; }
 .post-date { color: var(--muted); font-size: 0.85em; }
 
 /* Code */
-code, pre, kbd, samp { font-family: 'Fira Code', ui-monospace, monospace; }
+code, pre, kbd, samp { font-family: 'Fira Code', ui-monospace, monospace, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji'; }
 :not(pre) > code {
   background: var(--surface);
   color: var(--code-color);
@@ -420,7 +427,7 @@ pre {
    proportional sibling of Fira Code. Nav, headings, titles, banners,
    code, captions, post lists, the splash and the toggle stay mono. */
 main p, main li, main blockquote, main dd {
-  font-family: 'Fira Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Fira Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
   font-size: 1.06em;
   line-height: 1.7;
 }
@@ -430,7 +437,7 @@ main p strong, main li strong, main blockquote strong,
 main p b, main li b { font-weight: 600; }                            /* real 600 is loaded: no faux bold */
 .post > .post-title, .post > .post-meta,
 .post-list li, .post-date, .hero .tagline {
-  font-family: 'Fira Code', ui-monospace, monospace;
+  font-family: 'Fira Code', ui-monospace, monospace, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
 }
 .post-list li { font-size: 1em; margin-bottom: 0.5em; }
 .post-list .post-date { display: block; }
