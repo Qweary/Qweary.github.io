@@ -44,7 +44,8 @@
 .ascii-logo {
   white-space: pre;
   text-align: left;
-  font-size: min(1rem, calc((100vw - 4rem) / 34));
+  /* splash padding 2rem + wrapper padding 1rem per side */
+  font-size: min(1rem, calc((100vw - 6.5rem) / 34));
   line-height: 1.2;
   margin-bottom: 2rem;
   max-width: 100%;
@@ -54,6 +55,14 @@
   background-clip: text;
   color: transparent;
   filter: drop-shadow(0 0 6px rgba(138, 92, 255, 0.35));
+}
+
+/* The generic pre/code surface in style.css must not box the logo */
+#splash pre.ascii-logo {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
 }
 
 /* Random messages */

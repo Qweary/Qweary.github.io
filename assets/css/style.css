@@ -96,8 +96,9 @@ body {
 
 ::selection { background: var(--selection); color: inherit; }
 
-/* Reading column: 68ch of the mono base (Spectrum's sans measure;
-   about 70-75 proportional characters per line), 16px phone gutter */
+/* Reading column: 66ch of the mono base. Measured in Chromium, Fira Sans
+   prose at this width sets about 68-74 characters per line, inside the
+   45-75 comfort band (68ch measured ~70-78). 16px phone gutter. */
 #site-content {
   display: flex;
   flex-direction: column;
@@ -107,8 +108,9 @@ main:focus { outline: none; }
 main {
   flex: 1 0 auto;
   width: 100%;
-  max-width: 68ch;
+  max-width: 66ch;
   margin: 0 auto;
+  overflow-wrap: break-word;   /* long URLs/tokens wrap instead of widening the page */
   padding: 1.5rem 1rem 3rem;
 }
 
@@ -284,6 +286,7 @@ code, pre, kbd, samp { font-family: 'Fira Code', ui-monospace, monospace; }
   border-radius: 3px;
   padding: 0.08em 0.35em;
   font-size: 0.9em;
+  overflow-wrap: anywhere;
 }
 pre {
   background: var(--surface);
@@ -381,6 +384,10 @@ main p b, main li b { font-weight: 600; }                            /* real 600
   font-family: 'Fira Code', ui-monospace, monospace;
 }
 .post-list li { font-size: 1em; }
+
+/* Tables scroll inside the column instead of widening the page */
+main table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
+main th, main td { border: 1px solid var(--rule); padding: 0.35em 0.6em; vertical-align: top; }
 
 /* Media: embeds and images never wider than the column */
 img, video { max-width: 100%; height: auto; }
