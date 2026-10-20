@@ -33,24 +33,35 @@
   ];
 
   // ---------- status line ----------
-  var toast = null, region = null, closeTimer = null, onClose = null;
+  // The box holds two parts: a polite live region that only ever gets a short
+  // line, and a panel (not live) for links or buttons. When a panel opens,
+  // the box is moved in the DOM to just after the current focus point, so
+  // the next Tab reaches it, but focus itself never moves.
+  var toast = null, region = null, panel = null, anchor = null, closeTimer = null, onClose = null;
 
   function buildToast() {
     if (toast) return;
     toast = document.createElement("div");
+    toast.id = "egg-toast";
     toast.className = "egg-toast";
     toast.hidden = true;
     region = document.createElement("div");
     region.className = "egg-msg";
     region.setAttribute("role", "status");
     region.setAttribute("aria-live", "polite");
+    panel = document.createElement("div");
+    panel.className = "egg-panel";
     var x = document.createElement("button");
     x.type = "button";
     x.className = "egg-close";
     x.setAttribute("aria-label", "Dismiss");
     x.textContent = "x";
     x.addEventListener("click", closeToast);
-    toast.appendChild(region);
+    var body = document.createElement("div");
+    body.className = "egg-body";
+    body.appendChild(region);
+    body.appendChild(panel);
+    toast.appendChild(body);
     toast.appendChild(x);
     toast.addEventListener("click", function (e) {
       if (e.target.closest("a, button")) return;
@@ -62,37 +73,54 @@
     document.body.appendChild(toast);
   }
 
+  // Put the box right after the focus point in DOM (and so Tab) order.
+  function placeAfterFocus() {
+    var a = document.activeElement;
+    anchor = null;
+    if (!a || a === document.body || a === document.documentElement || toast.contains(a)) {
+      document.body.insertBefore(toast, document.body.firstChild);
+      return;
+    }
+    anchor = a;
+    // A programmatic focus target (tabindex=-1, e.g. <main> after the skip
+    // link) would be followed by its own children, so go inside it.
+    if (a.tabIndex < 0) a.insertBefore(toast, a.firstChild);
+    else a.insertAdjacentElement("afterend", toast);
+  }
+
   function closeToast() {
     if (!toast || toast.hidden) return;
     clearTimeout(closeTimer);
     if (onClose) { var f = onClose; onClose = null; f(); }
+    var hadFocus = toast.contains(document.activeElement);
     toast.hidden = true;
     region.textContent = "";
+    panel.textContent = "";
+    // Only if the reader had gone into the panel: put them back where they were.
+    if (hadFocus && anchor && document.contains(anchor)) anchor.focus({ preventScroll: true });
   }
 
-  // show(nodeOrText, sticky): sticky panels (with links or buttons) stay
-  // until dismissed; plain messages close after 12 s.
-  function show(content, sticky) {
+  // show(text, panelNode): with a panel the box stays until dismissed;
+  // a plain message closes after 12 s.
+  function show(text, panelNode) {
     buildToast();
     if (onClose) { var f = onClose; onClose = null; f(); }
     clearTimeout(closeTimer);
-    toast.hidden = false;
     region.textContent = "";
+    panel.textContent = "";
+    if (panelNode) { placeAfterFocus(); panel.appendChild(panelNode); }
+    toast.hidden = false;
     // Fill on the next tick so the live region is already rendered and the
     // new text is announced.
     setTimeout(function () {
       region.textContent = "";
-      if (typeof content === "string") {
-        content.split("\n").forEach(function (line) {
-          var p = document.createElement("p");
-          p.textContent = line;
-          region.appendChild(p);
-        });
-      } else {
-        region.appendChild(content);
-      }
+      String(text).split("\n").forEach(function (line) {
+        var p = document.createElement("p");
+        p.textContent = line;
+        region.appendChild(p);
+      });
     }, 30);
-    if (!sticky) closeTimer = setTimeout(closeToast, 12000);
+    if (!panelNode) closeTimer = setTimeout(closeToast, 12000);
   }
 
   document.addEventListener("qweary:toast", function (e) {
@@ -103,16 +131,28 @@
   function twoPlusTwo() { show("4\noutputTokens: 1"); }
 
   // ---------- history ----------
+  var SHOWN = 10;
+  function line(num, node) {
+    var li = document.createElement("li");
+    var n = document.createElement("span");
+    n.className = "egg-n";
+    n.setAttribute("aria-hidden", "true");
+    n.textContent = String(num).padStart(4, " ") + "  ";
+    li.appendChild(n);
+    li.appendChild(node);
+    return li;
+  }
   function historyPanel() {
     var wrap = document.createElement("div");
     wrap.className = "egg-history";
+    var start = Math.max(0, HISTORY.length - SHOWN);
+    if (start > 0) {
+      var older = document.createElement("p");
+      older.textContent = "(" + start + " older entries. qweary.history() in the console lists them all.)";
+      wrap.appendChild(older);
+    }
     var ol = document.createElement("ol");
-    HISTORY.forEach(function (h, i) {
-      var li = document.createElement("li");
-      var n = document.createElement("span");
-      n.className = "egg-n";
-      n.setAttribute("aria-hidden", "true");
-      n.textContent = String(i + 1).padStart(4, " ") + "  ";
+    HISTORY.slice(start).forEach(function (h, i) {
       var a = document.createElement("a");
       a.href = h.u;
       a.textContent = h.c;
@@ -120,18 +160,10 @@
       t.className = "visually-hidden";
       t.textContent = " (post: " + h.t + ")";
       a.appendChild(t);
-      li.appendChild(n);
-      li.appendChild(a);
-      ol.appendChild(li);
+      a.title = h.t;
+      ol.appendChild(line(start + i + 1, a));
     });
-    var last = document.createElement("li");
-    var n2 = document.createElement("span");
-    n2.className = "egg-n";
-    n2.setAttribute("aria-hidden", "true");
-    n2.textContent = String(HISTORY.length + 1).padStart(4, " ") + "  ";
-    last.appendChild(n2);
-    last.appendChild(document.createTextNode("history -c"));
-    ol.appendChild(last);
+    ol.appendChild(line(HISTORY.length + 1, document.createTextNode("history -c")));
     var p = document.createElement("p");
     p.textContent = "cleared. (lesson from the \"$\" account: erase your history.)";
     wrap.appendChild(ol);
@@ -139,7 +171,10 @@
     return wrap;
   }
 
-  function showHistory() { show(historyPanel(), true); }
+  function showHistory() {
+    var n = Math.min(SHOWN, HISTORY.length);
+    show("history: " + n + " of " + HISTORY.length + " entries shown", historyPanel());
+  }
 
   // ---------- audiohax: the logo as a melody ----------
   var LOGO = [
@@ -242,9 +277,6 @@
   }
 
   function showAudiohax() {
-    var wrap = document.createElement("div");
-    var p = document.createElement("p");
-    p.textContent = "audiohax: the logo, read as a score. Sound, about 6 s.";
     var btn = document.createElement("button");
     btn.type = "button";
     btn.className = "egg-play";
@@ -253,9 +285,7 @@
       if (audio) { stopAudio(); setIdle(btn); }
       else play(btn);
     });
-    wrap.appendChild(p);
-    wrap.appendChild(btn);
-    show(wrap, true);
+    show("audiohax: the logo, read as a score. Sound, about 6 s.", btn);
     onClose = stopAudio;
   }
 
