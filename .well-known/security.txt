@@ -1,0 +1,9 @@
+# Security contact for qweary.github.io (RFC 9116).
+# disclosures welcome. vendors who threaten silence: see "Mortise Spindle Failures"
+#   https://qweary.github.io/when-physical-meets-digital.html
+# This is a static blog. There is no login, no form and no database to report on,
+# but if you found something, I want to hear it.
+Contact: mailto:qwearyblog@gmail.com
+Expires: 2027-10-19T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://qweary.github.io/.well-known/security.txt

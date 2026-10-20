@@ -1,0 +1,19 @@
+/* TEAM */
+    Author: Qweary
+    Role: security researcher, hardware hacker, red teamer
+    Contact: qwearyblog [at] gmail.com
+    Site: https://qweary.github.io
+
+/* ALSO PRESENT */
+    kitty: a LoRa/Meshtastic node in a cat-shaped case
+    One trombone
+    A FlockU, with a wireframe fox
+
+/* THANKS */
+    Everyone who reads source for a living.
+
+/* SITE */
+    Built with: Jekyll, on GitHub Pages
+    Fonts: Fira Code, Fira Sans
+    Standards: HTML, CSS, a little JavaScript
+    Tracking: none
