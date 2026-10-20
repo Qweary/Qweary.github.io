@@ -3,15 +3,29 @@
 // The page underneath is always rendered; the splash only sits on top of it.
 // It runs only when the head script in _layouts/default.html added
 // html.splash-active (homepage, first view this session, not arriving from
-// another page of this site). Total run is about 3-4 s. A click or tap
-// anywhere on it, or any key, skips it. Under prefers-reduced-motion it shows
-// static (all lines at once, no cursor blink) for about 1.5 s.
+// another page of this site). A full run takes about 9-12 s, depending on the
+// lines drawn (see TIMING). A click or tap anywhere on it, or any key, skips
+// it. Under prefers-reduced-motion it shows static (all lines at once, no
+// cursor blink) for about 1.5 s.
 //
 // Lines come from _data/splash_lines.yml, rendered into
 // <script type="application/json" id="splash-pool"> by the layout:
 //   { count, rare_weight, final, lines: [{ text, rarity: common|rare }] }
 // If that is missing or malformed, FALLBACK below is used.
+
+// ---- Pacing: every timing value lives here. Tune freely. ----
+const SPLASH_TIMING = {
+  CHAR_MS: 40,           // per typed character
+  LINE_GAP_MS: 500,      // pause after each boot line
+  PRE_FINAL_MS: 800,     // extra pause before the final line starts typing
+  FINAL_HOLD_MS: 2500,   // hold after the final line finishes, before the fade
+  FADE_MS: 300,          // fade-out (keep in step with splash.css .splash-leaving)
+  REDUCED_HOLD_MS: 1500, // reduced motion: how long the static splash shows
+  SAFETY_MARGIN_MS: 1500 // safety net = computed run length + this
+};
+
 (function () {
+  const T = SPLASH_TIMING;
   const root = document.documentElement;
   const splash = document.getElementById("splash");
   if (!splash || !root.classList.contains("splash-active")) return;
@@ -60,9 +74,21 @@
   // Easter egg: at 13:37 local time.
   const clock = new Date();
   if (clock.getHours() === 13 && clock.getMinutes() === 37) finalMessage += " (13:37. nice.)";
+  const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Safety net, computed from the actual lines: typing + gaps + holds + margin.
+  // Published for the head-script failsafe so it never fires before a normal
+  // run has finished.
+  const typedChars = messages.reduce((n, m) => n + m.length, 0) + finalMessage.length;
+  const runMs = reducedMotion
+    ? T.REDUCED_HOLD_MS
+    : typedChars * T.CHAR_MS + messages.length * T.LINE_GAP_MS + T.PRE_FINAL_MS + T.FINAL_HOLD_MS;
+  const safetyMs = runMs + T.SAFETY_MARGIN_MS;
+  root.setAttribute("data-splash-deadline", String(Date.now() + safetyMs));
+
   const container = document.getElementById("splash-lines");
   const skipBtn = document.getElementById("skip-button");
-  const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduced = reducedMotion;
 
   // While the overlay is up, the page behind it is inert, so Tab cannot
   // wander under it. Restored when the splash ends (and by the head-script
@@ -92,7 +118,7 @@
       root.classList.remove("splash-leaving");
       splash.remove();
     };
-    if (reduced) done(); else setTimeout(done, 300);
+    if (reduced) done(); else setTimeout(done, T.FADE_MS);
   }
 
   function onKey(e) {
@@ -112,10 +138,10 @@
     let i = 0;
     const step = () => {
       line.textContent = text.slice(0, ++i);
-      if (i < text.length) later(step, 14);
-      else later(next, isFinal ? 700 : 150);
+      if (i < text.length) later(step, T.CHAR_MS);
+      else later(next, isFinal ? T.FINAL_HOLD_MS : T.LINE_GAP_MS);
     };
-    later(step, isFinal ? 300 : 0);
+    later(step, isFinal ? T.PRE_FINAL_MS : 0);
   };
 
   splash.addEventListener("click", endSplash);
@@ -128,7 +154,7 @@
   if (reduced) {
     messages.forEach(m => { addLine(m, false).textContent = m; });
     addLine(finalMessage, true).textContent = finalMessage;
-    later(endSplash, 1500);
+    later(endSplash, T.REDUCED_HOLD_MS);
     return;
   }
 
@@ -138,5 +164,5 @@
     else if (idx++ === messages.length) typeLine(finalMessage, true, endSplash);
   };
   next();
-  later(endSplash, 5000); // safety net
+  later(endSplash, safetyMs); // safety net, computed above
 })();

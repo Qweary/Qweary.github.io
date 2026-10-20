@@ -28,10 +28,9 @@
   transition: opacity 0.3s ease;
   pointer-events: none;
 }
-/* Failsafe: if splash.js never runs or throws, the overlay gets out of the
-   way by itself after 6 s. */
-.splash-active #splash { animation: splash-failsafe 0.3s linear 6s forwards; }
-@keyframes splash-failsafe { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+/* Failsafe: the head script in _layouts/default.html removes .splash-active
+   (hiding this overlay) if splash.js fails, after a deadline computed from
+   the lines, so no fixed-time CSS failsafe here: it would cut a normal run. */
 
 /* Scrollable wrapper for ASCII Art */
 .ascii-wrapper {

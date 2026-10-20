@@ -30,15 +30,23 @@
       try { internal = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
       if (!seen && !internal) {
         root.classList.add('splash-active');
-        // Failsafe: if splash.js never runs or throws, release the scroll lock
-        // and the inert page after 6.5 s (splash.js ends it sooner normally).
-        setTimeout(function () {
+        // Failsafe: release the scroll lock and the inert page if splash.js
+        // fails. splash.js (a blocking script) has run or failed by
+        // DOMContentLoaded. If it never published its computed deadline, it
+        // did not start: unlock now. Otherwise unlock only after that deadline
+        // (run length + margin), so a normal run is never cut short.
+        var unlock = function () {
           if (!root.classList.contains('splash-active')) return;
           root.classList.remove('splash-active');
           var c = document.getElementById('site-content'), k = document.querySelector('.skip-link');
           if (c) c.inert = false;
           if (k) k.inert = false;
-        }, 6500);
+        };
+        document.addEventListener('DOMContentLoaded', function () {
+          var deadline = +root.getAttribute('data-splash-deadline');
+          if (!deadline) { unlock(); return; }
+          setTimeout(unlock, Math.max(0, deadline - Date.now()) + 500);
+        });
       }
       try { sessionStorage.setItem('splashSeen', '1'); } catch (e) {}
       {%- endif %}
