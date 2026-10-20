@@ -680,3 +680,32 @@ footer .uptime { color: var(--code-color); }
 @media (prefers-reduced-motion: reduce) {
   .egg-toast { animation: none; }
 }
+
+/* Print: paper, the original air gap */
+@media print {
+  :root, :root[data-theme] {
+    --bg-color: #fff; --surface: #fff; --text-color: #000; --heading-color: #000;
+    --muted: #333; --link-color: #000; --link-line: #000; --code-color: #000;
+    --header-footer-bg: #fff; --header-footer-text: #000; --heading-glow: none;
+    --banner-from: #000; --banner-to: #000; --rule: #999; --rule-strong: #666;
+  }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  #splash, .skip-link, header, #flicker-overlay, .glitch-line, .crt-overlay,
+  .egg-toast, #theme-toggle, footer { display: none !important; }
+  .hero::before, .hero::after { display: none !important; }
+  main { max-width: none; padding: 0; }
+  h1, h2, h3 { text-shadow: none !important; break-after: avoid; }
+  pre, figure, img { break-inside: avoid; }
+  pre { white-space: pre-wrap; border: 1px solid #999; }
+  .post > pre.ascii-banner { filter: none !important; white-space: pre; }
+  .post a[href^="http"]::after { content: " <" attr(href) ">"; font-size: 0.85em; overflow-wrap: anywhere; }
+  .post::after {
+    content: "printed from qweary.github.io. paper: the original air gap.";
+    display: block;
+    margin-top: 2rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #999;
+    font-family: 'Fira Code', monospace;
+    font-size: 9pt;
+  }
+}
