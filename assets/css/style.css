@@ -350,9 +350,9 @@ pre {
   line-height: 1.5;
 }
 
-/* Post header: when a post carries its own in-body H1 the layout title is
-   a quiet line (p.post-title) and the in-body H1 carries the weight; when
-   it does not, the layout title is the H1 (h1.post-title--primary). */
+/* Post header: when a post carries its own in-body H1 the layout prints no
+   title (the in-body H1 is the title); when it does not, the layout title
+   is the H1 (h1.post-title--primary). */
 .post > .post-title {
   font-size: 1.05em;
   font-weight: 500;
