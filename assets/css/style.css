@@ -1,64 +1,56 @@
-/* Splash Screen */
-#splash {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #0d0d0d;
-  color: #00f0ff;
-  font-family: 'Fira Code', monospace;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 99999;
-  text-align: center;
-  padding: 2rem;
-}
+/* ==========================================================
+   Qweary — Direction B "Aurora": cyan + ethereal violet
+   Splash rules now live only in splash.css (were duplicated here
+   with different values; style.css loaded second and silently won).
+   ========================================================== */
 
-#splash .ascii-logo {
-  margin-bottom: 2rem;
-  font-size: 14px;
-  line-height: 1.2;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
-.cursor {
-  display: inline-block;
-  animation: blink 1s steps(2, start) infinite;
-  font-size: 1.1rem;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-#skip-button {
-  background: none;
-  color: #00f0ff;
-  border: 1px solid #00f0ff;
-  padding: 0.5rem 1rem;
-  font-family: 'Fira Code', monospace;
-  cursor: pointer;
-  margin-top: 1rem;
-}
-
-/* Light/Dark Theme Variables */
+/* Light/Dark Theme Variables (existing names kept, new tokens added) */
 :root[data-theme="light"] {
-  --bg-color: #f9f9f9;
-  --text-color: #222;
-  --header-footer-bg: #e0e0e0;
-  --header-footer-text: #222;
-  --link-color: #007acc;
+  --bg-color: #f8f7fc;
+  --surface: #efecf8;
+  --text-color: #1f1b2e;
+  --heading-color: #1a1528;
+  --muted: #6a6480;            /* 5.26:1 on bg, 4.68:1 on header */
+  --header-footer-bg: #ece9f6;
+  --header-footer-text: #1f1b2e;
+  --link-color: #6a3fd1;       /* 6.07:1 on bg, 5.41:1 on header/footer */
+  --link-hover: #4f2aa8;
+  --link-line: rgba(106, 63, 209, 0.45);
+  --code-color: #00758f;       /* 5.00:1 on bg, 4.57:1 on surface */
+  --glow: #a98bff;             /* decoration only (2.52:1) */
+  --rule: #dcd4f2;
+  --rule-strong: #b3a3e6;
+  --banner-from: #00758f;
+  --banner-to: #6a3fd1;
+  --aurora-1: rgba(169, 139, 255, 0.28);
+  --aurora-2: rgba(0, 180, 210, 0.10);
+  --heading-glow: none;
+  --selection: rgba(169, 139, 255, 0.30);
 }
 
 :root[data-theme="dark"] {
-  --bg-color: #0d0d0d;
-  --text-color: #e0f7ff;
-  --header-footer-bg: #111;
-  --header-footer-text: #00f0ff;
-  --link-color: #00ccff;
+  --bg-color: #0b0a10;
+  --surface: #13111c;
+  --text-color: #e6e1f5;       /* 15.45:1 */
+  --heading-color: #f1edff;
+  --muted: #8f88a8;            /* 5.87:1 on bg, 5.70:1 on header */
+  --header-footer-bg: #100e18;
+  --header-footer-text: #e6e1f5;
+  --link-color: #c3a6ff;       /* 9.59:1 on bg, 9.31:1 on header/footer */
+  --link-hover: #e0d2ff;
+  --link-line: rgba(195, 166, 255, 0.45);
+  --code-color: #5ee9ff;       /* 13.68:1 on bg, 12.96:1 on surface */
+  --glow: #8a5cff;             /* decoration only */
+  --rule: #2a2440;
+  --rule-strong: #4a3f73;
+  --banner-from: #5ee9ff;
+  --banner-to: #c3a6ff;
+  --aurora-1: rgba(138, 92, 255, 0.30);
+  --aurora-2: rgba(94, 233, 255, 0.14);
+  --heading-glow: 0 0 18px rgba(138, 92, 255, 0.55);
+  --selection: rgba(138, 92, 255, 0.35);
 }
 
 /* Apply Theme */
@@ -66,71 +58,197 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   font-family: 'Fira Code', monospace;
-  font-size: clamp(16px, 2vw, 22px);
-  line-height: 1.6;
+  font-size: clamp(16px, 0.5vw + 14px, 20px);
+  line-height: 1.7;
   margin: 0;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  scrollbar-color: var(--rule-strong) var(--bg-color);
+}
+
+::selection { background: var(--selection); color: inherit; }
+
+/* Reading column: ~72 characters, 16px phone gutter */
+main {
+  width: 100%;
+  max-width: 72ch;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+h1, h2, h3 { color: var(--heading-color); line-height: 1.25; font-weight: 600; }
+h2::after {
+  content: "";
+  display: block;
+  width: 3.5em;
+  height: 1px;
+  margin-top: 0.35em;
+  background: linear-gradient(90deg, var(--code-color), var(--link-color));
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  margin: 2.5em 0;
+  background: linear-gradient(90deg, transparent, var(--code-color) 25%, var(--link-color) 75%, transparent);
+  opacity: 0.6;
 }
 
 /* Header and Footer */
 header, footer {
   background-color: var(--header-footer-bg);
   color: var(--header-footer-text);
-  font-size: clamp(14px, 1.8vw, 20px);
-  padding: 1rem 2rem;
+  font-size: clamp(14px, 0.4vw + 12px, 17px);
+  padding: 1rem;
   text-align: center;
   width: 100%;
 }
+header {
+  background-image: linear-gradient(90deg, transparent, var(--rule-strong), transparent);
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+footer { color: var(--muted); border-top: 1px solid var(--rule); }
 
 /* Navigation */
 nav {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  align-items: center;
+  gap: 0 0.25rem;
   flex-wrap: wrap;
 }
-
 nav a {
-  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
   padding: 0 0.5rem;
-}
-
-nav a + a::before {
-  content: '|';
-  color: #00f0ff;
-  position: absolute;
-  left: -0.6rem;
-}
-
-/* Links */
-a {
-  color: var(--link-color);
+  color: var(--header-footer-text);
   text-decoration: none;
 }
-
-/* Footer Theme Toggle Button */
-footer #theme-toggle {
-  background: none;
-  color: inherit;
-  border: none;
-  font-family: 'Fira Code', monospace;
-  font-size: inherit;
-  cursor: pointer;
-  padding: 0 0.5rem;
-  margin-left: 0.5rem;
-}
-
-footer #theme-toggle:hover {
+nav a:hover {
+  color: var(--link-hover);
   text-decoration: underline;
+  text-decoration-color: var(--link-color);
+  text-underline-offset: 0.25em;
+}
+.nav-separator, .footer-separator { color: var(--rule-strong); user-select: none; }
+@media (max-width: 600px) {
+  nav a { min-height: 44px; padding: 0 0.6rem; }
+  .nav-separator { display: none; }          /* no orphan pipes at line ends */
 }
 
-/* Responsive Font */
-@media screen and (min-width: 1024px) {
-  body {
-    font-size: clamp(20px, 2vw, 24px);
-  }
+/* Links: underlined, so they never rely on colour alone */
+a {
+  color: var(--link-color);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: var(--link-line);
+}
+a:hover { color: var(--link-hover); text-decoration-color: currentColor; }
+
+/* Focus rings: accent passes >=6:1 on every surface */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Theme toggle (sits outside the footer in default.html, so the old
+   `footer #theme-toggle` selector never matched) */
+#theme-toggle {
+  align-self: flex-end;
+  background: none;
+  color: var(--muted);
+  border: 0;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
+  padding: 0.5rem 1rem;
+  min-height: 44px;
+  cursor: pointer;
+}
+#theme-toggle::before { content: "[ "; color: var(--rule-strong); }
+#theme-toggle::after  { content: " ]"; color: var(--rule-strong); }
+#theme-toggle:hover { color: var(--link-color); }
+
+/* Homepage hero: the one aurora moment */
+.hero {
+  position: relative;
+  isolation: isolate;
+  text-align: center;
+  padding: 1.5rem 0 0.5rem;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -2rem -1rem -0.5rem;   /* stays inside the 1rem gutter: no sideways scroll */
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 70% at 38% 45%, var(--aurora-1), transparent 70%),
+    radial-gradient(45% 60% at 68% 55%, var(--aurora-2), transparent 70%);
+  filter: blur(8px);
+  animation: aurora-breathe 9s ease-in-out infinite alternate;
+}
+.hero h1 { text-shadow: var(--heading-glow); }
+.hero .tagline { color: var(--muted); }
+@keyframes aurora-breathe { from { opacity: 0.65; } to { opacity: 1; } }
+
+/* Lists of posts */
+.post-date { color: var(--muted); font-size: 0.85em; }
+
+/* Code */
+code { font-family: inherit; }
+:not(pre) > code {
+  background: var(--surface);
+  color: var(--code-color);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0.08em 0.35em;
+  font-size: 0.9em;
+}
+pre {
+  background: var(--surface);
+  color: var(--code-color);
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--glow);
+  border-radius: 3px;
+  padding: 0.8em 1em;
+  overflow-x: auto;
+  font-size: 0.85em;
+  line-height: 1.5;
+}
+
+/* Post header: layout title becomes a quiet title line; the banner +
+   setext H1 written in each post carry the visual weight. */
+.post > h1:first-child {
+  font-size: 1.05em;
+  font-weight: 500;
+  color: var(--muted);
+  margin: 1rem 0 0.2rem;
+}
+.post > h1:first-child + p { color: var(--muted); font-size: 0.85em; }
+
+/* ASCII banner: the first <pre> right after the post meta line */
+.post > h1:first-child + p + pre {
+  background: linear-gradient(100deg, var(--banner-from) 10%, var(--banner-to) 75%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  border: 0;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  overflow-x: auto;
+  line-height: 1.15;
+  /* 53-column banner fits a phone without sideways scroll */
+  font-size: min(0.85em, calc((100vw - 2.5rem) / 34));
+}
+.post > h1:first-child + p + pre code { color: transparent; background: none; border: 0; padding: 0; }
+:root[data-theme="dark"] .post > h1:first-child + p + pre {
+  filter: drop-shadow(0 0 6px rgba(138, 92, 255, 0.35));
 }
 
 /* Post Images: responsive figures for photo-carrying posts */
@@ -139,9 +257,10 @@ footer #theme-toggle:hover {
   max-width: 100%;
   height: auto;
   margin: 0 auto;
-  border: 1px solid rgba(0, 240, 255, 0.25);
+  border: 1px solid var(--rule-strong);
   border-radius: 3px;
 }
+:root[data-theme="dark"] .post img { box-shadow: 0 8px 32px -12px rgba(138, 92, 255, 0.4); }
 
 .post figure {
   margin: 2.5rem auto;
@@ -149,14 +268,23 @@ footer #theme-toggle:hover {
   text-align: center;
 }
 
+/* Fira Code has no italic (faux oblique) and opacity muddied contrast;
+   use the muted token and a comment prefix instead. */
 .post figcaption {
-  font-size: 0.72em;
-  line-height: 1.4;
-  opacity: 0.7;
-  margin-top: 0.6rem;
-  font-style: italic;
+  font-size: 0.75em;
+  line-height: 1.45;
+  color: var(--muted);
+  margin-top: 0.7rem;
+  font-style: normal;
+  text-align: left;
   padding: 0 0.5rem;
 }
+.post figcaption::before { content: "// "; color: var(--link-color); }
+
+/* OPTIONAL (taste call, off by default): proportional prose in posts.
+   Requires adding Fira Sans to the Google Fonts link. Uncomment to enable.
+.post p, .post li { font-family: 'Fira Sans', system-ui, sans-serif; font-size: 1.06em; }
+*/
 
 /* Flicker Overlay for Page Transitions */
 #flicker-overlay {
@@ -304,4 +432,10 @@ body.glitch-color {
   100% {
     filter: none;
   }
+}
+
+/* Reduced motion: keep the look, drop the movement */
+@media (prefers-reduced-motion: reduce) {
+  .hero::before { animation: none; opacity: 0.85; }
+  #flicker-overlay.glitch, .glitch-line, .crt-overlay, body.glitch-color { animation: none !important; display: none; }
 }

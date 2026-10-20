@@ -1,17 +1,19 @@
-/* Splash screen container */
+/* Splash screen container (single source of truth; the duplicate
+   block formerly in style.css has been removed) */
 #splash {
   position: fixed;
   top: 0; left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #000;
-  color: #00ffff; /* Neon blue */
+  background-color: #0b0a10;
+  color: #5ee9ff;
   font-family: 'Fira Code', monospace;
-  z-index: 9999;
+  z-index: 99999;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   overflow: auto;
   padding: 2rem;
 }
@@ -24,19 +26,24 @@
 /* Scrollable wrapper for ASCII Art */
 .ascii-wrapper {
   overflow-x: auto;
-  max-width: 100vw;
+  max-width: 100%;
   padding: 0 1rem;
 }
 
-/* ASCII Art */
+/* ASCII Art: cyan-to-violet gradient phosphor */
 .ascii-logo {
   white-space: pre;
   text-align: left;
-  font-size: 1rem;
+  font-size: min(1rem, calc((100vw - 4rem) / 34));
   line-height: 1.2;
   margin-bottom: 2rem;
   max-width: 100%;
   overflow-wrap: normal;
+  background: linear-gradient(100deg, #5ee9ff 10%, #c3a6ff 60%, #a07bff 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 6px rgba(138, 92, 255, 0.35));
 }
 
 /* Random messages */
@@ -44,6 +51,7 @@
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+  text-align: left;
 }
 
 /* Flickering cursor */
@@ -51,7 +59,8 @@
   display: inline-block;
   width: 0.8em;
   height: 1.2em;
-  background-color: #00ffff;
+  background-color: #c3a6ff;
+  box-shadow: 0 0 10px #8a5cff;
   margin-left: 4px;
   animation: blink 1s step-start infinite;
 }
@@ -66,26 +75,32 @@
   bottom: 20px;
   right: 20px;
   padding: 0.5rem 1rem;
+  min-height: 44px;
   background: transparent;
-  color: #00ffff;
+  color: #c3a6ff;
   font-family: 'Fira Code', monospace;
   font-size: 0.9rem;
-  border: 1px solid #00ffff;
+  border: 1px solid #4a3f73;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, border-color 0.3s;
   z-index: 1001;
 }
 
 #skip-button:hover {
-  background-color: rgba(0, 255, 255, 0.1);
-  opacity: 1;
+  background-color: rgba(138, 92, 255, 0.12);
+  border-color: #c3a6ff;
+}
+
+#skip-button:focus-visible {
+  outline: 2px solid #c3a6ff;
+  outline-offset: 2px;
 }
 
 /* Final splash line styling */
 .splash-line.final-line {
-  color: #00ffff; /* Brighter neon blue */
+  color: #e0d2ff;
   font-weight: bold;
-  text-shadow: 0 0 8px #00ffff;
+  text-shadow: 0 0 8px #8a5cff;
   margin-top: 0.75rem;
 }
 
@@ -102,4 +117,10 @@
 
 body.splash-done #main-content {
   display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor { animation: none; }
+  .ascii-logo { filter: none; }
+  #splash.fade-out { transition: none; }
 }
