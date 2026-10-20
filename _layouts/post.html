@@ -1,10 +1,18 @@
 ---
 layout: default
 ---
-
-
+{%- comment -%}
+  One H1 per post. Many posts open with their own in-body title heading
+  (setext "Title / ====" or "# Title"). When the rendered body already has
+  an H1, the layout title is a quiet line instead of a second H1; otherwise
+  the layout title is the H1. No post wording changes either way.
+{%- endcomment -%}
 <article class="post">
-  <h1>{{ page.title }}</h1>
-  <p><small>{{ page.date | date: "%B %d, %Y" }} — {{ page.categories | join: ', ' }}</small></p>
+  {%- if content contains '<h1' %}
+  <p class="post-title">{{ page.title }}</p>
+  {%- else %}
+  <h1 class="post-title post-title--primary">{{ page.title }}</h1>
+  {%- endif %}
+  <p class="post-meta"><small><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>{% if page.categories.size > 0 %} — {{ page.categories | join: ', ' }}{% endif %}</small></p>
   {{ content }}
 </article>

