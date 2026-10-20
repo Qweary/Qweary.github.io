@@ -1,6 +1,7 @@
 /* Splash screen container (single source of truth; the duplicate
    block formerly in style.css has been removed) */
 #splash {
+  cursor: pointer;          /* a click or tap anywhere skips */
   position: fixed;
   top: 0; left: 0;
   width: 100vw;
@@ -9,7 +10,7 @@
   color: #5ee9ff;
   font-family: 'Fira Code', monospace;
   z-index: 99999;
-  display: flex;
+  display: none;            /* shown only while html.splash-active (set by JS) */
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -18,10 +19,19 @@
   padding: 2rem;
 }
 
-/* Hide when done */
-#splash.hidden {
-  display: none;
+/* Overlay, never a gate: the page is rendered underneath at all times. */
+.splash-active #splash,
+.splash-leaving #splash { display: flex; }
+.splash-active body { overflow: hidden; }
+.splash-leaving #splash {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
 }
+/* Failsafe: if splash.js never runs or throws, the overlay gets out of the
+   way by itself after 6 s. */
+.splash-active #splash { animation: splash-failsafe 0.3s linear 6s forwards; }
+@keyframes splash-failsafe { to { opacity: 0; visibility: hidden; pointer-events: none; } }
 
 /* Scrollable wrapper for ASCII Art */
 .ascii-wrapper {
@@ -104,23 +114,9 @@
   margin-top: 0.75rem;
 }
 
-/* Fade-out */
-#splash.fade-out {
-  opacity: 0;
-  transition: opacity 1s ease;
-  pointer-events: none;
-}
-
-#main-content {
-  display: none;
-}
-
-body.splash-done #main-content {
-  display: block;
-}
 
 @media (prefers-reduced-motion: reduce) {
   .cursor { animation: none; }
   .ascii-logo { filter: none; }
-  #splash.fade-out { transition: none; }
+  .splash-leaving #splash { transition: none; }
 }

@@ -1,0 +1,24 @@
+# Boot lines for the homepage splash (assets/js/splash.js).
+# Each run shows `count` lines drawn at random from `lines`, then `final`.
+# rarity: common (weight 1) or rare (weight `rare_weight`, so roughly that
+# fraction as likely as a common line). Quote every string.
+count: 3
+rare_weight: 0.12
+final: ". . . Welcome to Qweary's Blog."
+lines:
+  - text: "[OK] Bypassing biometric lock..."
+    rarity: common
+  - text: "[OK] Initializing secure comms..."
+    rarity: common
+  - text: "[OK] Loading encrypted modules..."
+    rarity: common
+  - text: "[OK] Running splash sequence..."
+    rarity: common
+  - text: "[OK] Scrambling return addresses..."
+    rarity: common
+  - text: "[OK] Spoofing MAC address..."
+    rarity: common
+  - text: "[OK] Disabling watchdog timers..."
+    rarity: common
+  - text: "[OK] Tunneling through DNS..."
+    rarity: common
