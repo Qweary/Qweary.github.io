@@ -11,7 +11,7 @@ permalink: /contact/
 Want to collaborate, ask questions, or discuss findings?
 
 
-[Email Me](QwearyBlog@gmail.com)
+[Email Me](mailto:qwearyblog@gmail.com)
 
 
 [My Notes, Dumps, Ramblings, and Projects](https://github.com/Qweary/)

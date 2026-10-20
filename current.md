@@ -27,7 +27,7 @@ It will grow as new posts are released, giving a rolling log of progress, challe
 > _This work is in progress — stay tuned for practical demonstrations, tutorials, and the next wave of stealthy ADS techniques._
 
 ### Posts so far:
-- [👻 Apparation Introduction](/apparition-introduction.html) <small>(Jan 21, 2026)</small>
+- [👻 Apparition Introduction](/apparition-introduction.html) <small>(Jan 21, 2026)</small>
 
 ---
 
