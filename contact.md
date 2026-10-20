@@ -8,10 +8,12 @@ permalink: /contact/
 # 📬 Contact 📬
 
 
-Want to collaborate, ask questions, or discuss findings?
+If something here caught your interest, I'd like to hear about it.
+
+Questions, a finding you want to argue through, an idea to build on, or just a note that a post landed for you. Curiosity is reason enough to write.
 
 
-[Email Me](mailto:qwearyblog@gmail.com)
+[Email me at qwearyblog@gmail.com](mailto:qwearyblog@gmail.com)
 
 
-[My Notes, Dumps, Ramblings, and Projects](https://github.com/Qweary/)
+[My notes, dumps, ramblings, and projects on GitHub](https://github.com/Qweary/)

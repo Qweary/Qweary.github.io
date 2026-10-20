@@ -1,6 +1,14 @@
 {%- comment -%}
   Visible "as of" stamp for season-bound copy. Usage:
     {% include as-of.html date="2026-10-19" %}
-  Pair it with data-expires on the enclosing block; see assets/js/staleness.js.
+      -> "As of October 19, 2026"
+    {% include as-of.html date="2026-10" text="Last reviewed October 2026." %}
+      -> the given wording, machine-readable date in <time datetime>
+  Pair it with data-expires on the enclosing block (and data-as-of for the
+  wording of the stale note); see assets/js/staleness.js.
 {%- endcomment -%}
+{%- if include.text -%}
+<p class="as-of"><time datetime="{{ include.date }}">{{ include.text }}</time></p>
+{%- else -%}
 <p class="as-of">As of <time datetime="{{ include.date }}">{{ include.date | date: "%B %-d, %Y" }}</time></p>
+{%- endif %}

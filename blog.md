@@ -8,7 +8,7 @@ permalink: /blog/
 # 📓 Blog 📓
 
 
-A chronological log of research findings, technical write-ups, and experiments.
+Research write-ups, tools, competition recaps, talks, and the occasional side project. Newest first.
 
 
 <ul class="post-list">
