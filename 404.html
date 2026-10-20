@@ -1,16 +1,27 @@
 ---
 layout: default
-title: Page not found
+title: Stream not found
 permalink: /404.html
 sitemap: false
 ---
+{%- comment -%}
+  Easter egg: the 404 reads as Windows `dir /r` output, the command that lists
+  NTFS alternate data streams (see the Apparition / Invisible Streams posts).
+  Works with no JS. With JS, eggs.js fills in the requested name.
+{%- endcomment %}
 <section class="not-found">
-  <h1>404</h1>
-  <pre aria-hidden="true"><code>$ cat ./this-page
-[ERR] path not found</code></pre>
-  <p>Nothing lives at this address. It may have moved, or the link may be wrong.</p>
+  <h1>404: stream not found</h1>
+  <pre aria-hidden="true" class="ads-out"><code>C:\qweary<span data-requested-dir></span>&gt; dir /r <span data-requested-name>this-page</span>
+ Volume in drive C is QWEARY
+ Volume Serial Number is 2025-0723
+
+ Directory of C:\qweary<span data-requested-dir></span>
+
+               0 <span data-requested-name>this-page</span>:404:$DATA
+File Not Found</code></pre>
+  <p>Not here, and not hiding in an alternate data stream either. Try the blog index.</p>
   <ul>
-    <li><a href="{{ '/' | relative_url }}">Home</a></li>
     <li><a href="{{ '/blog/' | relative_url }}">All posts</a></li>
+    <li><a href="{{ '/' | relative_url }}">Home</a></li>
   </ul>
 </section>
